@@ -1,8 +1,24 @@
 package com.webapp.model;
 
+import javax.persistence.Entity;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Component;
+
+
+@Entity
 public class User {
 	private String name;
-	private String age;
+	private int age;
+	
+	public User(){
+		
+	}
+	
+	public User(String name, int age){
+		this.name = name ;
+		this.age = age;
+	}
 	
 	public String getName() {
 		return name;
@@ -10,12 +26,7 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAge() {
-		return age;
-	}
-	public void setAge(String age) {
-		this.age = age;
-	}
+	
 	
 	@Override
 	public String toString(){

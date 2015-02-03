@@ -39,7 +39,19 @@
 			<version>4.1.4.RELEASE</version>
 		</dependency>
 
-
+		<!-- Add AOP Support -->
+        <dependency>
+       		<groupId>org.aspectj</groupId>
+        	<artifactId>aspectjrt</artifactId>
+        	<version>1.6.11</version>
+    	</dependency>
+    	
+    	<dependency>
+        	<groupId>org.aspectj</groupId>
+        	<artifactId>aspectjweaver</artifactId>
+        	<version>1.6.11</version>
+    	</dependency>
+		
 		<dependency>
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-mongodb</artifactId>

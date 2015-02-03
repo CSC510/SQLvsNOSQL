@@ -7,14 +7,17 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.stereotype.Component;
 
 import com.webapp.dao.BaseDao;
 
+@Component
 public class BaseMDBImpl<T> implements BaseDao<T>  {
 
-	@Resource
-	protected MongoOperations mongoOps;
+	@Resource(name = "mongoTemplate")
+	public MongoOperations mongoTemplate;
 
+	
 	@Override
 	public T get(Serializable id) {
 		// TODO Auto-generated method stub
