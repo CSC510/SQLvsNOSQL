@@ -1,7 +1,12 @@
 package com.webapp.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
@@ -9,17 +14,27 @@ import org.springframework.stereotype.Component;
 @Entity
 public class User {
 	private String name;
-	private int age;
+	
+	@Indexed(unique =true)
+	private int studentId;
 	
 	public User(){
 		
 	}
 	
-	public User(String name, int age){
+	public User(String name,int sid){
 		this.name = name ;
-		this.age = age;
+		this.studentId=sid;
 	}
-	
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
 	public String getName() {
 		return name;
 	}

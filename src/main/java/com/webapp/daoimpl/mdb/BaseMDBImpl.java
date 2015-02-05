@@ -61,19 +61,21 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	@Override
 	public void delete(T entity) {
 		// TODO Auto-generated method stub
-		
+		mongoTemplate.remove(entity);
 	}
 
 	@Override
 	public void save(T entity) {
 		// TODO Auto-generated method stub
-		
+		mongoTemplate.insert(entity);
 	}
 
 	@Override
 	public void save(List<T> entities) {
 		// TODO Auto-generated method stub
-		
+		for(T entity:entities){
+			mongoTemplate.save(entity);
+		}
 	}
 
 	@Override
