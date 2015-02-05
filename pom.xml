@@ -40,18 +40,18 @@
 		</dependency>
 
 		<!-- Add AOP Support -->
-        <dependency>
-       		<groupId>org.aspectj</groupId>
-        	<artifactId>aspectjrt</artifactId>
-        	<version>1.6.11</version>
-    	</dependency>
-    	
-    	<dependency>
-        	<groupId>org.aspectj</groupId>
-        	<artifactId>aspectjweaver</artifactId>
-        	<version>1.6.11</version>
-    	</dependency>
-		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.6.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.11</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-mongodb</artifactId>
@@ -102,11 +102,11 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-	<groupId>org.slf4j</groupId>
-	<artifactId>slf4j-simple</artifactId>
-	<version>1.6.2</version>
-</dependency>
-		
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -36,7 +36,7 @@ public class BaseMDBImplTest extends SpringTransactionContextTest{
 	@Rollback(true)
 	public void save(){		
 		User u = new User("jiang", 123);
-		mongoDao.mongoTemplate.save(u);
+		mongoDao.save(u);
 	}
 	
 	

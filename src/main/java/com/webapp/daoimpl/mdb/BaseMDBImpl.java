@@ -15,7 +15,7 @@ import com.webapp.dao.BaseDao;
 public class BaseMDBImpl<T> implements BaseDao<T>  {
 
 	@Resource(name = "mongoTemplate")
-	public MongoOperations mongoTemplate;
+	protected MongoOperations mongoTemplate;
 
 	
 	@Override

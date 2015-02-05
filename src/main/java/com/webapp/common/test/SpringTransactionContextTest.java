@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class) 
-@ActiveProfiles("production")
+@ActiveProfiles("test")
 @ContextConfiguration(locations = {"/META-INF/mongo-config.xml"})
 @Transactional
 public class SpringTransactionContextTest  {

@@ -1,4 +1,4 @@
-package com.webapp.commons.util;
+package com.webapp.common.util;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

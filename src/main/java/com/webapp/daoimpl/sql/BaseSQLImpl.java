@@ -3,7 +3,7 @@ package com.webapp.daoimpl.sql;
 import java.io.Serializable;
 import java.util.List;
 
-import com.webapp.commons.util.Reflections;
+import com.webapp.common.util.Reflections;
 import com.webapp.dao.BaseDao;
 
 public class BaseSQLImpl<T> implements BaseDao<T> {
