@@ -2,15 +2,9 @@ package com.webapp.dao.impl.mdb;
 
 import javax.annotation.Resource;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.annotation.Repeat;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.daoimpl.mdb.BaseMDBImpl;
