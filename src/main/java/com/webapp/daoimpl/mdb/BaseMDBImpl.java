@@ -37,6 +37,13 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	    return  (T)this.mongoTemplate.findById(id, entityClass);
 	}
 
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findAll() {
+		return (List<T>) this.mongoTemplate.findAll(entityClass);
+	}
+
 	
 	@Override
 	public List<T> findAll(String query) {
@@ -81,10 +88,4 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 		return query;
 	}
 
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findAll() {
-		return (List<T>) this.mongoTemplate.findAll(entityClass);
-	}
 }
