@@ -16,9 +16,13 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 	public BaseSQLImpl(){
 		this.entityClass =  Reflections.getClassGenricType(getClass());
 	}
+	
+	public Class<?> getEntityClass(){
+		return this.entityClass;
+	}
 
 	@Override
-	public T get(Serializable id) {
+	public T findById(Serializable id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -57,6 +61,12 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 	public void update(T entity) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<T> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

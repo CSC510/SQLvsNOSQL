@@ -37,8 +37,6 @@ public class BaseMDBImplTest extends SpringTransactionContextTest{
 	public void save(){		
 		User u = new User("jiang", 123);
 		mongoDao.save(u);
-	}
-	
-	
+	}	
 	
 }

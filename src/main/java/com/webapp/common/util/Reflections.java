@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 import java.util.logging.Logger;
 
 import org.slf4j.LoggerFactory;
+import org.slf4j.impl.SimpleLogger;
 
 public class Reflections {
 	private static final String SETTER_PREFIX = "set";
@@ -13,7 +14,7 @@ public class Reflections {
 
 	private static final String CGLIB_CLASS_SEPARATOR = "$$";
 	
-	private static Logger logger = (Logger) LoggerFactory.getLogger(Reflections.class);
+	private static SimpleLogger logger = (SimpleLogger) LoggerFactory.getLogger(Reflections.class);
 
 
 	
@@ -45,25 +46,25 @@ public class Reflections {
 	public static Class getClassGenricType(final Class clazz, final int index) {
 
 		Type genType = clazz.getGenericSuperclass();
-
+       
 		if (!(genType instanceof ParameterizedType)) {
-			logger.warning(clazz.getSimpleName() + "'s superclass not ParameterizedType");
+			logger.warn(clazz.getSimpleName() + "'s superclass not ParameterizedType");
 			return Object.class;
 		}
 
 		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
 
 		if (index >= params.length || index < 0) {
-			logger.warning("Index: " + index + ", Size of " + clazz.getSimpleName() + "'s Parameterized Type: "
+			logger.warn("Index: " + index + ", Size of " + clazz.getSimpleName() + "'s Parameterized Type: "
 					+ params.length);
 			return Object.class;
 		}
 		if (!(params[index] instanceof Class)) {
-			logger.warning(clazz.getSimpleName() + " not set the actual class on superclass generic parameter");
+			logger.warn(clazz.getSimpleName() + " not set the actual class on superclass generic parameter");
 			return Object.class;
 		}
 
-		return (Class) params[index];
+		return (Class<?>) params[index];
 	}
 	
 

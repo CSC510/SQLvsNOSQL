@@ -9,10 +9,15 @@ public interface BaseDao<T> {
      * @param id
      * @return
      */
-	public T get(Serializable id);
+	public T findById(Serializable id);
 	
 	/**
-	 * Find All the Entity
+	 * Find All The Entity
+	 * @return
+	 */
+	public List<T> findAll();
+	/**
+	 * Find All the Entity Using Query
 	 * @param query
 	 */
 	public List<T> findAll(String query);
