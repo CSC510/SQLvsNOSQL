@@ -55,7 +55,7 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	@Override
 	public void deleteById(Serializable id) {
 		// TODO Auto-generated method stub
-		
+		mongoTemplate.remove(this.findById(id));
 	}
 
 	@Override
