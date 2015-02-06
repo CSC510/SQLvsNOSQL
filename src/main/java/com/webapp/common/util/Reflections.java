@@ -2,17 +2,12 @@ package com.webapp.common.util;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.logging.Logger;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.impl.SimpleLogger;
 
 public class Reflections {
-	private static final String SETTER_PREFIX = "set";
 
-	private static final String GETTER_PREFIX = "get";
-
-	private static final String CGLIB_CLASS_SEPARATOR = "$$";
 	
 	private static SimpleLogger logger = (SimpleLogger) LoggerFactory.getLogger(Reflections.class);
 
@@ -29,8 +24,8 @@ public class Reflections {
 	 * @return the first generic declaration, or Object.class if cannot be determined
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> Class<T> getClassGenricType(final Class clazz) {
-		return getClassGenricType(clazz, 0);
+	public static <T> Class<T> getClassGenricType(final Class<?> clazz) {
+		return (Class<T>) getClassGenricType(clazz, 0);
 	}
 
 	/**
@@ -40,10 +35,10 @@ public class Reflections {
 	 * 如public UserDao extends HibernateDao<User,Long>
 	 *
 	 * @param clazz clazz The class to introspect
-	 * @param index the Index of the generic ddeclaration,start from 0.
+	 * @param index the Index of the generic declaration,start from 0.
 	 * @return the index generic declaration, or Object.class if cannot be determined
 	 */
-	public static Class getClassGenricType(final Class clazz, final int index) {
+	public static Class<?> getClassGenricType(final Class<?> clazz, final int index) {
 
 		Type genType = clazz.getGenericSuperclass();
        

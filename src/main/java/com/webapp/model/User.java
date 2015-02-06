@@ -1,21 +1,17 @@
 package com.webapp.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
+
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.stereotype.Component;
 
 
-@Entity
-public class User {
-	private String name;
+@Document
+public class User extends IdEntity<User>{
 	
-	@Indexed(unique =true)
+	private String name;
+
+	@Column(unique = true)
 	private int studentId;
 	
 	public User(){

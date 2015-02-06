@@ -28,7 +28,7 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 	}
 
 	@Override
-	public List<T> findAll(String query) {
+	public List<T> findAll(String qlstr) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -58,7 +58,7 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 	}
 
 	@Override
-	public void update(T entity) {
+	public void update(String qlstr) {
 		// TODO Auto-generated method stub
 		
 	}

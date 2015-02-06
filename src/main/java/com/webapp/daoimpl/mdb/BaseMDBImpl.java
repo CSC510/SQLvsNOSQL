@@ -2,12 +2,16 @@ package com.webapp.daoimpl.mdb;
 
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.Id;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import com.webapp.common.util.Reflections;
@@ -28,15 +32,12 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	public Class<?> getEntityClass(){
 		return this.entityClass;
 	}
-	
-	
+			
 	@SuppressWarnings("unchecked")
 	@Override
 	public T findById(Serializable id) {
-		// TODO Auto-generated method stub
-	    return  (T)this.mongoTemplate.findById(id, entityClass);
+		return  (T)this.mongoTemplate.findById(id, entityClass);
 	}
-
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -44,30 +45,53 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 		return (List<T>) this.mongoTemplate.findAll(entityClass);
 	}
 
-	
-	@Override
-	public List<T> findAll(String query) {
-		// TODO Auto-generated method stub
+    @SuppressWarnings("unchecked")
+	public T findOne(String qlstr){
+		return  (T) this.mongoTemplate.findOne(new BasicQuery(qlstr), entityClass);
 		
-		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findAll(String qlstr) {
+		// TODO Auto-generated method stub
+		BasicQuery query = new BasicQuery(qlstr);
+		return (List<T>) this.mongoTemplate.find(query, entityClass);
 	}
 
 	@Override
 	public void deleteById(Serializable id) {
-		// TODO Auto-generated method stub
-		
+		Query query = new Query();
+		query.addCriteria(Criteria.where("_id").is(id));
+		this.mongoTemplate.remove(query,entityClass);
 	}
 
 	@Override
-	public void delete(T entity) {
-		// TODO Auto-generated method stub
+	public void delete(T entity) {	
 		mongoTemplate.remove(entity);
 	}
 
+	public Field getIdField(){
+		for(Field field : this.entityClass.getDeclaredFields() ){
+			Id idAnn = field.getAnnotation(Id.class);
+			if(idAnn != null){
+				return field;
+			}
+		}
+		return null;
+	}
+	
+	public Query createIdQuery(Serializable id){	
+		String ID = getIdField().getName();
+		Query query = new Query();
+		return query.addCriteria(Criteria.where(ID).is(id));
+	}
+	
+	
 	@Override
 	public void save(T entity) {
 		// TODO Auto-generated method stub
-		mongoTemplate.insert(entity);
+		mongoTemplate.save(entity);
 	}
 
 	@Override
@@ -79,14 +103,14 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	}
 
 	@Override
-	public void update(T entity) {
+	public void update(String qlstr) {
 		// TODO Auto-generated method stub
+	
 		
 	}
 	
-	public BasicQuery createQuery(String qlstr){
-		BasicQuery query = new BasicQuery(qlstr);
-		
+	public Query createQuery(String qlstr, Parameter parameters){
+		Query query = new Query();		
 		return query;
 	}
 

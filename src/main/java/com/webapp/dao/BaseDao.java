@@ -18,9 +18,9 @@ public interface BaseDao<T> {
 	public List<T> findAll();
 	/**
 	 * Find All the Entity Using Query
-	 * @param query
+	 * @param qlstr
 	 */
-	public List<T> findAll(String query);
+	public List<T> findAll(String qlstr);
 	
 	/**
 	 * Save Entity
@@ -36,9 +36,9 @@ public interface BaseDao<T> {
 	
 	/**
 	 * Update 
-	 * @param entity
+	 * @param qlstr TODO
 	 */
-	public void update(T entity);
+	public void update(String qlstr);
 	
 	/**
 	 * Delete Entity By id
@@ -51,4 +51,6 @@ public interface BaseDao<T> {
 	 * @param entity
 	 */
 	public void delete(T entity);
+	
+	
 }
