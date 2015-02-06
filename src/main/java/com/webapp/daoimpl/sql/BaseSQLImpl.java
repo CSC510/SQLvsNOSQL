@@ -18,7 +18,7 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 	}
 
 	@Override
-	public T findbyId(Serializable id) {
+	public T get(Serializable id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -13,13 +13,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.annotation.Repeat;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.daoimpl.mdb.BaseMDBImpl;
 import com.webapp.model.User;
-@ContextConfiguration(locations="/META-INF/mongo-config.xml")
+
 public class BaseMDBImplTest extends SpringTransactionContextTest{
 	
 	@Resource(name = "baseMDBImpl")
@@ -36,9 +36,10 @@ public class BaseMDBImplTest extends SpringTransactionContextTest{
 	*/
 	
 	@Test
-	@Rollback(true)
+	//@Rollback(true)
 	public void save(){	
 		User u = new User("jesse",123);
+		mongoDao.save(u);
 		mongoDao.save(u);
 	}
 	
@@ -56,12 +57,11 @@ public class BaseMDBImplTest extends SpringTransactionContextTest{
 	}
 	
 	
-	@Test(expected=NullPointerException.class)
-	@Rollback(true)
-	public void findbyId(){		
-		int id=123;
-		User u=mongoDao.findbyId(id);
-		System.out.println(u.getName());
-	}
+//	@Test
+//	@Rollback(true)
+//	public void deletebyID(){		
+//		int id=1123;
+//		mongoDao.delete(user);
+//	}
 //	
 }
