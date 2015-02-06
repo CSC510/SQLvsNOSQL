@@ -74,6 +74,7 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 
 	@Override
 	public void save(T entity) {
+		
 		// TODO Auto-generated method stub
 		mongoTemplate.save(entity);
 	}

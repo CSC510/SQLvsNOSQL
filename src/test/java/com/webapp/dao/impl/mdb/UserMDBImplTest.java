@@ -46,7 +46,7 @@ public class UserMDBImplTest extends SpringTransactionContextTest {
 	public void findById(){		
 		int id=123;
 		User u=userDao.findById(id);
-		System.out.println(u.getName());
+//		System.out.println(u.getName());
 	}
 	
 	//FindAll test!
@@ -54,17 +54,21 @@ public class UserMDBImplTest extends SpringTransactionContextTest {
 	@Rollback(true)
 	public void findAll(){		
 		List<User> userList=userDao.findAll();
-		for(User u:userList){
-			System.out.println(u.getName());
-		}
 	}
-	//delete test! Wrong!! Need modify!
+	//	delete test! 
 	@Test
 	@Rollback
 	public void deleteUser(){
 		int id=123;
 		userDao.deleteById(id);
-		findAll();
 	}
+	//find by name test!
+	@Test
+	@Rollback
+	public void findByName() {
+		String string="a";
+		List<User> users=userDao.findByName(string);
+	}
+	
 	
 }
