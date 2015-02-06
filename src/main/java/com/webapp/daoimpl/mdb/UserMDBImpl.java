@@ -39,7 +39,6 @@ public class UserMDBImpl extends BaseMDBImpl<User> implements UserDao{
 		
 		if (this.mongoTemplate.find(query, User.class)!=null) {
 			return this.mongoTemplate.find(query, User.class);
-		}
 		else return null;
 	}
 }
