@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
 import com.webapp.common.test.SpringTransactionContextTest;
+import com.webapp.daoimpl.mdb.Parameter;
 import com.webapp.daoimpl.mdb.UserMDBImpl;
 import com.webapp.model.User;
 
@@ -57,5 +58,30 @@ public class UserMDBImplTest extends SpringTransactionContextTest {
 
 	}
 	
+	@Test
+	public void findByName(){
+		User u1 = new User("Jiang",25);
+		User u2 = new User("Jiang",26);
+		userDao.save(u1);
+		userDao.save(u2);
+		assertEquals(userDao.findByName("Jiang").size(), 2);
+		userDao.delete(u1);
+		userDao.delete(u2);
+	}
+	
+	@Test
+	public void multiParameter(){
+		User u1 = new User("Jiang",25);
+		User u2 = new User("Jiang",26);
+		userDao.save(u1);
+		userDao.save(u2);
+		Parameter p = new Parameter();
+		p.put("name", "Jiang");
+		p.put("studentId", 25);
+		
+		assertEquals(userDao.findAll(p).size(), 1);
+		userDao.delete(u1);
+		userDao.delete(u2);
+	}
 	
 }
