@@ -3,6 +3,7 @@ package com.webapp.daoimpl.mdb;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,18 +40,18 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 		return  (T)this.mongoTemplate.findById(id, entityClass);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findAll() {
-		return (List<T>) this.mongoTemplate.findAll(entityClass);
-	}
-
     @SuppressWarnings("unchecked")
 	public T findOne(String qlstr){
 		return  (T) this.mongoTemplate.findOne(new BasicQuery(qlstr), entityClass);
 		
 	}
 	
+    @SuppressWarnings("unchecked")
+	public T findOne( Parameter parameter){
+    	Query query = createQuery( parameter,null);
+    	return (T) this.mongoTemplate.findOne(query, entityClass);
+    }
+    
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findAll(String qlstr) {
@@ -59,6 +60,19 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 		return (List<T>) this.mongoTemplate.find(query, entityClass);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<T> findAll(Parameter parameter){
+		Query query = createQuery( parameter,null);
+    	return  (List<T>) this.mongoTemplate.find(query, entityClass); 
+	}
+	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findAll() {
+		return (List<T>) this.mongoTemplate.findAll(entityClass);
+	}
+	
 	@Override
 	public void deleteById(Serializable id) {
 		Query query = new Query();
@@ -109,9 +123,21 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 		
 	}
 	
-	public Query createQuery(String qlstr, Parameter parameters){
+	public Query createQuery( Parameter parameters,String qlstr){
 		Query query = new Query();		
-		return query;
+		
+	    for( String key : parameters.keySet()){
+	    	Object value = parameters.get(key);	    	
+	    	if( value instanceof Collection<?>){
+	    		query.addCriteria(Criteria.where(key).in(value));
+	    	}else if(value instanceof Object[]){
+	    		query.addCriteria(Criteria.where(key).in(value));
+            }else{
+            	query.addCriteria(Criteria.where(key).is(value));
+            }
+	    }
+
+	    return query;
 	}
 
 }

@@ -3,14 +3,16 @@ package com.webapp.model;
 import javax.persistence.Column;
 
 
+import javax.persistence.Id;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document
-public class User extends IdEntity<User>{
+public class User extends IdEntity<User> {
 	
 	private String name;
-
+    
 	@Column(unique = true)
 	private int studentId;
 	
