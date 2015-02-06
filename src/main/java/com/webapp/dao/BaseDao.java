@@ -9,7 +9,7 @@ public interface BaseDao<T> {
      * @param id
      * @return
      */
-	public T get(Serializable id);
+	public T findbyId(Serializable id);
 	
 	/**
 	 * Find All the Entity
