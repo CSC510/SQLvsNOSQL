@@ -2,11 +2,14 @@ package com.webapp.dao.impl.mdb;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.test.annotation.Rollback;
 
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.daoimpl.mdb.UserMDBImpl;
@@ -16,10 +19,52 @@ public class UserMDBImplTest extends SpringTransactionContextTest {
 	
 	@Resource(name = "userMDBImpl")
 	private UserMDBImpl userDao;
-	
+
+	//Add User Test
 	@Test
-	public void findAllUser(){
-		List<User> result =userDao.findAll();
-		System.out.println(result.size());
+	@Rollback(true)
+	public void save(){	
+		User u = new User("jesse",123);
+		userDao.save(u);
 	}
+	//add User List Test
+	@Test
+	@Rollback(true)
+	public void saveList(){		
+		List<User> userList=new ArrayList();
+		User a = new User("a",1);
+		User b = new User("b",2);
+		User c = new User("c",2);
+		userList.add(a);
+		userList.add(b);
+		userList.add(c);
+		userDao.save(userList);
+	}
+	//findOne test!
+	@Test
+	@Rollback(true)
+	public void findById(){		
+		int id=123;
+		User u=userDao.findById(id);
+		System.out.println(u.getName());
+	}
+	
+	//FindAll test!
+	@Test
+	@Rollback(true)
+	public void findAll(){		
+		List<User> userList=userDao.findAll();
+		for(User u:userList){
+			System.out.println(u.getName());
+		}
+	}
+	//delete test! Wrong!! Need modify!
+	@Test
+	@Rollback
+	public void deleteUser(){
+		int id=123;
+		userDao.deleteById(id);
+		findAll();
+	}
+	
 }

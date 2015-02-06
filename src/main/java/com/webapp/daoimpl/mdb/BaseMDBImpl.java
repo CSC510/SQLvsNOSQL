@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import com.webapp.common.util.Reflections;
@@ -34,7 +36,12 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	@Override
 	public T findById(Serializable id) {
 		// TODO Auto-generated method stub
-	    return  (T)this.mongoTemplate.findById(id, entityClass);
+		Query query=new Query();
+		query.addCriteria(Criteria.where("studentId").is(id));
+		if (this.mongoTemplate.findOne(query, entityClass)!=null) {
+			return (T) this.mongoTemplate.findOne(query, entityClass);	
+		}
+		else return null;
 	}
 
 
@@ -55,6 +62,7 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	@Override
 	public void deleteById(Serializable id) {
 		// TODO Auto-generated method stub
+
 		mongoTemplate.remove(this.findById(id));
 	}
 
@@ -67,7 +75,7 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	@Override
 	public void save(T entity) {
 		// TODO Auto-generated method stub
-		mongoTemplate.insert(entity);
+		mongoTemplate.save(entity);
 	}
 
 	@Override

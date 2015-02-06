@@ -1,9 +1,12 @@
 package com.webapp.dao.impl.mdb;
 
 import javax.annotation.Resource;
+
 import java.util.List;
 import java.util.ArrayList;
+
 import org.junit.Test;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.annotation.Repeat;
 import org.springframework.test.annotation.Rollback;
 
@@ -25,35 +28,15 @@ public class BaseMDBImplTest extends SpringTransactionContextTest{
 		mongoDao = (BaseMDBImpl<User>) ctx.getBean("baseMDBImpl");
 	}
 	*/
-	
 
-	@Test
-	@Rollback(true)
-	public void save(){	
-		User u = new User("jesse",123);
-		mongoDao.save(u);
-	}
-	
-	@Test
-	@Rollback(true)
-	public void saveList(){		
-		List<User> userList=new ArrayList();
-		User a = new User("a",1);
-		User b = new User("b",2);
-		User c = new User("c",2);
-		userList.add(a);
-		userList.add(b);
-		userList.add(c);
-		mongoDao.save(userList);
-	}
-	
-	
-	@Test
+	//findOne test! Wrong!
+	@Test(expected=InvalidDataAccessApiUsageException.class)
 	@Rollback(true)
 	public void findById(){		
 		int id=123;
 		User u=mongoDao.findById(id);
 		System.out.println(u.getName());
 	}
+	
 	
 }
