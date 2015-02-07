@@ -19,7 +19,7 @@ import com.webapp.common.util.Reflections;
 import com.webapp.dao.BaseDao;
 
 @Component
-public class BaseMDBImpl<T> implements BaseDao<T>  {
+public class BaseMDBImpl<T> implements BaseDao<T> {
 
 	@Resource(name = "mongoTemplate")
 	protected MongoOperations mongoTemplate;
@@ -30,7 +30,7 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 		entityClass = Reflections.getClassGenricType(getClass());
 	}
 	
-	public Class<?> getEntityClass(){
+	public Class<?> getEntityClass() {
 		return this.entityClass;
 	}
 			
@@ -41,7 +41,7 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	}
         
         @SuppressWarnings("unchecked")
-	public T findOne(String qlstr){
+	public T findOne(String qlstr) {
 		return  (T) this.mongoTemplate.findOne(new BasicQuery(qlstr), entityClass);
 		
 	}
@@ -52,7 +52,7 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
         * @return
         */
         @SuppressWarnings("unchecked")
-	public T findOne( Parameter parameter){
+	public T findOne( Parameter parameter) {
     	Query query = createQuery( parameter,null);
     	return (T) this.mongoTemplate.findOne(query, entityClass);
         }
@@ -72,7 +72,7 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findAll(Parameter parameter){
+	public List<T> findAll(Parameter parameter) {
 		Query query = createQuery( parameter,null);
     	        return  (List<T>) this.mongoTemplate.find(query, entityClass); 
 	}
@@ -99,8 +99,8 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
         /**
         *  Get Id Field via Reflection
         */
-	public Field getIdField(){
-		for(Field field : this.entityClass.getDeclaredFields() ){
+	public Field getIdField() {
+		for(Field field : this.entityClass.getDeclaredFields() ) {
 			Id idAnn = field.getAnnotation(Id.class);
 			if(idAnn != null){
 				return field;
@@ -109,7 +109,7 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 		return null;
 	}
 	
-	public Query createIdQuery(Serializable id){	
+	public Query createIdQuery(Serializable id) {	
 		String ID = getIdField().getName();
 		Query query = new Query();
 		return query.addCriteria(Criteria.where(ID).is(id));
@@ -143,14 +143,14 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	 * @param qlstr
 	 * @return
 	 */
-	public Query createQuery( Parameter parameters,String qlstr){
+	public Query createQuery( Parameter parameters,String qlstr) {
 		Query query = new Query();		
 		
-	    for( String key : parameters.keySet()){
+	    for( String key : parameters.keySet()) {
 	    	Object value = parameters.get(key);	    	
-	    	if( value instanceof Collection<?>){
+	    	if( value instanceof Collection<?>) {
 	    		query.addCriteria(Criteria.where(key).in(value));
-	    	}else if(value instanceof Object[]){
+	    	}else if(value instanceof Object[]) {
 	    		query.addCriteria(Criteria.where(key).in(value));
             }else{
             	query.addCriteria(Criteria.where(key).is(value));
