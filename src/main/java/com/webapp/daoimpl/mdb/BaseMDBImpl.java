@@ -39,19 +39,25 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	public T findById(Serializable id) {
 		return  (T)this.mongoTemplate.findById(id, entityClass);
 	}
-
-    @SuppressWarnings("unchecked")
+        
+        @SuppressWarnings("unchecked")
 	public T findOne(String qlstr){
 		return  (T) this.mongoTemplate.findOne(new BasicQuery(qlstr), entityClass);
 		
 	}
 	
-    @SuppressWarnings("unchecked")
+	/**
+        * Find One Entity with Limitation
+        * @param parameter
+        * @return
+        */
+        @SuppressWarnings("unchecked")
 	public T findOne( Parameter parameter){
     	Query query = createQuery( parameter,null);
     	return (T) this.mongoTemplate.findOne(query, entityClass);
-    }
-    
+        }
+        
+        
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findAll(String qlstr) {
@@ -59,11 +65,16 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 		BasicQuery query = new BasicQuery(qlstr);
 		return (List<T>) this.mongoTemplate.find(query, entityClass);
 	}
-
+        
+        /**
+	 * Find List Of Entities with Limitations
+	 * @param parameter, Query parameters
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(Parameter parameter){
 		Query query = createQuery( parameter,null);
-    	return  (List<T>) this.mongoTemplate.find(query, entityClass); 
+    	        return  (List<T>) this.mongoTemplate.find(query, entityClass); 
 	}
 	
 
@@ -84,7 +95,10 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 	public void delete(T entity) {	
 		mongoTemplate.remove(entity);
 	}
-
+        
+        /**
+        *  Get Id Field via Reflection
+        */
 	public Field getIdField(){
 		for(Field field : this.entityClass.getDeclaredFields() ){
 			Id idAnn = field.getAnnotation(Id.class);
@@ -100,7 +114,6 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 		Query query = new Query();
 		return query.addCriteria(Criteria.where(ID).is(id));
 	}
-	
 	
 	@Override
 	public void save(T entity) {
@@ -123,6 +136,13 @@ public class BaseMDBImpl<T> implements BaseDao<T>  {
 		
 	}
 	
+	/**
+	 * Create Query, translate a HashMap parameter to Query.
+	 * eg. new Parameter().put("name", "xxx").put("age",24) --> {"name" : "xxx" , "age" : 24 }
+	 * @param parameters 
+	 * @param qlstr
+	 * @return
+	 */
 	public Query createQuery( Parameter parameters,String qlstr){
 		Query query = new Query();		
 		
