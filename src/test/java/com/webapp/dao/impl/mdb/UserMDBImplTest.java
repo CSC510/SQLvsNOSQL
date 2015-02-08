@@ -4,6 +4,7 @@ package com.webapp.dao.impl.mdb;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,7 +40,6 @@ public class UserMDBImplTest extends SpringTransactionContextTest {
 	}
 	
 	@Test
-	
 	public void delete(){
 		User user = new User("jiang", 213);
 		userDao.save(user);
@@ -65,6 +65,42 @@ public class UserMDBImplTest extends SpringTransactionContextTest {
 		userDao.save(u1);
 		userDao.save(u2);
 		assertEquals(userDao.findByName("Jiang").size(), 2);
+		userDao.delete(u1);
+		userDao.delete(u2);
+	}
+	@Test
+	public void findByParams() {
+		User u1 = new User("fred",25);
+		User u2 = new User("fred",26);
+		userDao.save(u1);
+		userDao.save(u2);
+		Parameter parameter = new Parameter();
+		parameter.put("name", "fred");
+		parameter.put("studentId", 25);
+		assertEquals(userDao.findAll(parameter).size(), 1);
+		userDao.delete(u1);
+		userDao.delete(u2);
+	}
+	
+	@Test
+	public void save() {
+		User u1 = new User("fred", 100);
+		User u2 = null;
+		userDao.save(u1);
+		u2 = userDao.findOne("{name: 'fred', studentId: 100}");
+		assertEquals(u2.getStudentId(), 100);
+		userDao.deleteById(u1.getId());
+	}
+	
+	@Test
+	public void saveByList(){
+		User u1 = new User("fred",25);
+		User u2 = new User("fred",26);
+		List<User> list = new ArrayList<User>();
+		list.add(u1);
+		list.add(u2);
+		userDao.save(list);
+		assertEquals(userDao.findByName("fred").size(), 2);
 		userDao.delete(u1);
 		userDao.delete(u2);
 	}

@@ -43,7 +43,6 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
         @SuppressWarnings("unchecked")
 	public T findOne(String qlstr) {
 		return  (T) this.mongoTemplate.findOne(new BasicQuery(qlstr), entityClass);
-		
 	}
 	
 	/**
@@ -132,8 +131,6 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 	@Override
 	public void update(String qlstr) {
 		// TODO Auto-generated method stub
-	
-		
 	}
 	
 	/**
@@ -156,7 +153,6 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
             	query.addCriteria(Criteria.where(key).is(value));
             }
 	    }
-
 	    return query;
 	}
 
