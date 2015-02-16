@@ -52,5 +52,6 @@ public interface BaseDao<T> {
 	 */
 	public void delete(T entity);
 	
+	public void deleteAll();
 	
 }

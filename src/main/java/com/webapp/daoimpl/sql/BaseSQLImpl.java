@@ -68,6 +68,12 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
