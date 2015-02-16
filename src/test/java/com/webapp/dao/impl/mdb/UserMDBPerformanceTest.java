@@ -37,20 +37,20 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 		userDao.deleteAll();
 		int threadCount=5;
 		long startTime,totalTime;
-		int times=100000;
+		int times=10000;
 		startTime=System.currentTimeMillis();
 		addTestUsers(times);
 		totalTime=System.currentTimeMillis()-startTime;
 		System.out.println("MDB add "+times+" pieces of data needs "+totalTime+" ms");
 		assertEquals(userDao.findAll().size(), times);
-//		userDao.deleteAll();
+		userDao.deleteAll();
 	}
 	@Test
 	public void findbyIdPerformance(){
 		long startTime,totalTime;
-		int times=100000;
+		int times=10000;
 		int findNumber=5000;
-//		addTestUsers(times);
+		addTestUsers(times);
 		startTime=System.currentTimeMillis();
 		List<User>resUsers=new ArrayList<User>();
 		for (int i = 0; i < findNumber; i++) {
@@ -59,14 +59,14 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 		totalTime=System.currentTimeMillis()-startTime;
 		System.out.println("MDB find by id "+findNumber+" pieces of data needs "+totalTime+" ms");
 		assertEquals(resUsers.size(), findNumber);
-//		userDao.deleteAll();
+		userDao.deleteAll();
 	}
 	@Test
 	public void findbyNamePerformance(){
 		long startTime,totalTime;
-		int times=100000;
+		int times=10000;
 		int findNumber=250;
-//		addTestUsers(times);
+		addTestUsers(times);
 		startTime=System.currentTimeMillis();
 		List<User>resUsers=new ArrayList<User>();
 		for (int i = 0; i < findNumber; i++) {
@@ -75,21 +75,21 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 		totalTime=System.currentTimeMillis()-startTime;
 		System.out.println("MDB find by name"+findNumber+" pieces of data needs "+totalTime+" ms");
 		assertEquals(resUsers.size(), findNumber);
-//		userDao.deleteAll();
+		userDao.deleteAll();
 	}
-//	@Test
-//	public void deletebyIdPerformance() {
-//		int deleteItems=3000;
-//		int times=100000;
-//		long startTime,totalTime;
-////		addTestUsers(times);
-//		startTime=System.currentTimeMillis();
-//		for (int i = 0; i < deleteItems; i++) {
-//			userDao.deleteById(i);
-//		}
-//		totalTime=System.currentTimeMillis()-startTime;
-//		System.out.println("MDB delete by id"+deleteItems+" pieces of data needs "+totalTime+" ms");
-//		assertEquals(userDao.findAll().size(), times-deleteItems);
-//		userDao.deleteAll();
-//	}
+	@Test
+	public void deletebyIdPerformance() {
+		int deleteItems=3000;
+		int times=10000;
+		long startTime,totalTime;
+		addTestUsers(times);
+		startTime=System.currentTimeMillis();
+		for (int i = 0; i < deleteItems; i++) {
+			userDao.deleteById(i);
+		}
+		totalTime=System.currentTimeMillis()-startTime;
+		System.out.println("MDB delete by id"+deleteItems+" pieces of data needs "+totalTime+" ms");
+		assertEquals(userDao.findAll().size(), times-deleteItems);
+		userDao.deleteAll();
+	}
 }

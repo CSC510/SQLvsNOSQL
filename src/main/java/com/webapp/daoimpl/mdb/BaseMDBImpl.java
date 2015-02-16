@@ -85,10 +85,10 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 	
 	@Override
 	public void deleteById(Serializable id) {
-//		Query query = new Query();
-//		query.addCriteria(Criteria.where("_id").is(id));
-		T t=findById(id);
-		this.mongoTemplate.remove(t);
+		Query query = new Query();
+		query.addCriteria(Criteria.where("_id").is(id));
+//		T t=findById(id);
+		this.mongoTemplate.remove(query,entityClass);
 	}
 
 	@Override

@@ -33,6 +33,7 @@ public class UserMDBImplTest extends SpringTransactionContextTest {
 	public void findByString(){
 		User u = new User("jiang", 12);
 		User u1 = new User("jiang", 13);
+		User u2 = new User("jesse", 13);
 		userDao.save(u);
 		userDao.save(u1);
 		List<User> result = userDao.findAll("{ studentId : {$in :[12, 13]}}");

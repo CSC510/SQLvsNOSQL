@@ -1,10 +1,9 @@
 package com.webapp.model;
 
 import javax.persistence.Column;
-
-
 import javax.persistence.Id;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -13,7 +12,7 @@ public class User extends IdEntity<User> {
 	
 	private String name;
     
-	@Column(unique = true)
+	@Indexed(unique = true)
 	private int studentId;
 	
 	public User(){
