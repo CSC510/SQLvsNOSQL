@@ -83,9 +83,16 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 		int times=10000;
 		long startTime,totalTime;
 		addTestUsers(times);
+		
+		List<User> userList=userDao.findAll();
 		startTime=System.currentTimeMillis();
-		for (int i = 0; i < deleteItems; i++) {
-			userDao.deleteById(i);
+		int count =0;
+		for (User user : userList) {
+			userDao.deleteById(user.getId());
+			count++;
+			if (count==deleteItems) {
+				break;
+			}
 		}
 		totalTime=System.currentTimeMillis()-startTime;
 		System.out.println("MDB delete by id"+deleteItems+" pieces of data needs "+totalTime+" ms");
