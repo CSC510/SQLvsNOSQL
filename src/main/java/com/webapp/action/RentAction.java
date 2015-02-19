@@ -6,4 +6,5 @@ import com.webapp.service.UserService;
 public class RentAction {
 	private UserService userService;
 	private HouseService houseService;
+	
 }
