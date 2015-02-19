@@ -3,9 +3,11 @@ package com.webapp.daoimpl.mdb;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.webapp.dao.HouseDao;
 import com.webapp.model.House;
-
+@Component
 public class HouseMDBImpl extends BaseMDBImpl<House> implements HouseDao{
 
 	@Override
@@ -15,6 +17,4 @@ public class HouseMDBImpl extends BaseMDBImpl<House> implements HouseDao{
 		parameter.put("type", typeString);
 		return findAll(parameter);
 	}
-
-	
 }

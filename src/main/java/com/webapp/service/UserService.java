@@ -1,5 +1,7 @@
 package com.webapp.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -18,5 +20,9 @@ public class UserService {
 	
 	public void addUser(User u){
 		userDao.save(u);
+	}
+	
+	public List<User> findUerByName(String name){
+		return userDao.findByName(name);
 	}
 }
