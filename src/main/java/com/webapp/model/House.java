@@ -12,7 +12,7 @@ public class House extends IdEntity<House> {
     
 	@Indexed(unique = true)
 	private int houseId;
-	
+	private String type;
 	public House(){
 		
 	}
@@ -37,6 +37,14 @@ public class House extends IdEntity<House> {
 
 	public void setHouseId(int houseId) {
 		this.houseId = houseId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
