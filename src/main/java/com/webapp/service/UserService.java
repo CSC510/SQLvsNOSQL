@@ -16,7 +16,7 @@ public class UserService {
 		
 	}
 	
-	public void saveUser(User u){
+	public void addUser(User u){
 		userDao.save(u);
 	}
 }
