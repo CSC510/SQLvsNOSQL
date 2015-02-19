@@ -17,12 +17,13 @@ public class House extends IdEntity<House> {
 		
 	}
 	
-	public House(String name,int hid){
+	public House(String name,int hid, String type){
+		
 		this.name = name ;
 		this.houseId=hid;
+		this.type = type;
 	}
-
-
+	
 	public String getName() {
 		return name;
 	}
