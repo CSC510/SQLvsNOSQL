@@ -1,5 +1,9 @@
 package com.webapp.action;
 
-public class RentAction {
+import com.webapp.service.HouseService;
+import com.webapp.service.UserService;
 
+public class RentAction {
+	private UserService userService;
+	private HouseService houseService;
 }
