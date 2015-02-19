@@ -6,29 +6,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document
-public class User extends IdEntity<User> {
+public class House extends IdEntity<House> {
 	
 	private String name;
     
 	@Indexed(unique = true)
-	private int studentId;
+	private int houseId;
 	
-	public User(){
+	public House(){
 		
 	}
 	
-	public User(String name,int sid){
+	public House(String name,int hid){
 		this.name = name ;
-		this.studentId=sid;
+		this.houseId=hid;
 	}
 
-	public int getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
-	}
 
 	public String getName() {
 		return name;
@@ -38,6 +31,14 @@ public class User extends IdEntity<User> {
 	}
 	
 	
+	public int getHouseId() {
+		return houseId;
+	}
+
+	public void setHouseId(int houseId) {
+		this.houseId = houseId;
+	}
+
 	@Override
 	public String toString(){
 		return name;
