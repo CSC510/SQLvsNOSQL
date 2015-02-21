@@ -1,5 +1,7 @@
 package com.webapp.action;
 
-public class RentActionTest {
+import com.webapp.common.test.SpringTransactionContextTest;
 
+public class RentActionTest extends SpringTransactionContextTest{
+	
 }

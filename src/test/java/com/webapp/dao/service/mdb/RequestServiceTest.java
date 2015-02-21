@@ -9,7 +9,9 @@ import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.model.House;
 import com.webapp.model.Request;
 import com.webapp.model.User;
+import com.webapp.service.HouseService;
 import com.webapp.service.RequestService;
+import com.webapp.service.UserService;
 @Component
 public class RequestServiceTest extends SpringTransactionContextTest {
 	
@@ -20,7 +22,8 @@ public class RequestServiceTest extends SpringTransactionContextTest {
 	public void saveRequest(){
 		House house = new House("Nelson Hall",01,"hall");
 		User user= new User("Jesse",3);
-		
+		requestService.saveUser(user);
+		requestService.saveHouse(house);
 		Request request =new Request();
 		request.setHouse(house);
 		request.setUser(user);
