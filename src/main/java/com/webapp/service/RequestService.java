@@ -18,7 +18,7 @@ public class RequestService {
 	public void saveRequest(Request request){
 		requestDao.save(request);
 	}
-	public List<House> getHouse(String str){
+	public List<House> findHouse(String str){
 		return houseDao.findByType(str);
 	}
 	
