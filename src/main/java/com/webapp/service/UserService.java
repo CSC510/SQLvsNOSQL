@@ -25,7 +25,14 @@ public class UserService {
 		userDao.save(u);
 	}
 	
-	public List<User> findUser(String name){
+	public User findUserByStudentId(int studentId){
+		Parameter parameter = new Parameter();
+		parameter.put("studentId", studentId);
+		User user = userDao.findOne(parameter);
+		return user;
+	}
+	
+	public List<User> findUserByName(String name){
 		return userDao.findByName(name);
 	}
 	
@@ -39,7 +46,7 @@ public class UserService {
 	public void deleteByStudentId(int studentId) {
 		Parameter parameter = new Parameter();
 		parameter.put("studentId", studentId);
-		User u = (User)userDao.findOne(parameter);
+		User u = userDao.findOne(parameter);
 		userDao.delete(u);
 	}
 	

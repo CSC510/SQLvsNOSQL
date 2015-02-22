@@ -2,7 +2,7 @@ package com.webapp.dao.service.mdb;
 
 
 import java.util.List;
-
+import static org.junit.Assert.assertEquals;
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -23,11 +23,20 @@ public class UserServiceTest extends SpringTransactionContextTest {
 		userService.saveUser(u1);
 		userService.saveUser(u2);
 		
-		List<User> users = userService.findUser("fred");
+		List<User> users = userService.findUserByName("fred");
 		
 		for(User user: users) {
 			userService.deleteUser(user);
 		}
+	}
+	
+	@Test
+	public void findByStudentId() {
+		User u1 = new User("fred",98);
+		userService.saveUser(u1);
+		User user = userService.findUserByStudentId(98);
+		assertEquals(user.getName(), "fred");
+		userService.deleteByStudentId(98);
 	}
 	
 	@Test
