@@ -50,11 +50,11 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
         * @param parameter
         * @return
         */
-        @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
 	public T findOne( Parameter parameter) {
     	Query query = createQuery( parameter,null);
     	return (T) this.mongoTemplate.findOne(query, entityClass);
-        }
+    }
         
         
 	@SuppressWarnings("unchecked")
@@ -73,7 +73,7 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(Parameter parameter) {
 		Query query = createQuery( parameter,null);
-    	        return  (List<T>) this.mongoTemplate.find(query, entityClass); 
+    	return  (List<T>) this.mongoTemplate.find(query, entityClass); 
 	}
 	
 

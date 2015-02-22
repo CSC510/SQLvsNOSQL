@@ -3,17 +3,14 @@ package com.webapp.action;
 import javax.annotation.Resource;
 
 import org.junit.Test;
-
+import com.webapp.action.RentAction;
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.model.House;
 import com.webapp.model.User;
 
 public class RentActionTest extends SpringTransactionContextTest{
-	
-	
 	@Resource
 	private RentAction rentAction;
-	
 	
 	@Test
 	public void test(){

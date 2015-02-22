@@ -3,6 +3,8 @@ package com.webapp.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import com.webapp.daoimpl.mdb.Parameter;
+
 public interface BaseDao<T> {
     /**
      * Find an Entity By ID

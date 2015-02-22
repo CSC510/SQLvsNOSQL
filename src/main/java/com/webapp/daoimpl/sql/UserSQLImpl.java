@@ -11,5 +11,4 @@ public class UserSQLImpl extends BaseSQLImpl<User> implements UserDao{
 	public List<User> findByName(String name) {
 		return null;
 	}
-	
 }

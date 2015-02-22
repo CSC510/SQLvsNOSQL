@@ -13,6 +13,7 @@ import com.webapp.model.User;
 import com.webapp.service.HouseService;
 import com.webapp.service.RequestService;
 import com.webapp.service.UserService;
+
 @Controller
 public class RentAction {
 	@Autowired
