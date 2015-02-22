@@ -3,10 +3,15 @@ package com.webapp.daoimpl.sql;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.webapp.common.util.Reflections;
 import com.webapp.dao.BaseDao;
+import com.webapp.daoimpl.mdb.Parameter;
 
+@Component
 public class BaseSQLImpl<T> implements BaseDao<T> {
+	
    
 	//@Resource
 	//private SessionFactory sessionFactory;
@@ -74,7 +79,10 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
+
+	@Override
+	public T findOne(Parameter parameter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
