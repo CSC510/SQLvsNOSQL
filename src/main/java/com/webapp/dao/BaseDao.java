@@ -3,6 +3,8 @@ package com.webapp.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import com.webapp.daoimpl.mdb.Parameter;
+
 public interface BaseDao<T> {
     /**
      * Find an Entity By ID
@@ -21,6 +23,8 @@ public interface BaseDao<T> {
 	 * @param qlstr
 	 */
 	public List<T> findAll(String qlstr);
+	
+	public T findOne( Parameter parameter);
 	
 	/**
 	 * Save Entity
