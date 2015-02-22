@@ -2,6 +2,10 @@ package com.webapp.action;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.webapp.model.House;
 import com.webapp.model.Request;
 import com.webapp.model.User;
@@ -10,6 +14,7 @@ import com.webapp.service.RequestService;
 import com.webapp.service.UserService;
 
 public class RentAction {
+	@Autowired
 	private RequestService requestService;
 	private int studentId;
 	private String userName;
