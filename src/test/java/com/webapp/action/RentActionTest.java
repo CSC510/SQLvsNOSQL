@@ -15,10 +15,11 @@ public class RentActionTest extends SpringTransactionContextTest{
 	@Test
 	public void test(){
 		User user=new User("jesse",001);
-		House house= new House("WolfRidge", 0221, "Apartment");
+		House house= new House("WolfRidge", 0221, "hall");
+		
 		rentAction.setHouseType(house.getType());
 		rentAction.setStudentId(user.getStudentId());
 		rentAction.setUserName(user.getName());
-		rentAction.execute();
+		System.out.println(rentAction.execute());
 	}
 }

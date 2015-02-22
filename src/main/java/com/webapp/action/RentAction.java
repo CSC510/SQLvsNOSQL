@@ -26,7 +26,7 @@ public class RentAction {
 		user.setName(userName);
 		user.setStudentId(studentId);
 		List<House> houses=requestService.findHouse(houseType);
-		if (houses==null) {
+		if (houses.size()==0) {
 			return "fail";
 		}
 		else {
