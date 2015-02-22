@@ -24,8 +24,6 @@ public interface BaseDao<T> {
 	 */
 	public List<T> findAll(String qlstr);
 	
-	public T findOne( Parameter parameter);
-	
 	/**
 	 * Save Entity
 	 * @param entity

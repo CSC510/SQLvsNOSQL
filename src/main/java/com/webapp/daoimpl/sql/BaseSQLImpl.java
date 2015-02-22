@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.webapp.common.util.Reflections;
 import com.webapp.dao.BaseDao;
-import com.webapp.daoimpl.mdb.Parameter;
 
 @Component
 public class BaseSQLImpl<T> implements BaseDao<T> {
@@ -78,11 +77,5 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 	public void deleteAll() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public T findOne(Parameter parameter) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

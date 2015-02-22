@@ -7,15 +7,15 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.webapp.dao.UserDao;
 import com.webapp.daoimpl.mdb.Parameter;
+import com.webapp.daoimpl.mdb.UserMDBImpl;
 import com.webapp.model.User;
 
 @Component
 public class UserService {
 	@Resource(name = "userMDBImpl")
 	@Autowired
-	private UserDao userDao;
+	private UserMDBImpl userDao;
 	
 	public UserService(){
 		
