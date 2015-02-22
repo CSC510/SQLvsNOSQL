@@ -19,6 +19,4 @@ public class UserMDBImpl extends BaseMDBImpl<User> implements UserDao{
 		parameter.put("name", name);
 		return findAll(parameter);
 	}
-	
-
 }
