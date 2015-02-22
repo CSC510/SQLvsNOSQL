@@ -37,10 +37,8 @@ public class User extends IdEntity<User> {
 		this.name = name;
 	}
 	
-	
 	@Override
 	public String toString(){
 		return name;
 	}
-	
 }
