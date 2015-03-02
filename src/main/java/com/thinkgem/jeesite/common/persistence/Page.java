@@ -196,7 +196,7 @@ public class Page<T> {
 		StringBuilder sb = new StringBuilder();
 		
 		if (pageNo == first) {// 如果是首页
-			sb.append("<li class=\"disabled\"><a href=\"javascript:\">&#171; 上一页</a></li>\n");
+			sb.append("<li class=\"disabled\"><a href=\"javascript:\">&#171; prev</a></li>\n");
 		} else {
 			sb.append("<li><a href=\"javascript:\" onclick=\""+funcName+"("+prev+","+pageSize+");\">&#171; 上一页</a></li>\n");
 		}
@@ -249,18 +249,18 @@ public class Page<T> {
 		}
 
 		if (pageNo == last) {
-			sb.append("<li class=\"disabled\"><a href=\"javascript:\">下一页 &#187;</a></li>\n");
+			sb.append("<li class=\"disabled\"><a href=\"javascript:\">next&#187;</a></li>\n");
 		} else {
 			sb.append("<li><a href=\"javascript:\" onclick=\""+funcName+"("+next+","+pageSize+");\">"
 					+ "下一页 &#187;</a></li>\n");
 		}
 
-		sb.append("<li class=\"disabled controls\"><a href=\"javascript:\">当前 ");
+		sb.append("<li class=\"disabled controls\"><a href=\"javascript:\">current ");
 		sb.append("<input type=\"text\" value=\""+pageNo+"\" onkeypress=\"var e=window.event||this;var c=e.keyCode||e.which;if(c==13)");
 		sb.append(funcName+"(this.value,"+pageSize+");\" onclick=\"this.select();\"/> / ");
 		sb.append("<input type=\"text\" value=\""+pageSize+"\" onkeypress=\"var e=window.event||this;var c=e.keyCode||e.which;if(c==13)");
-		sb.append(funcName+"("+pageNo+",this.value);\" onclick=\"this.select();\"/> 条，");
-		sb.append("共 " + count + " 条"+(message!=null?message:"")+"</a><li>\n");
+		sb.append(funcName+"("+pageNo+",this.value);\" onclick=\"this.select();\"/>，");
+		sb.append("total" + count + " "+(message!=null?message:"")+"</a><li>\n");
 
 		sb.insert(0,"<ul>\n").append("</ul>\n");
 		

@@ -46,9 +46,9 @@ public class Generate {
 		
 		String moduleName = "or";			// 模块名，例：sys
 		String subModuleName = "";				// 子模块名（可选） 
-		String className = "application";			    // 类名，例：user
+		String className = "room";			    // 类名，例：user
 		String classAuthor = "Jentle";		// 类作者，例：ThinkGem
-		String functionName = "application";			// 功能名，例：用户
+		String functionName = "room";			// 功能名，例：用户
 
 		// 是否启用生成工具
 		//Boolean isEnable = false;

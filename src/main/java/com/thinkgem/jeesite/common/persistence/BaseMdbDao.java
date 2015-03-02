@@ -2,10 +2,14 @@ package com.thinkgem.jeesite.common.persistence;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -15,12 +19,13 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import com.thinkgem.jeesite.common.utils.Reflections;
+import com.thinkgem.jeesite.common.utils.StringUtils;
 
 
 @Component
 public class BaseMdbDao<T> implements BaseDao<T> {
 	@Autowired
-	private MongoTemplate mongoTemplate;
+	protected MongoTemplate mongoTemplate;
 	
     protected Class<?> entityClass;
 	
@@ -108,6 +113,43 @@ public class BaseMdbDao<T> implements BaseDao<T> {
 	}
 	
 	public void save(T entity) {
+		try {
+			// Get Id 
+			Object id = null;
+			for (Method method : entity.getClass().getMethods()){
+				Id idAnn = method.getAnnotation(Id.class);
+				if (idAnn != null){
+					id = method.invoke(entity);
+					break;
+				}
+			}
+			// Do Prepersist
+			if (StringUtils.isBlank((String)id)){
+				for (Method method : entity.getClass().getMethods()){
+					PrePersist pp = method.getAnnotation(PrePersist.class);
+					if (pp != null){
+						method.invoke(entity);
+						break;
+					}
+				}
+			}
+			// Do Preupdate
+			else{
+				for (Method method : entity.getClass().getMethods()){
+					PreUpdate pu = method.getAnnotation(PreUpdate.class);
+					if (pu != null){
+						method.invoke(entity);
+						break;
+					}
+				}
+			}
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
 		mongoTemplate.save(entity);
 	}
 

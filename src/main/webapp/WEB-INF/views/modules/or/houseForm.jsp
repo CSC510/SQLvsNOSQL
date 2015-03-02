@@ -74,16 +74,22 @@
 			</div>
 		</div>
 		<div class="control-group" >
-			<label class="control-label" for="remarks">remarks:</label>
+			<label class="control-label" for="rentStatus" >Rent Status:</label>
 			<div class="controls">
-				<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="200" class="input-xxlarge"/>
+				<form:input path="rentStatus" placeholder="available" htmlEscape="false" maxlength="50" class="required"/>
+			</div>
+		</div>		
+		<div class="control-group" >
+			<label class="control-label" for="remarks">Remarks:</label>
+			<div class="controls">
+				<form:textarea path="remarks" htmlEscape="false" rows="2" maxlength="200" class="input-xxlarge"/>
 			</div>
 		</div>
 		<div class="form-actions">
 			<shiro:hasPermission name="or:house:edit">
-				<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
+				<input id="btnSubmit" class="btn btn-primary" type="submit" value="Save"/>&nbsp;
 			</shiro:hasPermission>
-			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
+			<input id="btnCancel" class="btn" type="button" value="Cancel" onclick="history.go(-1)"/>
 		</div>
 	</form:form>
 </body>

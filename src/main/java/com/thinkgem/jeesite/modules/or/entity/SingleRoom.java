@@ -15,7 +15,7 @@ import com.thinkgem.jeesite.common.persistence.IdEntity;
 @Entity
 @Table(name = "or_room")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Room extends IdEntity<Room>{
+public class SingleRoom extends IdEntity<SingleRoom>{
 	private House house;
 	private int rate;
 	private String placeNumber;

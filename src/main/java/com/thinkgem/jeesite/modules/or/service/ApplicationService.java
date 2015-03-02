@@ -3,6 +3,9 @@
  */
 package com.thinkgem.jeesite.modules.or.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.activiti.engine.HistoryService;
@@ -23,7 +26,10 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.BaseService;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.or.entity.Application;
+import com.thinkgem.jeesite.modules.or.entity.House;
+import com.thinkgem.jeesite.modules.or.entity.Room;
 import com.thinkgem.jeesite.modules.or.dao.ApplicationDao;
+import com.thinkgem.jeesite.modules.or.dao.ApplicationSQLDao;
 
 /**
  * applicationService
@@ -35,7 +41,9 @@ import com.thinkgem.jeesite.modules.or.dao.ApplicationDao;
 public class ApplicationService extends BaseService {
 
 	@Resource(name="applicationSQLDao")
-	private ApplicationDao applicationDao;	
+	private ApplicationSQLDao applicationDao;	
+	@Autowired
+	private HouseService houseService;
 	@Autowired
 	private RuntimeService runtimeService;
 	@Autowired
@@ -54,8 +62,30 @@ public class ApplicationService extends BaseService {
 	}
 	
 	public Page<Application> find(Page<Application> page, Application application) {
+		DetachedCriteria dc = applicationDao.createDetachedCriteria();
+		if(application.getHouse()!=null&&StringUtils.isNotBlank(application.getHouse().getId())){
+			House house = houseService.get(application.getHouse().getId());
+			if(house!=null){
+				dc.add(Restrictions.eq("house.id", house.getId()));
+				application.setHouse(house);
+				if(house.getRentRooms()!=null){
+					dc.add(Restrictions.in("room.id", house.getRoomIds()));
+				}
+			}
+		}
+		if (StringUtils.isNotBlank(application.getIds())){
+			dc.add(Restrictions.in("id", getIdList(application.getIds())));
+		}
+		if(application.getCreateDateStart()!=null) {
+			dc.add(Restrictions.ge("createDate", application.getCreateDateStart()));
+		} 
+		if(application.getCreateDateEnd()!=null) {
+			dc.add(Restrictions.le("createDate", application.getCreateDateEnd()));
+		} 
 
-		return null;
+		dc.add(Restrictions.eq("delFlag", Application.DEL_FLAG_NORMAL));
+		page= applicationDao.find(page,dc);
+	    return page;
 	}
 	
 	@Transactional(readOnly = false)
@@ -72,8 +102,14 @@ public class ApplicationService extends BaseService {
 		//application.setProcessStatus(taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult().getName());
 		applicationDao.save(application);
 		
+		
 	}
 	
+	
+	@Transactional
+	public void audit(Application application){
+		
+	}
 	@Transactional(readOnly = false)
 	public void delete(String id) {
 		applicationDao.deleteById(id);

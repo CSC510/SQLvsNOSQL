@@ -21,79 +21,78 @@ import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+import com.thinkgem.jeesite.modules.cms.service.CategoryService;
 import com.thinkgem.jeesite.modules.or.entity.House;
 import com.thinkgem.jeesite.modules.or.entity.Room;
 import com.thinkgem.jeesite.modules.or.service.HouseService;
 import com.thinkgem.jeesite.modules.or.service.RoomService;
 
 /**
- * houseController
- * @author ThinkGem
- * @version 2015-02-19
+ * roomController
+ * @author Jentle
+ * @version 2015-02-26
  */
 @Controller
-@RequestMapping(value = "${adminPath}/or/house")
-public class HouseController extends BaseController {
+@RequestMapping(value = "${adminPath}/or/room")
+public class RoomController extends BaseController {
 
-	@Autowired
-	private HouseService houseService;
 	@Autowired
 	private RoomService roomService;
+	@Autowired
+	private HouseService houseService;
 	
 	@ModelAttribute
-	public House get(@RequestParam(required=false) String id) {
+	public Room get(@RequestParam(required=false) String id) {
 		if (StringUtils.isNotBlank(id)){
-			return houseService.get(id);
+			return roomService.get(id);
 		}else{
-			return new House();
+			return new Room();
 		}
 	}
 	
-	@RequiresPermissions("or:house:view")
-	@RequestMapping(value="detail")
-	public String detail(House house, Model model ){
-		model.addAttribute("house",house);
-		return "modules/"+"or/house"+house.getHouseType()+"Detail";
-	}
-	
-	
-	
-	@RequiresPermissions("or:house:view")
+	@RequiresPermissions("or:room:view")
 	@RequestMapping(value = {"list", ""})
-	public String list(House house, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String list(Room room, HttpServletRequest request, HttpServletResponse response, Model model) {
 		User user = UserUtils.getUser();
 		if (!user.isAdmin()){
-			house.setCreateBy(user);
+			room.setCreateBy(user);
 		}
-        Page<House> page = houseService.find(new Page<House>(request, response), house); 
+        Page<Room> page = roomService.find(new Page<Room>(request, response), room); 
         model.addAttribute("page", page);
-		return "modules/" + "or/houseList";
+		return "modules/" + "or/roomList";
 	}
 
-	@RequiresPermissions("or:house:view")
+	@RequiresPermissions("or:room:view")
 	@RequestMapping(value = "form")
-	public String form(House house, Model model) {
-		model.addAttribute("house", house);
-		return "modules/" + "or/houseForm";
+	public String form(Room room, Model model) {
+		if( room.getHouse()!=null && StringUtils.isNotBlank(room.getHouse().getId())){
+			
+		}else{
+		
+		}
+			
+		model.addAttribute("room", room);
+		return "modules/" + "or/roomForm";
 	}
 
-	@RequiresPermissions("or:house:edit")
+    @RequiresPermissions("or:room:edit")
 	@RequestMapping(value = "save")
-	public String save(House house, Model model, RedirectAttributes redirectAttributes) {
-		if (!beanValidator(model, house)){
-			return form(house, model);
+	public String save(Room room, Model model, RedirectAttributes redirectAttributes) {
+		if (!beanValidator(model, room)){
+			return form(room, model);
 		}
-		houseService.save(house);
-		addMessage(redirectAttributes, "保存house'" +house.getName()+"'成功");
-		return "redirect:"+Global.getAdminPath()+"/or/house/?repage";
+		roomService.save(room);		
+		addMessage(redirectAttributes, "save room'" + room.getHouse().getId() + "'success");
+		String houseId =room.getHouse()!=null? room.getHouse().getId():null;
+		return "redirect:"+Global.getAdminPath()+"/or/room/?repage&house.id="+(houseId!=null?houseId:"");
 	}
 	
-	@RequiresPermissions("or:house:edit")
+	@RequiresPermissions("or:room:edit")
 	@RequestMapping(value = "delete")
 	public String delete(String id, RedirectAttributes redirectAttributes) {
-		houseService.delete(id);
-		addMessage(redirectAttributes, "删除house成功");
-		return "redirect:"+Global.getAdminPath()+"/or/house/?repage";
+		roomService.delete(id);
+		addMessage(redirectAttributes, "delete room success");
+		return "redirect:"+Global.getAdminPath()+"/or/room/?repage";
 	}
 
 }

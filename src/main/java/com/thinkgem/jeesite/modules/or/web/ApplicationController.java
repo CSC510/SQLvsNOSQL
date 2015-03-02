@@ -22,7 +22,11 @@ import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 import com.thinkgem.jeesite.modules.or.entity.Application;
+import com.thinkgem.jeesite.modules.or.entity.House;
+import com.thinkgem.jeesite.modules.or.entity.Room;
 import com.thinkgem.jeesite.modules.or.service.ApplicationService;
+import com.thinkgem.jeesite.modules.or.service.HouseService;
+import com.thinkgem.jeesite.modules.or.service.RoomService;
 
 /**
  * applicationController
@@ -35,6 +39,10 @@ public class ApplicationController extends BaseController {
 
 	@Autowired
 	private ApplicationService applicationService;
+	@Autowired
+	private HouseService houseService;
+	@Autowired
+	private RoomService roomService;
 	
 	@ModelAttribute
 	public Application get(@RequestParam(required=false) String id) {
@@ -60,6 +68,16 @@ public class ApplicationController extends BaseController {
 	@RequiresPermissions("or:application:view")
 	@RequestMapping(value = "form")
 	public String form(Application application, Model model) {
+		if(application.getHouse()!=null&& StringUtils.isNotBlank(application.getHouse().getId())){
+			House house = houseService.get(application.getHouse().getId());
+			application.setHouse(house);	
+		}
+		
+		if(application.getRoom()!=null&& StringUtils.isNotBlank(application.getRoom().getId())){
+			Room room = roomService.get(application.getRoom().getId());
+			application.setRoom(room);	
+		}
+		
 		model.addAttribute("application", application);
 		return "modules/" + "or/applicationForm";
 	}
@@ -71,17 +89,58 @@ public class ApplicationController extends BaseController {
 			return form(application, model);
 		}
 		
+		if(true){
+		
+			if(application.getHouse().getHouseType()==House.FAMILY_APARTMENT){
+				House house = houseService.get(application.getHouse().getId());
+				house.changeStatus(1);
+				//houseService.save(house);
+			}else if(application.getRoom()!=null){
+				Room  room = roomService.get(application.getRoom().getId());
+				room.changeStatus(1);
+				//roomService.save(room);
+			}
+		}
 		applicationService.save(application);
 		addMessage(redirectAttributes, "save application "+application.getId()+"success");
-		return "redirect:"+Global.getAdminPath()+"/or/application/?repage";
+		String houseId = application.getHouse()!=null? application.getHouse().getId():null;
+		return "redirect:"+Global.getAdminPath()+"/or/application/?repage&house.id="+(houseId!=null?houseId:"");
+	}
+	
+	@RequiresPermissions("or:application:view")
+	@RequestMapping(value = "detail")
+	public String detail(Application application, Model model){
+		model.addAttribute("application", application);
+		return "modules/" + "or/applicationDetail";
+	}
+	
+	@RequiresPermissions("or:application:audit")
+	@RequestMapping(value = "audit")
+	public String audit(Application application, Model model, RedirectAttributes redirectAttributes){
+	    applicationService.audit(application);
+	    addMessage(redirectAttributes,"Application Approved");
+		return "redirect:"+Global.getAdminPath()+"/or/application/detail?repage&id="+application.getId();
 	}
 	
     @RequiresPermissions("or:application:edit")
 	@RequestMapping(value = "delete")
 	public String delete(String id, RedirectAttributes redirectAttributes) {
+    	Application application = applicationService.get(id);
+    	if(application.getId()!=null&&application.getHouse()!=null){
+			if(application.getHouse().getHouseType()==House.FAMILY_APARTMENT){
+				House house = houseService.get(application.getHouse().getId());
+				house.changeStatus(-1);
+				//houseService.save(house);
+			}else if(application.getRoom()!=null){
+				Room  room = roomService.get(application.getRoom().getId());
+				room.changeStatus(-1);;
+				//roomService.save(room);
+			}
+		}
 		applicationService.delete(id);
-		addMessage(redirectAttributes, "删除application成功");
-		return "redirect:"+Global.getAdminPath()+"/or/application/?repage";
+		addMessage(redirectAttributes, "delete application");
+		String houseId = application.getHouse()!=null? application.getHouse().getId():null;
+		return "redirect:"+Global.getAdminPath()+"/or/application/?repage&house.id="+(houseId!=null?houseId:"");
 	}
 
 }

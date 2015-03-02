@@ -15,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.BaseService;
 import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.modules.or.entity.Application;
 import com.thinkgem.jeesite.modules.or.entity.House;
 import com.thinkgem.jeesite.modules.or.dao.HouseDao;
+import com.thinkgem.jeesite.modules.or.dao.HouseSQLDao;
 
 /**
  * houseService
@@ -28,15 +30,28 @@ import com.thinkgem.jeesite.modules.or.dao.HouseDao;
 public class HouseService extends BaseService {
 
 	@Resource(name="houseSQLDao")
-	private HouseDao houseDao;
+	private HouseSQLDao houseDao;
 	
 	public House get(String id) {
 		return houseDao.get(id);
 	}
 	
 	public Page<House> find(Page<House> page, House house) {
-
-		return null;
+        DetachedCriteria dc = houseDao.createDetachedCriteria() ;
+        if (StringUtils.isNotBlank(house.getIds())){
+			dc.add(Restrictions.in("id", getIdList( house.getIds())));
+		}
+		if( house.getHouseType() != 0) {
+			dc.add(Restrictions.like("houseType", house.getHouseType()));
+		} 
+		if(house.getRentStatus()!= null){
+			dc.add(Restrictions.like("rentStatus", house.getRentStatus()));
+		} 
+		
+		dc.add(Restrictions.eq("delFlag", House.DEL_FLAG_NORMAL));
+		dc.addOrder(Order.desc("houseType"));
+		page = houseDao.find(page,dc);
+		return page;
 	}
 	
 	@Transactional(readOnly = false)

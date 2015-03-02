@@ -6,14 +6,15 @@ package com.thinkgem.jeesite.modules.or.dao;
 import org.springframework.stereotype.Repository;
 
 import com.thinkgem.jeesite.common.persistence.BaseDao;
-import com.thinkgem.jeesite.modules.or.entity.House;
+import com.thinkgem.jeesite.common.persistence.Parameter;
+import com.thinkgem.jeesite.modules.or.entity.Room;
 
 /**
- * houseDAO interface
- * @author ThinkGem
- * @version 2015-02-19
+ * roomDAO interface
+ * @author Jentle
+ * @version 2015-02-26
  */
-
-public interface HouseDao extends BaseDao<House> {
+@Repository
+public interface RoomDao extends BaseDao<Room> {
 	
 }
