@@ -30,11 +30,11 @@ public class BaseMDBImplTest extends SpringTransactionContextTest{
 	*/
 
 	//findOne test! Wrong!
-	@Test(expected=InvalidDataAccessApiUsageException.class)
-	@Rollback(true)
+	@Test
 	public void findById(){		
 		int id=123;
-		User u=mongoDao.findById(id);
+		User u=new User();
+		mongoDao.save(u);
 		System.out.println(u.getName());
 	}
 	

@@ -3,6 +3,8 @@ package com.webapp.daoimpl.sql;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.webapp.common.util.Reflections;
@@ -12,8 +14,9 @@ import com.webapp.dao.BaseDao;
 public class BaseSQLImpl<T> implements BaseDao<T> {
 	
    
-	//@Resource
-	//private SessionFactory sessionFactory;
+	@Autowired
+	protected JdbcTemplate jdbcTemplate;
+	
 	
 	private Class<?> entityClass;
 	
@@ -40,7 +43,7 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 	@Override
 	public void deleteById(Serializable id) {
 		// TODO Auto-generated method stub
-		
+		jdbcTemplate.update("delete from " + entityClass.getSimpleName()+" where id=?",id);
 	}
 
 	@Override

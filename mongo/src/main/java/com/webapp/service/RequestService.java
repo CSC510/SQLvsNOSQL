@@ -17,7 +17,7 @@ import com.webapp.model.User;
 public class RequestService {
 	@Resource(name = "requestMDBImpl")
 	private RequestDao requestDao;
-	@Autowired
+	@Resource(name="userMDBImpl")
 	private UserDao userDao;
 	@Autowired
 	private HouseDao houseDao;
