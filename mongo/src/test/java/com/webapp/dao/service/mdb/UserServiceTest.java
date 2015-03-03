@@ -18,7 +18,7 @@ public class UserServiceTest extends SpringTransactionContextTest {
 	
 	@Test
 	public void saveUser(){
-		User u1 = new User("fred",256);
+		User u1 = new User("Hongyi",256);
 		User u2 = new User("fred",257);
 		userService.saveUser(u1);
 		userService.saveUser(u2);
