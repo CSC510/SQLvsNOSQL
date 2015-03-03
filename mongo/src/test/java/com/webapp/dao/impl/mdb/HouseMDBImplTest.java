@@ -23,7 +23,7 @@ public class HouseMDBImplTest extends SpringTransactionContextTest{
 	}
 	
 	@Test
-	public void save() {
+	public void savehouse() {
 		House h1 = new House("Hunt Hall",100, "Apartment");
 		House h2 = new House("Hill Hall",100, "Family Apartment");
 		houseDao.save(h1);
