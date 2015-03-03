@@ -19,11 +19,11 @@ public class UserServiceTest extends SpringTransactionContextTest {
 	@Test
 	public void saveUser(){
 		User u1 = new User("Hongyi",256);
-		User u2 = new User("fred",257);
+		User u2 = new User("Hongyi",257);
 		userService.saveUser(u1);
 		userService.saveUser(u2);
 		
-		List<User> users = userService.findUserByName("fred");
+		List<User> users = userService.findUserByName("Hongyi");
 		
 		for(User user: users) {
 			userService.deleteUser(user);
@@ -41,9 +41,9 @@ public class UserServiceTest extends SpringTransactionContextTest {
 	
 	@Test
 	public void deleteUserByName() {
-		User u1 = new User("maxlpy", 99);
+		User u1 = new User("hma", 99);
 		userService.saveUser(u1);
-		userService.deleteUserByName("maxlpy");
+		userService.deleteUserByName("hma");
 	}
 	
 	@Test
