@@ -20,8 +20,8 @@ public class RequestServiceTest extends SpringTransactionContextTest {
 	
 	@Test
 	public void saveRequest(){
-		House house = new House("Nelson Hall",01,"hall");
-		User user= new User("Jesse",3);
+		House house = new House("University Oaks",01,"hall");
+		User user= new User("Hongyi",3);
 		requestService.saveUser(user);
 		requestService.saveHouse(house);
 		Request request =new Request();
