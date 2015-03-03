@@ -19,14 +19,14 @@ public class HouseServiceTest extends SpringTransactionContextTest {
 	
 	@Test
 	public void saveHouse(){
-		House house = new House("Nelson Hall",01,"hall");
+		House house = new House("University Oaks",01,"apartment");
 		this.houseService.addHouse(house);
-		List<House> houses1 = houseService.findHouseByName("Nelson Hall");
+		List<House> houses1 = houseService.findHouseByName("University Oaks");
 		assertEquals(houses1.size(), 1);
 		
-		List<House> houses2 = houseService.findHousesByType("hall");
+		List<House> houses2 = houseService.findHousesByType("apartment");
 		assertEquals(houses1.size(), 1);
-		houseService.deleteHouseByName("Nelson Hall");
+		houseService.deleteHouseByName("University Oaks");
 		
 	}
 }
