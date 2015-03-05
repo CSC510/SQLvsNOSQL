@@ -1,7 +1,9 @@
 package com.webapp.daoimpl.sql;
 
+import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +39,11 @@ public class UserSQLImpl extends BaseSQLImpl<User> implements UserDao{
 		String query="update user set name= '"+str+"' where id='"+user.getId()+"' ";
 		jdbcTemplate.update(query);
 	}
-	
+	@Override
+	public User findById (Serializable id){
+		String sql = "SELECT * FROM user WHERE id = ?";
+		User user = jdbcTemplate.queryForObject(
+				sql, new Object[] { id }, new BeanPropertyRowMapper<User>(User.class));
+		return user;
+	}
 }

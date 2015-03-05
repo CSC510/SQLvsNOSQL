@@ -36,10 +36,20 @@ public class UserSQLImpTest extends SpringTransactionContextTest {
 		user.setId("210001");
 		userDao.save(user);
 		userDao.updateName(user,"tom");
+		userDao.delete(user);
 		
 	}
 	@Test 
-	public void delete(){
+	public void find(){
+		User user=new User();
+		user.setName("jess");
+		user.setId("210002");
+		userDao.save(user);
+		User newUser=userDao.findById("210002");
+		if (user!=null) {
+			System.out.println(user.getName());
+		}
+		userDao.delete(user);
 		
 	}
 
