@@ -41,11 +41,11 @@ public interface BaseDao<T> {
 	 * @param qlstr TODO
 	 */
 	public void update(String qlstr);
-	
 	/**
 	 * Delete Entity By id
 	 * @param id
 	 */
+	
 	public void deleteById(Serializable id);
 	
 	/**

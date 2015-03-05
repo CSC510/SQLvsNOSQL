@@ -27,4 +27,15 @@ public class UserSQLImpl extends BaseSQLImpl<User> implements UserDao{
 	public void save(User user){
 		this.jdbcTemplate.update("insert into user (name, id) values(?,?)", user.getName(), user.getId());
 	}
+	@Override
+	public void delete(User user){
+		String query="delete from user where id='"+user.getId()+"' ";
+		jdbcTemplate.update(query);
+	}
+	@Override
+	public void update(User user,String str){
+		String query="update user set name= '"+str+"' where id='"+user.getId()+"' ";
+		jdbcTemplate.update(query);
+	}
+	
 }
