@@ -33,7 +33,7 @@ public class UserSQLImpl extends BaseSQLImpl<User> implements UserDao{
 		jdbcTemplate.update(query);
 	}
 	@Override
-	public void update(User user,String str){
+	public void updateName(User user,String str){
 		String query="update user set name= '"+str+"' where id='"+user.getId()+"' ";
 		jdbcTemplate.update(query);
 	}

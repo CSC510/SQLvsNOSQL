@@ -35,7 +35,7 @@ public class UserSQLImpTest extends SpringTransactionContextTest {
 		user.setName("jesse");
 		user.setId("210001");
 		userDao.save(user);
-		userDao.update(user,"tom");
+		userDao.updateName(user,"tom");
 		
 	}
 	@Test 

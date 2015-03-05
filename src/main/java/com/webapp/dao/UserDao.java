@@ -22,5 +22,5 @@ public interface UserDao extends BaseDao<User>{
      * @return
      */
 	public User findOne( Parameter parameter);
-	public void update (User user,String str);
+	public void updateName (User user,String name);
 }

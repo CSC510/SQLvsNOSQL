@@ -82,9 +82,4 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 		
 	}
 
-	@Override
-	public void update(T entity) {
-		// TODO Auto-generated method stub
-		
-	}
 }

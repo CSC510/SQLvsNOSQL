@@ -22,7 +22,7 @@ public class UserMDBImpl extends BaseMDBImpl<User> implements UserDao{
 	}
 
 	@Override
-	public void update(User user, String str) {
+	public void updateName(User user, String str) {
 		// TODO Auto-generated method stub
 	}
 }
