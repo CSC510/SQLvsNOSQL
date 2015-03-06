@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.webapp.common.util.Reflections;
 import com.webapp.dao.BaseDao;
+import com.webapp.model.House;
 
 @Component
 public class BaseSQLImpl<T> implements BaseDao<T> {
@@ -81,5 +82,4 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
