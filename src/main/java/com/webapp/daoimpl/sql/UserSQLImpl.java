@@ -13,10 +13,14 @@ import com.webapp.model.User;
 
 @Component
 public class UserSQLImpl extends BaseSQLImpl<User> implements UserDao{
-
+	
 	@Override
 	public List<User> findByName(String name) {
-		return null;
+		String sql = "select * from user where name = ?";
+		@SuppressWarnings("rawtypes")
+		List<User> users = jdbcTemplate.query(
+				sql, new Object[] { name }, new BeanPropertyRowMapper(User.class));
+		return users;
 	}
 
 	@Override

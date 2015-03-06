@@ -1,5 +1,9 @@
 package com.webapp.dao.impl.sql;
 
+import static org.junit.Assert.*;
+
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -50,8 +54,21 @@ public class UserSQLImpTest extends SpringTransactionContextTest {
 			System.out.println(user.getName());
 		}
 		userDao.delete(user);
-		
 	}
-
-	
+	@Test
+	public void findByName() {
+		User user1 = new User();
+		user1.setName("fred");
+		user1.setId("1000");
+		User user2 = new User();
+		user2.setName("fred");
+		user2.setId("1001");
+		userDao.save(user1);
+		userDao.save(user2);
+		
+		List<User> users = userDao.findByName("fred");
+		assertEquals(users.size(), 2);
+		userDao.delete(user1);
+		userDao.delete(user2);
+	}
 }
