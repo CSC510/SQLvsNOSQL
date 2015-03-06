@@ -71,4 +71,20 @@ public class UserSQLImpTest extends SpringTransactionContextTest {
 		userDao.delete(user1);
 		userDao.delete(user2);
 	}
+	@Test
+	public void findAll() {
+		User user1 = new User();
+		user1.setName("fred");
+		user1.setId("1000");
+		User user2 = new User();
+		user2.setName("fred");
+		user2.setId("1001");
+		userDao.save(user1);
+		userDao.save(user2);
+		
+		List<User> users = userDao.findAll();
+		assertEquals(users.size(), 2);
+		userDao.delete(user1);
+		userDao.delete(user2);
+	}
 }
