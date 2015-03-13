@@ -2,14 +2,7 @@ package com.webapp.dao.impl.mdb;
 
 import javax.annotation.Resource;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import org.junit.Test;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.test.annotation.Repeat;
-import org.springframework.test.annotation.Rollback;
-
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.daoimpl.mdb.BaseMDBImpl;
 import com.webapp.model.User;

@@ -2,29 +2,23 @@ package com.webapp.action;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.webapp.model.House;
 import com.webapp.model.Request;
 import com.webapp.model.User;
-import com.webapp.service.HouseService;
 import com.webapp.service.RequestService;
-import com.webapp.service.UserService;
 
 @Controller
 public class RentAction {
 	@Autowired
 	private RequestService requestService;
-	private int studentId;
 	private String userName;
 	private String houseType;
 	public String execute(){
 		User user=new User();
 		user.setName(userName);
-		user.setStudentId(studentId);
 		List<House> houses=requestService.findHouse(houseType);
 		if (houses.size()==0) {
 			return "fail";
@@ -38,12 +32,7 @@ public class RentAction {
 		}
 	}
 	//getter and setter
-	public int getStudentId() {
-		return studentId;
-	}
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
-	}
+	
 	public String getUserName() {
 		return userName;
 	}

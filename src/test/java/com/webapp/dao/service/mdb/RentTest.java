@@ -14,7 +14,6 @@ import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.model.House;
 import com.webapp.model.User;
 import com.webapp.service.UserService;
-import com.webapp.action.RentAction;
 
 public class RentTest extends SpringTransactionContextTest {
 	

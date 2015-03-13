@@ -13,18 +13,18 @@ public abstract class IdEntity<T> implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected String id;
+	protected int id;
 	
 	public IdEntity() {
 		super();
 	}
 	
 	@Id
-	public String getId(){
+	public int getId(){
 		return this.id;
 	}
 	
-	public void setId(String id){
+	public void setId(int id){
 		this.id = id;
 	}
 	

@@ -15,6 +15,7 @@ import com.webapp.model.User;
 public class UserMDBImpl extends BaseMDBImpl<User> implements UserDao{
 
 	
+	@Override
 	public List<User> findByName(String name) {
 		Parameter parameter = new Parameter();
 		parameter.put("name", name);

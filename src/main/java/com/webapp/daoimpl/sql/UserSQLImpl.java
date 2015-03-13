@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-
 import com.webapp.dao.UserDao;
 import com.webapp.daoimpl.mdb.Parameter;
 import com.webapp.model.User;
@@ -27,11 +25,11 @@ public class UserSQLImpl extends BaseSQLImpl<User> implements UserDao{
 	
 	@Override
 	public void save(User user){
-		this.jdbcTemplate.update("insert into user (name, id) values(?,?)", user.getName(), user.getId());
+		this.jdbcTemplate.update("insert into user (id,name) values(?,?)", user.getId(), user.getName());
 	}
 	@Override
 	public void delete(User user){
-		String query="delete from user where id='"+user.getId()+"' ";
+		String query="delete from user where id="+user.getId();
 		jdbcTemplate.update(query);
 	}
 	@Override

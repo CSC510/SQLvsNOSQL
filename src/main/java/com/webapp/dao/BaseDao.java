@@ -3,8 +3,6 @@ package com.webapp.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import com.webapp.daoimpl.mdb.Parameter;
-
 public interface BaseDao<T> {
     /**
      * Find an Entity By ID
@@ -17,6 +15,7 @@ public interface BaseDao<T> {
 	 * Find All The Entity
 	 * @return
 	 */
+	public T findByQuery(String str);
 	public List<T> findAll();
 	/**
 	 * Find All the Entity Using Query

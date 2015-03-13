@@ -163,4 +163,10 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 		this.mongoTemplate.dropCollection(entityClass);
 	}
 
+	@Override
+	public T findByQuery(String str) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
