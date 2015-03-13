@@ -1,5 +1,9 @@
 package com.webapp.dao.impl.sql;
 
+import static org.junit.Assert.*;
+
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -37,4 +41,5 @@ public class UserSQLImpTest extends SpringTransactionContextTest {
 		userDao.delete(user2);
 		
 	}
+
 }
