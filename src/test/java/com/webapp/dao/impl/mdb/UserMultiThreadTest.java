@@ -51,7 +51,7 @@ public class UserMultiThreadTest extends SpringTransactionContextTest
 	{
 		for(int i = 0; i < 100; i++)
 		{
-			User u = new User("hma", i);
+			User u = new User();
 			userDao.save(u);
 		}
 	}

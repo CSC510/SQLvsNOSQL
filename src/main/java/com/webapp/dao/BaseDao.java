@@ -16,6 +16,7 @@ public interface BaseDao<T> {
 	 * @return
 	 */
 	public T findByQuery(String str);
+	
 	public List<T> findAll();
 	/**
 	 * Find All the Entity Using Query
@@ -39,7 +40,7 @@ public interface BaseDao<T> {
 	 * Update 
 	 * @param qlstr TODO
 	 */
-	public void update(String qlstr);
+	public int update(String qlstr);
 	/**
 	 * Delete Entity By id
 	 * @param id

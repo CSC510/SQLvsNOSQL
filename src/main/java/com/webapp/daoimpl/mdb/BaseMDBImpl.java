@@ -3,12 +3,17 @@ package com.webapp.daoimpl.mdb;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -32,6 +37,10 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 	
 	public Class<?> getEntityClass() {
 		return this.entityClass;
+	}
+	
+	public void flush(){
+		
 	}
 			
 	@SuppressWarnings("unchecked")
@@ -117,21 +126,56 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 	
 	@Override
 	public void save(T entity) {
-		// TODO Auto-generated method stub
+		try {
+			// Get id
+			Object id = null;
+			for (Method method : entity.getClass().getMethods()){
+				Id idAnn = method.getAnnotation(Id.class);
+				if (idAnn != null){
+					id = method.invoke(entity);
+					break;
+				}
+			}
+			// Prepersist
+			if (StringUtils.isBlank((String)id)){
+				for (Method method : entity.getClass().getMethods()){
+					PrePersist pp = method.getAnnotation(PrePersist.class);
+					if (pp != null){
+						method.invoke(entity);
+						break;
+					}
+				}
+			}
+			// Preupdate
+			else{
+				for (Method method : entity.getClass().getMethods()){
+					PreUpdate pu = method.getAnnotation(PreUpdate.class);
+					if (pu != null){
+						method.invoke(entity);
+						break;
+					}
+				}
+			}
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
 		mongoTemplate.save(entity);
 	}
 
 	@Override
 	public void save(List<T> entities) {
-		// TODO Auto-generated method stub
 		for(T entity:entities){
 			mongoTemplate.save(entity);
 		}
 	}
 
 	@Override
-	public void update(String qlstr) {
-		// TODO Auto-generated method stub
+	public int update(String qlstr) {
+		return 0;
 	}
 	
 	/**

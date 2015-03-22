@@ -8,17 +8,5 @@ import com.webapp.model.User;
 
 public interface UserDao extends BaseDao<User>{
 	
-	/**
-	 * Find All the Users with Same Name
-	 * @param name
-	 * @return
-	 */
 	public List<User> findByName(String name);
-	/**
-     * Find One Entity with Limitation
-     * @param parameter
-     * @return
-     */
-	public User findOne( Parameter parameter);
-	public void updateName (User user,String name);
 }

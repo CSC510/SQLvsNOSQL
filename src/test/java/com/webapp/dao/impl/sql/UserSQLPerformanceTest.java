@@ -8,112 +8,90 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.Rollback;
 
+import com.google.common.collect.Lists;
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.daoimpl.sql.UserSQLImpl;
 import com.webapp.model.User;
 
 public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	
+	private Logger logger = LoggerFactory.getLogger(UserSQLPerformanceTest.class);
+	
 	@Resource(name = "userSQLImpl")
 	private UserSQLImpl userDao;
 	
+	private List<User> testUsrs=Lists.newArrayList();
 	
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	
-	public void addTestUsers(int times){
+	@Before
+	public void addUsers(){
+		int times =10000;
 		for (int i = 0; i < times; i++) {
 			User user = new User();
-			user.setName(Integer.toString(i));
+			user.setName("test"+i);
+			testUsrs.add(user);
 			userDao.save(user);
 		}
 		
 	}
+
+
 	@Test
-	public void simple(){
-		String string="";
+	public void add(){
 		long startTime,totalTime;
+
 		
 		startTime=System.currentTimeMillis();
-		for (int i = 0; i <10000; i++) {
-			string="insert into user(name) values('abc');\n ";
-			jdbcTemplate.update(string);
-		}
-		
-		
+		userDao.flush();
 		totalTime=System.currentTimeMillis()-startTime;
-		System.out.println("hrer"+totalTime);
+		logger.info("SQL insert "+testUsrs.size()+" record of data needs "+totalTime+" ms");
 	}
 
 	@Test
-	public void addPerformaceTest(){
-		userDao.deleteAll();
-		int threadCount=5;
+	public void findbyId(){
 		long startTime,totalTime;
-		int times=1000;
-		startTime=System.currentTimeMillis();
-		addTestUsers(times);
-		totalTime=System.currentTimeMillis()-startTime;
-		System.out.println("SQL add "+times+" pieces of data needs "+totalTime+" ms");
-		assertEquals(userDao.findAll().size(), times);
-		userDao.deleteAll();
-	}
-//	@Test
-	public void findbyIdPerformance(){
-		long startTime,totalTime;
-		int times=10000;
-		int findNumber=5000;
-		addTestUsers(times);
-		startTime=System.currentTimeMillis();
-		List<User>resUsers=new ArrayList<User>();
-		for (int i = 0; i < findNumber; i++) {
-			resUsers.add(userDao.findById(i));
-		}
-		totalTime=System.currentTimeMillis()-startTime;
-		System.out.println("SQL find by id "+findNumber+" pieces of data needs "+totalTime+" ms");
-		assertEquals(resUsers.size(), findNumber);
-		userDao.deleteAll();
-	}
-	@Test
-	public void findbyNamePerformance(){
-		long startTime,totalTime;
-		int times=10000;
-		int findNumber=250;
-		addTestUsers(times);
-		startTime=System.currentTimeMillis();
-		List<User>resUsers=new ArrayList<User>();
-		for (int i = 0; i < findNumber; i++) {
-			resUsers.addAll(userDao.findByName(Integer.toString(i)));
-		}
-		totalTime=System.currentTimeMillis()-startTime;
-		System.out.println("SQL find by name"+findNumber+" pieces of data needs "+totalTime+" ms");
-		assertEquals(resUsers.size(), findNumber);
-		userDao.deleteAll();
-	}
-	@Test
-	public void deletebyIdPerformance() {
-		int deleteItems=3000;
-		int times=10000;
-		long startTime,totalTime;
-		addTestUsers(times);
 		
-		List<User> userList=userDao.findAll();
-		startTime=System.currentTimeMillis();
-		int count =0;
-		for (User user : userList) {
-			userDao.deleteById(user.getId());
-			count++;
-			if (count==deleteItems) {
-				break;
-			}
-		}
+		userDao.flush();
+		startTime=System.currentTimeMillis();	
+		//find first record
+		userDao.findById(testUsrs.get(0).getId());
 		totalTime=System.currentTimeMillis()-startTime;
-		System.out.println("SQL delete by id"+deleteItems+" pieces of data needs "+totalTime+" ms");
-		assertEquals(userDao.findAll().size(), times-deleteItems);
-		userDao.deleteAll();
+		logger.info("SQL find "+1 +" records out of "+testUsrs.size()+" takes "+totalTime+" ms");
+		
+	}
+	
+	@Test
+	public void findbyName(){
+		long startTime,totalTime;
+		userDao.flush();
+		startTime=System.currentTimeMillis();
+		int resultSize = userDao.findByName("test12").size();
+		totalTime=System.currentTimeMillis()-startTime;
+		logger.info("SQL find "+resultSize+" records out of "+ testUsrs.size()+" takes "+(totalTime)+"ms");
+	
+	}
+	
+	@Test
+	public void delete() {		
+		long startTime,totalTime;
+		int deleteCount = 100;
+		userDao.flush();
+		for( int i=0; i<  deleteCount ; i++){
+			userDao.delete(testUsrs.get(i));
+		}
+		
+		startTime=System.currentTimeMillis();
+		userDao.flush();
+		totalTime=System.currentTimeMillis()-startTime;
+		
+		logger.info("SQL delete "+deleteCount+" records out of "+testUsrs.size()+" needs "+totalTime+" ms");
+		
 	}
 }

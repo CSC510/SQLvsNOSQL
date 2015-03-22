@@ -3,13 +3,13 @@ package com.webapp.common.util;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.impl.SimpleLogger;
 
 public class Reflections {
 
 	
-	private static SimpleLogger logger = (SimpleLogger) LoggerFactory.getLogger(Reflections.class);
+	private static Logger logger =  (Logger) LoggerFactory.getLogger(Reflections.class);
 
 
 	

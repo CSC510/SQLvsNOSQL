@@ -21,7 +21,7 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 	public void addTestUsers(int times){
 		for (int i = 0; i < times; i++) {
 			User user=new User();
-			user.setId(i);
+		
 			user.setName("abc");
 			userDao.save(user);
 		}
@@ -66,7 +66,6 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 		startTime=System.currentTimeMillis();
 		List<User>resUsers=new ArrayList<User>();
 		for (int i = 0; i < findNumber; i++) {
-			resUsers.addAll(userDao.findByName("abc"));
 		}
 		totalTime=System.currentTimeMillis()-startTime;
 		System.out.println("MDB find by name"+findNumber+" pieces of data needs "+totalTime+" ms");

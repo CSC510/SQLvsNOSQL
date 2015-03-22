@@ -19,7 +19,7 @@ public class RequestService {
 	private RequestDao requestDao;
 	@Resource(name="userMDBImpl")
 	private UserDao userDao;
-	@Autowired
+	@Resource(name="houseMDBImpl")
 	private HouseDao houseDao;
 	public RequestService() {
 		// TODO Auto-generated constructor stub
