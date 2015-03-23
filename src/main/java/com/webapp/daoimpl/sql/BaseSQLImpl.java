@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 
 import com.webapp.common.util.Reflections;
 import com.webapp.dao.BaseDao;
-import com.webapp.daoimpl.mdb.Parameter;
+import com.webapp.common.persistence.Parameter;
 import com.webapp.model.House;
 
 @Component
@@ -272,6 +272,44 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 		return createSqlQuery(sqlString, parameter).executeUpdate();
 	}
 	
+	private String parameter2String(String sqlstr, Parameter parameter){
+		
+		if(parameter==null||parameter.size()==0){
+			return sqlstr;
+		}
+		
+		String query = sqlstr;
+		if (!sqlstr.toLowerCase().contains("where")){
+			query +=" where ";
+		}else{
+			query +=" and ";
+		}
+		
+		
+		for (String key: parameter.keySet()){
+			Object value = parameter.get(key);
+			if( value instanceof Collection<?>){
+				;
+			}else if(value instanceof Object[]){
+				query += key  ;
+				for(Object ob : (Object[])value){
+					query += " "+ob;
+				}
+			}else {
+				query  += key+"=";
+				/*If  value is string, should be quote*/
+				if( value instanceof String){        
+					query +="'"+value+"'";
+				}else{
+					query += value;
+				}
+			}
+			query +=" and ";
+		}
+		//remove last "and";
+		return query.trim().substring(0, query.length()-4);
+	}
+	
 	/**
 	 * Create SQL Query
 	 * @param sqlString
@@ -279,8 +317,8 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 	 * @return
 	 */
 	public SQLQuery createSqlQuery(String sqlString, Parameter parameter){
-		SQLQuery query = getSession().createSQLQuery(sqlString);
-		setParameter(query, parameter);
+		SQLQuery query = getSession().createSQLQuery(parameter2String(sqlString,parameter));
+		//setParameter(query, parameter);
 		return query;
 	}
 	
@@ -349,5 +387,12 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 	public void deleteAll() {
 		
 		
+	}
+
+
+	@Override
+	public List<T> findAll(String str,Parameter parameter) {
+		return findBySql(str,parameter);
+	
 	}
 }

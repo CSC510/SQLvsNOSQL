@@ -1,5 +1,7 @@
 package com.webapp.action;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -11,19 +13,17 @@ public class UserAction {
 	@Autowired
 	private UserService userService;
 	
-	public void addUser(User u) {
-		userService.saveUser(u);
+	
+	
+	public List<User> find(User user) {
+		return userService.find( user);
 	}
 	
-	public User findByStudentId(int studentId) {
-		return userService.findUserByStudentId(studentId);
+	public void save(User user) {
+		userService.save(user);
 	}
 	
-	public void deleteByStudentId(int studentId) {
-		userService.deleteByStudentId(studentId);
-	}
-	
-	public void deleteByStudentName(String name) {
-		userService.deleteUserByName(name);
+	public void delete(User user) {
+		userService.delete(user);
 	}
 }

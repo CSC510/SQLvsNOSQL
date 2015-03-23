@@ -2,7 +2,6 @@ package com.webapp.dao;
 
 import java.util.List;
 
-import com.webapp.daoimpl.mdb.Parameter;
 import com.webapp.model.User;
 
 

@@ -14,17 +14,18 @@ public class HouseAction {
 	@Resource
 	private HouseService houseService;
 	
-	public void addHouse(House house) {
-		houseService.addHouse(house);
-	}
 	
-	public List<House> findHouseByName(String name) {
-		List<House> houses = houseService.findHouseByName(name);
+	
+	public List<House> findHouseByName(House house) {
+		List<House> houses = houseService.find( house);
 		return houses;
 	}
 	
-	public void deleteHouseByName(String name) {
-		houseService.deleteHouseByName(name);
+	public void save(House house) {
+		houseService.save(house);
+	}
+	public void delete(House house) {
+		houseService.delete(house);
 	}
 	
 }

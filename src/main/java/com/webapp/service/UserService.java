@@ -1,56 +1,46 @@
 package com.webapp.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.webapp.dao.UserDao;
-import com.webapp.daoimpl.mdb.Parameter;
+import com.webapp.common.persistence.Parameter;
 import com.webapp.model.User;
 
-@Component
+@Service
+@Transactional
 public class UserService {
-	@Resource(name = "userMDBImpl")
-	@Autowired
+	@Resource(name = "userSQLImpl")
 	private UserDao userDao;
 	
-	public UserService(){
+	public User get(Serializable id){
+		return userDao.findById(id);
+	}
+	
+	public List<User> find( User user){
+		String sqlstr="select * from user";
+		Parameter parameter = new Parameter();
+		if(StringUtils.isNotBlank(user.getName())){
+			parameter.put("name", user.getName());
+		}
+		
+	
+		return userDao.findAll(sqlstr, parameter);
 		
 	}
 	
-	public void saveUser(User u){
+
+	public void save(User u){
 		userDao.save(u);
 	}
-	
-	public User findUserByStudentId(int studentId){
-		Parameter parameter = new Parameter();
-		parameter.put("studentId", studentId);
-		User user = userDao.findOne(parameter);
-		return user;
-	}
-	
-	public List<User> findUserByName(String name){
-		return userDao.findByName(name);
-	}
-	
-	public void deleteUserByName(String name) {
-		List<User> users = userDao.findByName(name);
-		for(User user: users) {
-			userDao.delete(user);
-		}
-	}
-	
-	public void deleteByStudentId(int studentId) {
-		Parameter parameter = new Parameter();
-		parameter.put("studentId", studentId);
-		User u = userDao.findOne(parameter);
-		userDao.delete(u);
-	}
-	
-	public void deleteUser(User u) {
+
+	public void delete(User u) {
 		userDao.delete(u);
 	}
 }

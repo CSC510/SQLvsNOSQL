@@ -7,8 +7,13 @@ import static org.junit.Assert.assertEquals;
 
 
 
+
+
+
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 
+import com.google.common.collect.Lists;
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.daoimpl.sql.UserSQLImpl;
 import com.webapp.model.User;
@@ -23,6 +28,9 @@ import java.util.ArrayList;
 
 
 
+
+
+
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,11 +40,11 @@ import com.webapp.common.util.SpringContextHolder;
 
 public class UserSQLImplMultiThreadTest extends SpringTransactionContextTest{
 	
-	public static final int NUM_THREADS = 8;
+	public static final int NUM_THREADS = 1;
 
 	@Test
 	public void multi(){
-		ArrayList<Thread> threads = new ArrayList<Thread>();
+		ArrayList<Thread> threads = Lists.newArrayList();
 		int sum =1000000;
 		int perThread = sum/NUM_THREADS;
 		for(int i=0; i< NUM_THREADS; i++){
@@ -54,12 +62,12 @@ public class UserSQLImplMultiThreadTest extends SpringTransactionContextTest{
 	}
 }
 
-class SimpleTest implements Runnable{
+@Transactional
+ class SimpleTest implements Runnable{
 
 	private org.slf4j.Logger logger = LoggerFactory.getLogger(SimpleTest.class);
 	private UserSQLImpl userDao = SpringContextHolder.getBean(UserSQLImpl.class);
 	
-
 	private List<User> users;
 	private int scale;
 	
@@ -72,9 +80,8 @@ class SimpleTest implements Runnable{
 		this.scale = scale;
 	}
 	
-	@Override
-	public void run() {
-		
+	@Transactional
+	public void saveUser(){
 		long startTime = System.currentTimeMillis();
 		for(int i=0; i< scale; i++){
 			User u = new User();
@@ -86,11 +93,16 @@ class SimpleTest implements Runnable{
 			}
 		}
 		
-		
 		long endTime = System.currentTimeMillis();
 		logger.info("insert "+ scale+ " takes "+ (endTime-startTime) + "ms");
-		
+	}
+	
+	
+	@Override
+	public void run() {
+		saveUser();
 		
 	}
 	
 }
+

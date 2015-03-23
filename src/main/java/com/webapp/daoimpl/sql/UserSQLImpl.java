@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Component;
 
 import com.webapp.dao.UserDao;
-import com.webapp.daoimpl.mdb.Parameter;
 import com.webapp.model.User;
 
 @Component

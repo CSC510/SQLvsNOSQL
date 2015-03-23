@@ -2,10 +2,13 @@ package com.webapp.dao.service.mdb;
 
 
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
 
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.model.User;
@@ -17,39 +20,19 @@ public class UserServiceTest extends SpringTransactionContextTest {
 	private UserService userService;
 	
 	@Test
-	public void saveUser(){
-		User u1 = new User("Hongyi",256);
-		User u2 = new User("Hongyi",257);
-		userService.saveUser(u1);
-		userService.saveUser(u2);
+	public void save(){
+		User u1 = new User();
+		u1.setName("hongyi");
 		
-		List<User> users = userService.findUserByName("Hongyi");
+		User u2 = new User();
+		u2.setName("hongyi2");
+		userService.save(u1);
+		userService.save(u2);
+		commit();
 		
-		for(User user: users) {
-			userService.deleteUser(user);
-		}
-	}
-	
-	@Test
-	public void findByStudentId() {
-		User u1 = new User("fred",98);
-		userService.saveUser(u1);
-		User user = userService.findUserByStudentId(98);
-		assertEquals(user.getName(), "fred");
-		userService.deleteByStudentId(98);
-	}
-	
-	@Test
-	public void deleteUserByName() {
-		User u1 = new User("hma", 99);
-		userService.saveUser(u1);
-		userService.deleteUserByName("hma");
-	}
-	
-	@Test
-	public void deleteUserByStudentId() {
-		User u1 = new User("maxlpy", 100);
-		userService.saveUser(u1);
-		userService.deleteByStudentId(100);
+		userService.find(u1);
+		userService.delete(u2);
+		commit();
+		
 	}
 }

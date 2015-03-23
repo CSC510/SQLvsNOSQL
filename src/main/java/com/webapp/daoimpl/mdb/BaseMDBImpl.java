@@ -20,6 +20,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
+import com.webapp.common.persistence.Parameter;
 import com.webapp.common.util.Reflections;
 import com.webapp.dao.BaseDao;
 
@@ -74,14 +75,17 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 		return (List<T>) this.mongoTemplate.find(query, entityClass);
 	}
         
+	public List<T> findAll(Parameter parameter){
+		return findAll(null,parameter);
+	}
         /**
 	 * Find List Of Entities with Limitations
 	 * @param parameter, Query parameters
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findAll(Parameter parameter) {
-		Query query = createQuery( parameter,null);
+	public List<T> findAll(String str,Parameter parameter) {
+		Query query = createQuery( parameter,str);
     	return  (List<T>) this.mongoTemplate.find(query, entityClass); 
 	}
 	
@@ -212,5 +216,8 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	
 
 }
