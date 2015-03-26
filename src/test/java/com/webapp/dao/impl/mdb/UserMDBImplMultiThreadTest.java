@@ -1,26 +1,16 @@
 package com.webapp.dao.impl.mdb;
 
-import static org.junit.Assert.assertEquals;
 
-import java.util.*;
-import java.io.*;
 
-import javax.annotation.Resource;
 
 import org.junit.Test;
 
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.dao.UserDao;
-import com.webapp.daoimpl.mdb.HouseMDBImpl;
 import com.webapp.daoimpl.mdb.UserMDBImpl;
-import com.webapp.model.House;
 import com.webapp.model.User;
 
 import java.util.List;
-import java.net.UnknownHostException;
-import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 
 
@@ -29,14 +19,14 @@ import java.util.concurrent.Executors;
 
 
 
-import java.util.logging.Logger;
 
-import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
 
 
+
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.webapp.common.util.SpringContextHolder;

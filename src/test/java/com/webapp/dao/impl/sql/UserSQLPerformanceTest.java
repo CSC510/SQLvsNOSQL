@@ -46,13 +46,12 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	@Test
 	public void add(){
 		long startTime,totalTime;
-
-		
 		startTime=System.currentTimeMillis();
 		userDao.flush();
 		totalTime=System.currentTimeMillis()-startTime;
 		logger.info("SQL insert "+testUsrs.size()+" record of data needs "+totalTime+" ms");
 	}
+	
 
 	@Test
 	public void findbyId(){
