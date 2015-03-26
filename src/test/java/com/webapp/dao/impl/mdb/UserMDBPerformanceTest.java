@@ -5,11 +5,15 @@ package com.webapp.dao.impl.mdb;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
+
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.daoimpl.mdb.UserMDBImpl;
 import com.webapp.model.User;
@@ -18,79 +22,70 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 	
 	@Resource(name = "userMDBImpl")
 	private UserMDBImpl userDao;
-	public void addTestUsers(int times){
+	public List<String> addTestUsers(int times){
+		List<String> idsList=new ArrayList<String>();
 		for (int i = 0; i < times; i++) {
 			User user=new User();
-		
-			user.setName("abc");
+			user.setName(Integer.toString(i));
 			userDao.save(user);
+			idsList.add(user.getId());
 		}
+		return idsList;
 	}
 	
 
 	@Test
 	public void addPerformaceTest(){
 		userDao.deleteAll();
-		int threadCount=5;
 		long startTime,totalTime;
-		int times=10000;
+		int times=125;
 		startTime=System.currentTimeMillis();
-		addTestUsers(times);
+		List<String> ids=new ArrayList<String>(addTestUsers(times));
 		totalTime=System.currentTimeMillis()-startTime;
 		System.out.println("MDB add "+times+" pieces of data needs "+totalTime+" ms");
 		assertEquals(userDao.findAll().size(), times);
-//		userDao.deleteAll();
+		userDao.deleteAll();
 	}
-//	@Test
+	@Test
 	public void findbyIdPerformance(){
+		userDao.deleteAll();
+		int times=10000;int findNumber=5000;
 		long startTime,totalTime;
-		int times=10000;
-		int findNumber=5000;
-		addTestUsers(times);
+		String [] randoms=new String [findNumber];
+		List<String> ids=new ArrayList<String>(addTestUsers(times));
+		for (int i = 0; i < findNumber; i++) {
+			int temp=(int) (Math.random()*times);
+			randoms[i]=ids.get(temp);
+		}
 		startTime=System.currentTimeMillis();
 		List<User>resUsers=new ArrayList<User>();
 		for (int i = 0; i < findNumber; i++) {
-			resUsers.add(userDao.findById(i));
+			resUsers.add(userDao.findById(randoms[i]));
 		}
 		totalTime=System.currentTimeMillis()-startTime;
-		System.out.println("MDB find by id "+findNumber+" pieces of data needs "+totalTime+" ms");
+		System.out.println("MDB find "+findNumber+" records of data by id needs "+totalTime+" ms");
 		assertEquals(resUsers.size(), findNumber);
 		userDao.deleteAll();
 	}
-//	@Test
-	public void findbyNamePerformance(){
-		long startTime,totalTime;
-		int times=10000;
-		int findNumber=250;
-		addTestUsers(times);
-		startTime=System.currentTimeMillis();
-		List<User>resUsers=new ArrayList<User>();
-		for (int i = 0; i < findNumber; i++) {
-		}
-		totalTime=System.currentTimeMillis()-startTime;
-		System.out.println("MDB find by name"+findNumber+" pieces of data needs "+totalTime+" ms");
-		assertEquals(resUsers.size(), findNumber);
-		userDao.deleteAll();
-	}
-//	@Test
+
+	@Test
 	public void deletebyIdPerformance() {
+		userDao.deleteAll();
 		int deleteItems=3000;
 		int times=10000;
 		long startTime,totalTime;
-		addTestUsers(times);
-		
-		List<User> userList=userDao.findAll();
+		Set<String>randoms=new HashSet<String>();
+		List<String> ids=new ArrayList<String>(addTestUsers(times));
+		while(randoms.size()<deleteItems) {
+			int temp=(int) (Math.random()*times);
+			randoms.add(ids.get(temp));
+		}
 		startTime=System.currentTimeMillis();
-		int count =0;
-		for (User user : userList) {
-			userDao.deleteById(user.getId());
-			count++;
-			if (count==deleteItems) {
-				break;
-			}
+		for (int i = 0; i < randoms.size(); i++) {
+			userDao.deleteById((String)randoms.toArray()[i]);
 		}
 		totalTime=System.currentTimeMillis()-startTime;
-		System.out.println("MDB delete by id"+deleteItems+" pieces of data needs "+totalTime+" ms");
+		System.out.println("MDB delete "+deleteItems+" records of data by id needs "+totalTime+" ms");
 		assertEquals(userDao.findAll().size(), times-deleteItems);
 		userDao.deleteAll();
 	}

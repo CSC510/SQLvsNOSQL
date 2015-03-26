@@ -22,14 +22,13 @@ import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.slf4j.*;
 
 
 
 
 
 
-
-import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
 
@@ -50,7 +49,7 @@ public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 	@Test
 	public void multi(){
 		ArrayList<Thread> threads = new ArrayList<Thread>();
-		int sum =1000000;
+		int sum =1000;
 		int perThread = sum/NUM_THREADS;
 		for(int i=0; i< NUM_THREADS; i++){
 			
