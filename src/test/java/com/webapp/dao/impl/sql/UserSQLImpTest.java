@@ -46,6 +46,17 @@ public class UserSQLImpTest extends SpringTransactionContextTest {
 		
 	}
 	
+	@Test
+	public void findByName(){
+		User u = new User();
+		u.setName("test");
+		userDao.save(u);
+		commit();
+		List<User> users = userDao.findByName("test");
+		for(User user : users){
+			System.out.println("u id:"+user.getId());
+		}
+	}
 
 
 }

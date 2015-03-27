@@ -205,6 +205,8 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 	public int update(String qlString, Parameter parameter){
 		return createQuery(qlString, parameter).executeUpdate();
 	}
+	
+	
 	@Override
 	public T findById(Serializable id) {
 		return get(id);
@@ -212,7 +214,6 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 
 	@Override
 	public List<T> findAll(String qlstr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -338,6 +339,8 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 			}else{
 				query.addEntity(resultClass);
 			}
+		}else{
+			query.addEntity(entityClass);
 		}
 	}
 	

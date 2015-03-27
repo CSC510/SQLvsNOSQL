@@ -7,6 +7,4 @@ import com.webapp.model.Request;
 
 @Repository
 public class RequestMDBImpl extends BaseMDBImpl<Request>  implements RequestDao{
-
-
 }

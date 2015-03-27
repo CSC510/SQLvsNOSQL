@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
 import com.webapp.common.test.SpringTransactionContextTest;
@@ -17,7 +18,7 @@ import com.webapp.model.User;
 
 public class UserMDBImplTest extends SpringTransactionContextTest {
 	
-	@Resource(name = "userMDBImpl")
+	@Autowired
 	private UserMDBImpl userDao;
 	
 	@Test
@@ -29,7 +30,7 @@ public class UserMDBImplTest extends SpringTransactionContextTest {
 	
 	@Test
 	@Rollback(true)
-	public void findByString(){
+	public void find(){
 		User u = new User();
 		u.setName("jiang");
 		User u1 = new User();
