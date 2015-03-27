@@ -12,13 +12,11 @@ import com.webapp.model.User;
 
 import java.util.List;
 
+import org.slf4j.*;
 
 
 
-
-
-
-
+import static org.junit.Assert.assertEquals;
 
 
 import java.util.ArrayList;
@@ -40,7 +38,7 @@ public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 	@Test
 	public void multi(){
 		ArrayList<Thread> threads = new ArrayList<Thread>();
-		int sum =1000000;
+		int sum =1000;
 		int perThread = sum/NUM_THREADS;
 		for(int i=0; i< NUM_THREADS; i++){
 			
