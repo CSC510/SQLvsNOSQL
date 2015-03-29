@@ -3,6 +3,8 @@ package com.webapp.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import com.webapp.common.persistence.Parameter;
+
 public interface BaseDao<T> {
     /**
      * Find an Entity By ID
@@ -16,6 +18,7 @@ public interface BaseDao<T> {
 	 * @return
 	 */
 	public T findByQuery(String str);
+	
 	public List<T> findAll();
 	/**
 	 * Find All the Entity Using Query
@@ -23,6 +26,7 @@ public interface BaseDao<T> {
 	 */
 	public List<T> findAll(String qlstr);
 	
+	public List<T> findAll(String str, Parameter parameter);
 	/**
 	 * Save Entity
 	 * @param entity
@@ -39,7 +43,7 @@ public interface BaseDao<T> {
 	 * Update 
 	 * @param qlstr TODO
 	 */
-	public void update(String qlstr);
+	public int update(String qlstr);
 	/**
 	 * Delete Entity By id
 	 * @param id

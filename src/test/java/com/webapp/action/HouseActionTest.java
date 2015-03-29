@@ -19,7 +19,7 @@ public class HouseActionTest extends SpringTransactionContextTest {
 	
 	@Test
 	public void addHouse() {
-		House house = new House("Nelson Hall",12,"hall");
+		House house = new House();
 		houseAction.addHouse(house);
 		List<House> houses1 = houseAction.findHouseByName("Nelson Hall");
 		assertEquals(houses1.size(), 1);

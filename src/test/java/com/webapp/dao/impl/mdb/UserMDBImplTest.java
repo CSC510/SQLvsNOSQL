@@ -22,6 +22,7 @@ public class UserMDBImplTest extends SpringTransactionContextTest {
 	
 	@Test
 	public void findAllUser(){
+		userDao.deleteAll();
 		List<User> result =userDao.findAll();
 		//assertThat(result.size(),60);
 	}

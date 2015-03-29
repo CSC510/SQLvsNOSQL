@@ -1,9 +1,11 @@
 package com.webapp.model;
 
+import javax.persistence.Entity;
+
 import org.springframework.stereotype.Component;
 
 
-@Component
+@Entity
 public class House extends IdEntity<House> {
 	
 	private String name;

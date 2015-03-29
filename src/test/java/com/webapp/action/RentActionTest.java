@@ -23,19 +23,19 @@ public class RentActionTest extends SpringTransactionContextTest{
 	
 	@Test
 	public void rentActionTest(){
-		User user = new User("maxlpy",100);
+		User user = new User();
 		userAction.addUser(user);
-		House house = new House("WolfRidge", 200, "hall");
+		House house = new House();
 		houseAction.addHouse(house);
 		
 		List<House> rentHouse = houseAction.findHouseByName("WolfRidge"); 
-		assertEquals(rentHouse.get(0).getHouseId(), 200);
+		assertEquals(rentHouse.get(0).getId(), 200);
 		rentAction.setHouseType(rentHouse.get(0).getType());
 		
 		User rentUser = userAction.findByStudentId(100);
-		assertEquals(rentUser.getStudentId(), 100);
+		assertEquals(rentUser.getId(), 100);
 		
-		rentAction.setStudentId(rentUser.getStudentId());
+		rentAction.setId(rentUser.getId());
 		rentAction.setUserName(rentUser.getName());
 		System.out.println(rentAction.execute());
 		

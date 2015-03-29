@@ -13,164 +13,361 @@
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
-		<spring.version>4.1.4.RELEASE</spring.version>
-		<mysql.version>5.1.9</mysql.version>
+		<!-- version setting -->
+		<spring.version>3.2.5.RELEASE</spring.version> 
+		<spring-data-jpa.version>1.3.0.RELEASE</spring-data-jpa.version>
+		<mongo-version>1.2.0.RELEASE</mongo-version>
+		<hibernate.version>4.2.0.Final</hibernate.version>
+		<hibernate-search.version>4.2.0.Final</hibernate-search.version>
+		<hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
+		<mybatis.version>3.2.3</mybatis.version>
+		<mybatis-spring.version>1.2.1</mybatis-spring.version>        
+		<druid.version>1.0.1</druid.version>
+		<shiro.version>1.2.2</shiro.version>
+		<ehcache.version>2.6.6</ehcache.version>
+		<sitemesh.version>2.4.2</sitemesh.version>
+		<activiti.version>5.14</activiti.version>
+		<slf4j.version>1.7.5</slf4j.version>
+		<log4j.version>1.2.17</log4j.version>
+		<commons-lang3.version>3.1</commons-lang3.version>
+		<commons-io.version>2.4</commons-io.version>
+		<commons-codec.version>1.8</commons-codec.version>
+		<commons-fileupload.version>1.3</commons-fileupload.version>
+		<commons-beanutils.version>1.8.3</commons-beanutils.version>
+		<jackson.version>2.2.1</jackson.version>
+		<xstream.version>1.4.3</xstream.version>
+		<guava.version>14.0.1</guava.version>
+		<dozer.version>5.4.0</dozer.version>
+		<poi.version>3.9</poi.version>
+		<freemarker.version>2.3.19</freemarker.version>
+		<!-- jdbc driver setting -->
+		<mysql.driver.version>5.1.13</mysql.driver.version>
+		<oracle.driver.version>10.2.0.1.0</oracle.driver.version>
+		<mssql.driver.version>1.2.4</mssql.driver.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-web-api</artifactId>
-			<version>6.0</version>
-			<scope>provided</scope>
-		</dependency>
+		<!-- SPRING begin -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
-			<version>1.6.1.RELEASE</version>
+			<version>${mongo-version}</version>
 		</dependency>
-
-        <dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+			
+		<!-- spring orm -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		
-		        <!-- MySQL database driver -->
-	<dependency>
-		<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
-		<version>${mysql.version}</version>
-	</dependency>
-	
+		<!-- spring data jpa-->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>4.1.4.RELEASE</version>
+	    	<groupId>org.springframework.data</groupId>
+	    	<artifactId>spring-data-jpa</artifactId>
+	    	<version>${spring-data-jpa.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit-dep</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-expression</artifactId>
-			<version>4.1.4.RELEASE</version>
-		</dependency>
-
-		<!-- Add AOP Support -->
+		<!-- SPRING end -->
+		
+		<!-- AOP begin -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
-			<version>1.6.11</version>
+			<version>1.7.4</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>1.6.11</version>
+			<version>1.7.4</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>3.1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- AOP end -->
+
+		<!-- PERSISTENCE begin -->
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency><!-- jpa
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency> -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-search</artifactId>
+		    <version>${hibernate-search.version}</version>
+		</dependency>
+        <!-- MyBatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis-spring.version}</version>
+        </dependency>
+        
+        <!-- connection pool -->
+		<dependency>
+		     <groupId>com.alibaba</groupId>
+		     <artifactId>druid</artifactId>
+		     <version>${druid.version}</version>
 		</dependency>
 
+		<!-- jdbc driver -->
 		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
-			<artifactId>querydsl-mongodb</artifactId>
-			<version>3.6.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>4.1.4.RELEASE</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.driver.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-core</artifactId>
-			<version>1.3</version>
-			<scope>test</scope>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>${oracle.driver.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-library</artifactId>
-			<version>1.3</version>
+			<groupId>net.sourceforge.jtds</groupId>
+			<artifactId>jtds</artifactId>
+			<version>${mssql.driver.version}</version>
+			<scope>runtime</scope>
 		</dependency>
+		<!-- PERSISTENCE end -->
+		
+		<!-- LOGGING begin -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit-dep</artifactId>
-			<version>4.10</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.hamcrest</groupId>
-					<artifactId>hamcrest-core</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId> org.apache.cassandra</groupId>
-			<artifactId>cassandra-all</artifactId>
-			<version>0.8.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.6.2</version>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
 		</dependency>
+		<!-- common-logging 实际调用slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- java.util.logging 实际调用slf4j -->
+		<dependency>
+        	<groupId>org.slf4j</groupId>
+        	<artifactId>jul-to-slf4j</artifactId>
+        	<version>${slf4j.version}</version>
+        	<scope>runtime</scope>
+      	</dependency>
+      	<!-- log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<!-- log4jdbc -->
+		<dependency>
+			<groupId>org.lazyluke</groupId>
+			<artifactId>log4jdbc-remix</artifactId>
+			<version>0.2.7</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- LOGGING end -->
+		
+		<!-- GENERAL UTILS begin -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons-codec.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>${commons-fileupload.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons-beanutils.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- google java library -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		
+		<!-- TEST begin -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- TEST end -->
+	
 
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- Compiler Plugin,Set JDK Version -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>2.5.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<compilerArguments>
-						<endorseddirs>${endorsed.dir}</endorseddirs>
-					</compilerArguments>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<showWarnings>true</showWarnings>
 				</configuration>
 			</plugin>
+
+			<!-- war -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>2.3</version>
 				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<warName>${project.artifactId}</warName>
 				</configuration>
 			</plugin>
+			
+			<!-- resource plugins -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+			</plugin>
+			
+			<!-- install  -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+
+			<!-- clean -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
+			
+			<!-- ant-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+			</plugin>
+			
+			<!-- dependency   -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.1</version>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${endorsed.dir}</outputDirectory>
-							<silent>true</silent>
-							<artifactItems>
-								<artifactItem>
-									<groupId>javax</groupId>
-									<artifactId>javaee-endorsed-api</artifactId>
-									<version>6.0</version>
-									<type>jar</type>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
+				<version>2.5.1</version>
 			</plugin>
 		</plugins>
 	</build>

@@ -1,8 +1,10 @@
 package com.webapp.model;
 
+import javax.persistence.Entity;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Entity
 public class User extends IdEntity<User> {
 	
 	private String name;
