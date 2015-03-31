@@ -23,13 +23,13 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	
 	private List<User> testUsrs=Lists.newArrayList();
 	
-	@Before
-	public void addUsers(){
-		int times =10000;
+//	@Before
+	public void addUsers(int times){
+//		int times =10000;
 		for (int i = 0; i < times; i++) {
 			User user = new User();
 			user.setName("test"+i);
-			testUsrs.add(user);
+//			testUsrs.add(user);
 			userDao.save(user);
 		}
 		
@@ -37,15 +37,22 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 
 	@Test
 	public void add(){
-		long startTime,totalTime;
-		startTime=System.currentTimeMillis();
-		userDao.flush();
-		totalTime=System.currentTimeMillis()-startTime;
-		logger.info("SQL insert "+testUsrs.size()+" record of data needs "+totalTime+" ms");
+//		int [] testData={100000,200000,300000,400000,500000,600000,700000,800000,900000,1000000};
+//		for (int i = 0; i < testData.length; i++) {
+			int times=300000 ;
+			long startTime,totalTime;
+			startTime=System.currentTimeMillis();
+			addUsers(times);
+			totalTime=System.currentTimeMillis()-startTime;
+			userDao.flush();
+
+			logger.info("SQL insert "+times+" record of data needs "+totalTime+" ms");
+//		}
+		
 	}
 	
 
-	@Test
+//	@Test
 	public void findbyId(){
 		long startTime,totalTime;
 		
@@ -58,7 +65,7 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 		
 	}
 	
-	@Test
+//	@Test
 	public void findbyName(){
 		long startTime,totalTime;
 		userDao.flush();
@@ -69,7 +76,7 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	
 	}
 	
-	@Test
+//	@Test
 	public void delete() {		
 		long startTime,totalTime;
 		int deleteCount = 100;

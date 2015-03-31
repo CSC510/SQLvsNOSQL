@@ -4,6 +4,22 @@ package com.webapp.dao.impl.mdb;
 
 
 import static org.junit.Assert.assertEquals;
+=======
+import org.junit.Test;
+
+import com.webapp.common.test.SpringTransactionContextTest;
+import com.webapp.dao.UserDao;
+import com.webapp.daoimpl.mdb.UserMDBImpl;
+import com.webapp.model.User;
+
+import java.util.List;
+
+import org.slf4j.*;
+
+
+
+import static org.junit.Assert.assertEquals;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +77,7 @@ public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 	public void multiDelete(){
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		int sum =40;
+
 		int perThread = sum/NUM_THREADS;
 		for(int i=0; i< NUM_THREADS; i++){
 			threads.add(new Thread(new DeleteTest(perThread)));
