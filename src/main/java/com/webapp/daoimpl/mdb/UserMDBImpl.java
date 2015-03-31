@@ -15,7 +15,6 @@ import com.webapp.model.User;
 @Component
 public class UserMDBImpl extends BaseMDBImpl<User> implements UserDao{
 
-	@Override
 	public List<User> findByName(String name) {
 		return findAll("{name:"+name+"}");
 	}

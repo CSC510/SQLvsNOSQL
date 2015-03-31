@@ -1,40 +1,17 @@
 package com.webapp.dao.impl.sql;
 
-import static org.junit.Assert.assertEquals;
-
-
-
-
-
-
-
-
-
-import org.hibernate.SessionFactory;
-import org.junit.Test;
-
-import com.google.common.collect.Lists;
-import com.webapp.common.test.SpringTransactionContextTest;
-import com.webapp.daoimpl.sql.UserSQLImpl;
-import com.webapp.model.User;
-
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-
-
-
-
-
-
-
-
+import org.junit.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Lists;
+import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.common.util.SpringContextHolder;
+import com.webapp.daoimpl.sql.UserSQLImpl;
+import com.webapp.model.User;
 
 
 
@@ -96,7 +73,6 @@ public class UserSQLImplMultiThreadTest extends SpringTransactionContextTest{
 		long endTime = System.currentTimeMillis();
 		logger.info("insert "+ scale+ " takes "+ (endTime-startTime) + "ms");
 	}
-	
 	
 	@Override
 	public void run() {

@@ -1,9 +1,6 @@
 package com.webapp.dao.impl.sql;
 
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,10 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Rollback;
-
 import com.google.common.collect.Lists;
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.daoimpl.sql.UserSQLImpl;
@@ -41,7 +34,6 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 		}
 		
 	}
-
 
 	@Test
 	public void add(){

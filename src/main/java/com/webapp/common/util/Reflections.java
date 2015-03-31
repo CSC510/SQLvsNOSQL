@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class Reflections {
 
 	
-	private static Logger logger =  (Logger) LoggerFactory.getLogger(Reflections.class);
+	private static Logger logger =  LoggerFactory.getLogger(Reflections.class);
 
 
 	
