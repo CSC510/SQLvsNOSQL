@@ -39,7 +39,7 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 	public void addPerformaceTest(){
 		int [] testData={1000,10000,20000,30000,60000,90000,100000,
 				200000,300000,400000,500000,600000,700000,800000,900000,1000000};
- 		for (int i = 0; i <= testData.length; i++) {
+ 		for (int i = 0; i < testData.length; i++) {
 			userDao.deleteAll();
 			long startTime,totalTime;
 			int times=testData[i];
@@ -56,7 +56,8 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 //	@Test
 	public void findbyIdPerformance(){
 		userDao.deleteAll();
-		int times=10000;int findNumber=5000;
+		int times=10000;   // data size in the database
+		int findNumber=5000;  // random find times
 		long startTime,totalTime;
 		String [] randoms=new String [findNumber];
 		addTestUsers(times);
@@ -78,8 +79,8 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 //	@Test
 	public void deletebyIdPerformance() {
 		userDao.deleteAll();
-		int deleteItems=3000;
-		int times=10000;
+		int deleteItems=3000;  // random delete times
+		int times=10000;  // data size in the database
 		long startTime,totalTime;
 		Set<String>randoms=new HashSet<String>();
 		addTestUsers(times);

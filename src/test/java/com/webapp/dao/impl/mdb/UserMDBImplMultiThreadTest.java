@@ -4,7 +4,7 @@ package com.webapp.dao.impl.mdb;
 
 
 import static org.junit.Assert.assertEquals;
-=======
+
 import org.junit.Test;
 
 import com.webapp.common.test.SpringTransactionContextTest;

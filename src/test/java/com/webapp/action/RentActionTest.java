@@ -21,25 +21,25 @@ public class RentActionTest extends SpringTransactionContextTest{
 	@Resource
 	private HouseAction houseAction;
 	
-	@Test
-	public void rentActionTest(){
-		User user = new User();
-		userAction.addUser(user);
-		House house = new House();
-		houseAction.addHouse(house);
-		
-		List<House> rentHouse = houseAction.findHouseByName("WolfRidge"); 
-		assertEquals(rentHouse.get(0).getId(), 200);
-		rentAction.setHouseType(rentHouse.get(0).getType());
-		
-		User rentUser = userAction.findByStudentId(100);
-		assertEquals(rentUser.getId(), 100);
-		
-		rentAction.setId(rentUser.getId());
-		rentAction.setUserName(rentUser.getName());
-		System.out.println(rentAction.execute());
-		
-		userAction.deleteByStudentId(100);
-		houseAction.deleteHouseByName("WolfRidge");
-	}
+//	@Test
+//	public void rentActionTest(){
+//		User user = new User();
+//		userAction.addUser(user);
+//		House house = new House();
+//		houseAction.addHouse(house);
+//		
+//		List<House> rentHouse = houseAction.findHouseByName("WolfRidge"); 
+//		assertEquals(rentHouse.get(0).getId(), 200);
+//		rentAction.setHouseType(rentHouse.get(0).getType());
+//		
+//		User rentUser = userAction.findByStudentId(100);
+//		assertEquals(rentUser.getId(), 100);
+//		
+//		rentAction.setId(rentUser.getId());
+//		rentAction.setUserName(rentUser.getName());
+//		System.out.println(rentAction.execute());
+//		
+//		userAction.deleteByStudentId(100);
+//		houseAction.deleteHouseByName("WolfRidge");
+//	}
 }
