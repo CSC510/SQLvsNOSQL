@@ -34,7 +34,4 @@ public class UserSQLImpTest extends SpringTransactionContextTest {
 		logger.info("delete "+ 1 +" record takes "+ (deleteEnd - deleteStart) +"ms");
 		
 	}
-	
-
-
 }

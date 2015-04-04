@@ -47,8 +47,9 @@ public class UserMDBImplTest extends SpringTransactionContextTest {
 		user.setName("fred");
 		userDao.save(user);
 		User u = userDao.findById(user.getId());
+		System.out.println("~~~~~~~~~~~~");
 		userDao.delete(u);
-		assertEquals(userDao.findOne("{name: 'jiang'}"), null);
+		assertEquals(userDao.findOne("{name: 'fred'}"), null);
 	}
 	
 //	@Test
