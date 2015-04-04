@@ -11,7 +11,6 @@ import com.webapp.model.House;
 @Component
 public class HouseMDBImpl extends BaseMDBImpl<House> implements HouseDao{
 
-	@Override
 	public List<House> findByType(String type) {
 		Parameter parameter = new Parameter();
 		parameter.put("type", type);

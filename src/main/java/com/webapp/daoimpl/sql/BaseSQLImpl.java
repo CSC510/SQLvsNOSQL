@@ -27,6 +27,7 @@ import com.webapp.common.util.Reflections;
 import com.webapp.dao.BaseDao;
 import com.webapp.common.persistence.Parameter;
 import com.webapp.model.House;
+import com.webapp.model.User;
 
 @Component
 public class BaseSQLImpl<T> implements BaseDao<T> {
