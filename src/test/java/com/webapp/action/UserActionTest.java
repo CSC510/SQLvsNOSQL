@@ -13,11 +13,11 @@ public class UserActionTest extends SpringTransactionContextTest {
 	@Resource
 	private UserAction userAction;
 	
-	@Test
-	public void addUser() {
-		User u = new User("fred", 88);
-		userAction.addUser(u);
-		assertEquals(userAction.findByStudentId(88).getStudentId(), 88);
-		userAction.deleteByStudentName("fred");
-	}
+//	@Test
+//	public void addUser() {
+//		User u = new User("fred", 88);
+//		userAction.addUser(u);
+//		assertEquals(userAction.findByStudentId(88).getStudentId(), 88);
+//		userAction.deleteByStudentName("fred");
+//	}
 }

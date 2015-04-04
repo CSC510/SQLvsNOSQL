@@ -1,19 +1,12 @@
 package com.webapp.dao.service.mdb;
 
 
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
 
 import com.webapp.action.RentAction;
 import com.webapp.common.test.SpringTransactionContextTest;
-import com.webapp.model.House;
-import com.webapp.model.User;
-import com.webapp.service.UserService;
 
 public class RentTest extends SpringTransactionContextTest {
 	

@@ -2,8 +2,6 @@ package com.webapp.model;
 
 import javax.persistence.Entity;
 
-import org.springframework.stereotype.Component;
-
 
 @Entity
 public class House extends IdEntity<House> {

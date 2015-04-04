@@ -45,7 +45,7 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 	}
 			
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public T findById(Serializable id) {
 		return  (T)this.mongoTemplate.findById(id, entityClass);
 	}
@@ -68,7 +68,7 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
         
         
 	@SuppressWarnings("unchecked")
-	@Override
+
 	public List<T> findAll(String qlstr) {
 		// TODO Auto-generated method stub
 		BasicQuery query = new BasicQuery(qlstr);
@@ -91,12 +91,12 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 	
 
 	@SuppressWarnings("unchecked")
-	@Override
+//	@Override
 	public List<T> findAll() {
 		return (List<T>) this.mongoTemplate.findAll(entityClass);
 	}
 	
-	@Override
+//	@Override
 	public void deleteById(Serializable id) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
@@ -104,7 +104,7 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 		this.mongoTemplate.remove(query,entityClass);
 	}
 
-	@Override
+//	@Override
 	public void delete(T entity) {	
 		mongoTemplate.remove(entity);
 	}
@@ -128,7 +128,7 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 		return query.addCriteria(Criteria.where(ID).is(id));
 	}
 	
-	@Override
+//	@Override
 	public void save(T entity) {
 		try {
 			// Get id
@@ -170,14 +170,14 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 		mongoTemplate.save(entity);
 	}
 
-	@Override
+//	@Override
 	public void save(List<T> entities) {
 		for(T entity:entities){
 			mongoTemplate.save(entity);
 		}
 	}
 
-	@Override
+//	@Override
 	public int update(String qlstr) {
 		return 0;
 	}
@@ -205,13 +205,13 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
 	    return query;
 	}
 
-	@Override
+//	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
 		this.mongoTemplate.dropCollection(entityClass);
 	}
 
-	@Override
+//	@Override
 	public T findByQuery(String str) {
 		// TODO Auto-generated method stub
 		return null;
