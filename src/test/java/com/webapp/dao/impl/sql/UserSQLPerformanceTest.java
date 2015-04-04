@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.annotation.Rollback;
 
 import com.google.common.collect.Lists;
 import com.webapp.common.test.SpringTransactionContextTest;
@@ -38,6 +39,7 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 		}
 	}
 	
+	
 
 //	@Test
 	public void add(){
@@ -55,9 +57,10 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 
 	@Test
 	public void findbyId(){
-		int times = 1000;   // data size in the database
+		int times = 1000000;   // data size in the database
 		int[] testData ={1000,100000,200000,300000,400000,500000,600000,700000,800000,900000,1000000}; // find times
 		addUsers(times);
+		userDao.flush();
 //		for (int i = 0; i < testData.length; i++) {
 //			Random randomGenerator = new Random();
 //			long startTime,totalTime;
