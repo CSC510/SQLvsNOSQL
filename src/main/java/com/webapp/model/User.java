@@ -15,12 +15,21 @@ import com.google.common.collect.Lists;
 public class User extends IdEntity<User> {
 	
 	private String name;
+	private String password;
 	private List<Request> requestList = Lists.newArrayList();
 	
 	public User(){
 		
 	}
+	
+	public String getPassword(){
+		return password;
+	}
 
+	public void setPassword(String password){
+		this.password = password;
+	}
+	
 	public String getName() {
 		return name;
 	}

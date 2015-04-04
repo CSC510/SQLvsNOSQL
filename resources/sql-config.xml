@@ -30,7 +30,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 				<prop key="hibernate.cache.use_query_cache">true</prop>
 				<prop key="hibernate.search.default.directory_provider">filesystem</prop>
 				<prop key="hibernate.search.default.indexBase">${hibernate.search.default.indexBase}</prop>
-				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
 		<property name="namingStrategy">
@@ -68,7 +68,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
             </property>  
             <property name="url" value="jdbc:mysql://localhost:3306/spring"></property>  
             <property name="username" value="root"></property>  
-            <property name="password" value="123456"></property>
+            <property name="password" value="gjzyc2010"></property>
     </bean>  
 </beans>
 
@@ -80,7 +80,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
             </property>  
             <property name="url" value="jdbc:mysql://localhost:3306/spring"></property>  
             <property name="username" value="root"></property>  
-            <property name="password" value="123456"></property>
+            <property name="password" value="gjzyc2010"></property>
     </bean>  
 </beans>
 

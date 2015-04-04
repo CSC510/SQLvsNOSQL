@@ -1,15 +1,5 @@
 package com.webapp.dao.impl.sql;
 
-import static org.junit.Assert.assertEquals;
-
-
-
-
-
-
-
-
-
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 
@@ -19,19 +9,15 @@ import com.webapp.daoimpl.sql.UserSQLImpl;
 import com.webapp.model.User;
 
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 
-
-
-
-
-
-
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
+import javax.transaction.TransactionManager;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.webapp.common.util.SpringContextHolder;
@@ -45,7 +31,7 @@ public class UserSQLImplMultiThreadTest extends SpringTransactionContextTest{
 	@Test
 	public void multi(){
 		ArrayList<Thread> threads = Lists.newArrayList();
-		int sum =1000000;
+		int sum =10000;
 		int perThread = sum/NUM_THREADS;
 		for(int i=0; i< NUM_THREADS; i++){
 			
@@ -67,7 +53,9 @@ public class UserSQLImplMultiThreadTest extends SpringTransactionContextTest{
 
 	private org.slf4j.Logger logger = LoggerFactory.getLogger(SimpleTest.class);
 	private UserSQLImpl userDao = SpringContextHolder.getBean(UserSQLImpl.class);
-	
+
+	private SessionFactory sessionFactory = SpringContextHolder.getBean("sessionFactory");
+
 	private List<User> users;
 	private int scale;
 	
@@ -80,27 +68,31 @@ public class UserSQLImplMultiThreadTest extends SpringTransactionContextTest{
 		this.scale = scale;
 	}
 	
+
+	
 	@Transactional
-	public void saveUser(){
-		long startTime = System.currentTimeMillis();
-		for(int i=0; i< scale; i++){
-			User u = new User();
-			u.setName("test"+i);
-			userDao.save(u);
-			if(i%10000==0){
-				System.gc();
-				userDao.flush();
-			}
-		}
-		
-		long endTime = System.currentTimeMillis();
-		logger.info("insert "+ scale+ " takes "+ (endTime-startTime) + "ms");
-	}
-	
-	
-	@Override
 	public void run() {
-		saveUser();
+			try {
+				sessionFactory.openSession().getTransaction().begin();
+				long startTime = System.currentTimeMillis();
+				for(int i=0; i< scale; i++){
+					User u = new User();
+					u.setName("test"+i);
+					userDao.save(u);
+					if(i%10000==0){
+						//userDao.flush();
+					}
+				}
+				//userDao.getSession().getTransaction().commit();
+				//userDao.getSession().getTransaction().rollback();
+				long endTime = System.currentTimeMillis();
+				logger.info("insert "+ scale+ " takes "+ (endTime-startTime) + "ms");
+				
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			
+		
 		
 	}
 	

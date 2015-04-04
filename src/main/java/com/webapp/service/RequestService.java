@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.webapp.dao.HouseDao;
 import com.webapp.dao.RequestDao;
@@ -13,7 +15,9 @@ import com.webapp.dao.UserDao;
 import com.webapp.model.House;
 import com.webapp.model.Request;
 import com.webapp.model.User;
-@Component
+
+@Service
+@Transactional
 public class RequestService {
 	@Resource(name = "requestMDBImpl")
 	private RequestDao requestDao;
@@ -36,6 +40,7 @@ public class RequestService {
 	public void saveHouse(House house){
 		houseDao.save(house);
 	}
+	
 	//Need to modify!!!
 	public User getUser(String nameString){
 		return userDao.findByName(nameString).get(0);

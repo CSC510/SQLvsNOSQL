@@ -16,7 +16,7 @@ import com.webapp.model.User;
 @Service
 @Transactional
 public class UserService {
-	@Resource(name = "userSQLImpl")
+	@Resource(name = "userMDBImpl")
 	private UserDao userDao;
 	
 	public User get(Serializable id){

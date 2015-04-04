@@ -15,7 +15,6 @@ public class HouseSQLImpl extends BaseSQLImpl<House> implements HouseDao {
 
 	@Override
 	public List<House> findByType(String typeString) {
-		// TODO Auto-generated method stub
 		return findBySql("select * from house where type='"+typeString+"'");
 	}
 

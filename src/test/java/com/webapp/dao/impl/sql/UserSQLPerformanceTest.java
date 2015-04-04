@@ -33,6 +33,7 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	@Before
 	public void addUsers(){
 		int times =10000;
+		testUsrs.clear();
 		for (int i = 0; i < times; i++) {
 			User user = new User();
 			user.setName("test"+i);
