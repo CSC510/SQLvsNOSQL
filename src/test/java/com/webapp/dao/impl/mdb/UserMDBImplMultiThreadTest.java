@@ -5,6 +5,7 @@ package com.webapp.dao.impl.mdb;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.webapp.common.test.SpringTransactionContextTest;
@@ -13,46 +14,46 @@ import com.webapp.daoimpl.mdb.UserMDBImpl;
 import com.webapp.model.User;
 
 import java.util.List;
-
-import org.slf4j.*;
-
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
-import java.util.List;
 
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.ThrowsAdvice;
 
-import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.common.util.SpringContextHolder;
-import com.webapp.dao.UserDao;
 import com.webapp.daoimpl.mdb.BaseMDBImpl;
-import com.webapp.daoimpl.mdb.UserMDBImpl;
-import com.webapp.model.User;
 
 
 
 public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 	
 	public static final int NUM_THREADS = 1;
-	
-//	@Before
-	public void addTestUsers(int times){
+	private List<String> idsList=new ArrayList<String>();
+	private int items=50;
+	private int addItems=10000;
+	@Before
+	public void addTestUsers(){
 		UserDao userDao = SpringContextHolder.getBean(UserMDBImpl.class);
-		for (int i = 0; i < times; i++) {
+		for (int i = 0; i < addItems; i++) {
+			if (idsList.size()>items) {
+				break;
+			}
 			User user=new User();
 			user.setName(Integer.toString(i));
 			userDao.save(user);
-//			idsList.add(user.getId());
+			int number=(int) (addItems*Math.random());
+			if (number%((addItems/items)/3)==0) {
+				idsList.add(user.getId());
+			}
 		}
 	}
 
 	@Test
 	public void multi(){
+		UserDao userDao = SpringContextHolder.getBean(UserMDBImpl.class);
+		userDao.deleteAll();
 		ArrayList<Thread> threads = new ArrayList<Thread>();
-		int sum =100;
+		int sum =140000;
 		int perThread = sum/NUM_THREADS;
 		for(int i=0; i< NUM_THREADS; i++){
 			threads.add(new Thread(new AddTest(perThread)));
@@ -68,33 +69,36 @@ public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 //	@Test
 	public void multiFind(){
 		ArrayList<Thread> threads = new ArrayList<Thread>();
-		int sum =50000;
-		int perThread = sum/NUM_THREADS;
+		int perThread = items/NUM_THREADS;
+		if (idsList.size()<items) {
+			System.out.println("missing items!!!!!");
+		}
 		for(int i=0; i< NUM_THREADS; i++){
-			threads.add(new Thread(new FindTest(perThread)));
+			threads.add(new Thread(new FindTest(idsList.subList(i*perThread, (i+1)*perThread),perThread)));
 			System.gc();
 		}
 		for(Thread td : threads){
 			td.start();
 		}
-		while(sum>0){
+		while(items>0){
 			;
 		}
 	}
-//	@Test
+	@Test
 	public void multiDelete(){
 		ArrayList<Thread> threads = new ArrayList<Thread>();
-		int sum =40;
-
-		int perThread = sum/NUM_THREADS;
+		int perThread = items/NUM_THREADS;
+		if (idsList.size()<items) {
+			System.out.println("missing items!!!!!");
+		}
 		for(int i=0; i< NUM_THREADS; i++){
-			threads.add(new Thread(new DeleteTest(perThread)));
+			threads.add(new Thread(new DeleteTest(idsList.subList(i*perThread, (i+1)*perThread),perThread)));
 			System.gc();
 		}
 		for(Thread td : threads){
 			td.start();
 		}
-		while(sum>0){
+		while(items>0){
 			;
 		}
 	}
@@ -103,24 +107,22 @@ public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 class FindTest implements Runnable{
 	private static Logger logger = LoggerFactory.getLogger(FindTest.class);
 	private UserDao userDao = SpringContextHolder.getBean(UserMDBImpl.class);
-	private List<User> users;
+	private List<String> usersId;
 	private int scale;
 	
-	public FindTest(List<User> users){
-		this.users = users;
+	public FindTest(List<String> idsList,int scale){
+		this.usersId = idsList;
+		this.scale=scale;
 	}
 	public FindTest(int scale){
 		this.scale = scale;
 	}
 	@Override
 	public void run() {
-		
 		long startTime = System.currentTimeMillis();
 		for(int i=0; i< scale; i++){
-			String str = "{name:'"+"test"+i+"'}";
-			String str1 = "test"+i;
-			User user = ((BaseMDBImpl<User>) userDao).findOne(str);
-			assertEquals(((BaseMDBImpl<User>) userDao).findOne(str).getName(), str1);	
+			User user = ((BaseMDBImpl<User>) userDao).findById(usersId.get(i));
+//			assertEquals(((BaseMDBImpl<User>) userDao).findOne(str).getName(), str1);	
 		}
 		long endTime = System.currentTimeMillis();
 		logger.info("find "+ scale+ " takes "+ (endTime-startTime) + "ms");
@@ -131,11 +133,12 @@ class FindTest implements Runnable{
 class DeleteTest implements Runnable{
 	private static Logger logger = LoggerFactory.getLogger(DeleteTest.class);
 	private UserDao userDao = SpringContextHolder.getBean(UserMDBImpl.class);
-	private List<User> users;
+	private List<String> userIds;
 	private int scale;
 	
-	public DeleteTest(List<User> users){
-		this.users = users;
+	public DeleteTest(List<String> users,int scale){
+		this.userIds = users;
+		this.scale=scale;
 	}
 	public DeleteTest(int scale){
 		this.scale = scale;
@@ -144,11 +147,7 @@ class DeleteTest implements Runnable{
 	public void run() {
 		long startTime = System.currentTimeMillis();
 		for(int i=0; i< scale; i++){
-			String str = "{name:'"+"test"+i+"'}";
-			String str1 = "test"+i;
-			User user = ((BaseMDBImpl<User>) userDao).findOne(str);
-			userDao.delete(user);
-			assertEquals(((BaseMDBImpl<User>) userDao).findOne(str), null);	
+			((BaseMDBImpl<User>) userDao).deleteById(userIds.get(i));
 		}
 		long endTime = System.currentTimeMillis();
 		logger.info("delete "+ scale+ " takes "+ (endTime-startTime) + "ms");

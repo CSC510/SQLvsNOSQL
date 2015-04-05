@@ -31,18 +31,18 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 			User user=new User();
 			user.setName(Integer.toString(i));
 			userDao.save(user);
-			idsList.add(user.getId());
+//			idsList.add(user.getId());
 		}
 	}
 
-//	@Test
+	@Test
 	public void addPerformaceTest(){
+
 		int [] testData={1000,5000,10000,20000,40000,80000,120000,160000,200000};
-//		int [] testData={100};
  		for (int i = 0; i < testData.length; i++) {
 			userDao.deleteAll();
 			long startTime,totalTime;
-			int times=testData[i];
+			int times=140000;
 			startTime=System.currentTimeMillis();
 			addTestUsers(times);
 			totalTime=System.currentTimeMillis()-startTime;
