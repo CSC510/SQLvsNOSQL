@@ -48,7 +48,7 @@ public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 		}
 	}
 
-//	@Test
+	@Test
 	public void multi(){
 		UserDao userDao = SpringContextHolder.getBean(UserMDBImpl.class);
 		userDao.deleteAll();
