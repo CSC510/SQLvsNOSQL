@@ -33,17 +33,18 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 			User user=new User();
 			user.setName(Integer.toString(i));
 			userDao.save(user);
-			idsList.add(user.getId());
+//			idsList.add(user.getId());
 		}
 	}
 
-//	@Test
+	@Test
 	public void addPerformaceTest(){
-		int [] testData={1000,100000,200000,300000,400000,500000,600000,700000,800000,900000,1000000};
+//		int [] testData={1000,10000,20000,40000,80000,100000,140000,160000,200000};
+		int [] testData= {100000};
  		for (int i = 0; i < testData.length; i++) {
 			userDao.deleteAll();
 			long startTime,totalTime;
-			int times=testData[i];
+			int times=140000;
 			startTime=System.currentTimeMillis();
 //			List<String> ids=new ArrayList<String>();
 			addTestUsers(times);
@@ -76,7 +77,7 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 		userDao.deleteAll();
 	}
 
-	@Test
+//	@Test
 	public void deletebyIdPerformance() {
 		userDao.deleteAll();
 //		int times=1000000;   // data size in the database

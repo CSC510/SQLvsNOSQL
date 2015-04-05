@@ -68,7 +68,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
             </property>  
             <property name="url" value="jdbc:mysql://localhost:3306/spring"></property>  
             <property name="username" value="root"></property>  
-            <property name="password" value="gjzyc2010"></property>
+            <property name="password" value="123456"></property>
     </bean>  
 </beans>
 
@@ -80,7 +80,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
             </property>  
             <property name="url" value="jdbc:mysql://localhost:3306/spring"></property>  
             <property name="username" value="root"></property>  
-            <property name="password" value="gjzyc2010"></property>
+            <property name="password" value="123456"></property>
     </bean>  
 </beans>
 
