@@ -49,10 +49,10 @@ public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 		}
 	}
 
-//	@Test
+	@Test
 	public void multi(){
 		ArrayList<Thread> threads = new ArrayList<Thread>();
-		int sum =1000000;
+		int sum =100;
 		int perThread = sum/NUM_THREADS;
 		for(int i=0; i< NUM_THREADS; i++){
 			threads.add(new Thread(new AddTest(perThread)));
@@ -65,7 +65,7 @@ public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 			;
 		}
 	}
-	@Test
+//	@Test
 	public void multiFind(){
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		int sum =50000;
