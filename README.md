@@ -1,5 +1,4 @@
 # SQLvsNOSQL
-dasdfasf
 Comparison between Oracle and MongoDB
 
 ##Background
@@ -22,13 +21,170 @@ Comparison between Oracle and MongoDB
 
 ##Testing Result
 
-###Single Thread Test
+###Single Thread Add Performance Comparison
+<table>
+<thead>
+<tr class="header">
+<th align="left">#Records</th>
+<th align="left">1000</th>
+<th align="left">10000</th>
+<th align="left">20000</th>
+<th align="left">40000</th>
+<th align="left">80000</th>
+<th align="left">140000</th>
+<th align="left">160000</th>
+<th align="left">200000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MongoDB</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">MySQL</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
 
-####Single Thread Add Performance
+####Single Thread Find Performance Comparison I
+<table>
+<thead>
+<tr class="header">
+<th align="left">#Records</th>
+<th align="left">1000</th>
+<th align="left">10000</th>
+<th align="left">20000</th>
+<th align="left">40000</th>
+<th align="left">80000</th>
+<th align="left">140000</th>
+<th align="left">160000</th>
+<th align="left">200000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MongoDB</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">MySQL</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
 
-####Single Thread Find Performance
+####Single Thread Find Performance Comparison II
+<table>
+<thead>
+<tr class="header">
+<th align="left">#Records</th>
+<th align="left">1000</th>
+<th align="left">10000</th>
+<th align="left">20000</th>
+<th align="left">40000</th>
+<th align="left">80000</th>
+<th align="left">140000</th>
+<th align="left">160000</th>
+<th align="left">200000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MongoDB</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">MySQL</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
 
-####Single Thread Delete Performance
+####Single Thread Delete Performance Comparison I
+<table>
+<thead>
+<tr class="header">
+<th align="left">#Records</th>
+<th align="left">1000</th>
+<th align="left">10000</th>
+<th align="left">20000</th>
+<th align="left">40000</th>
+<th align="left">80000</th>
+<th align="left">140000</th>
+<th align="left">160000</th>
+<th align="left">200000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MongoDB</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">MySQL</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+
 
 ###Multi-Thread Test
 
