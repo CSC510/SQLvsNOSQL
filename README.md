@@ -189,7 +189,7 @@ Comparison between Oracle and MongoDB
 </table>
 
 
-###Multi-Thread Test
+###More in NoSQL DB (Multi-Thread Test)
 
 In order to test the multi-thread performance of NoSQL databases, we have picked the Mongo Database and tested its insert, findbyId, delete performance by comparing its time cost in different threads. We have used single thread, dual threads, four threads and eight threads to execute query so that we could see whether using <b>multiple threads</b> is an effective way to <b>save time</b> in Mongo like NOSQL databases.
 
@@ -197,7 +197,7 @@ In order to test the multi-thread performance of NoSQL databases, we have picked
 To test the insert performance, we have utilized the control variates method by using different number of threads to add the same number of records to the database. And after that we increase the records inserted to the database and check the time for inserting to see if there is any difference using different number of threads.
 
 #####Data
-We have tested 9 groups of data, each column of the first row means the number of data that have been inserted into the database. And the corresponding column of the second to the fifth row is the number of time in millisecond that is spent on this insertion. For two or more threads, the time given is the average time of the threads take to perform the insertion. 
+We have tested 9 groups of data, each column of the first row means the number of data that have been inserted into the database, from 1000 to 200000. And the corresponding column on the second to the fifth row is the number of time in millisecond that is spent on this insertion. For two or more threads, the time given is the last-finished time the threads take to perform the insertion. 
 
 For example, if the insert 1000 records of data using 4 threads, each of the threads will only insert 250 items of data, each taking 1020 ms, 1100 ms, 869 ms, 1188 ms. Therefore, the total amount of time showed on the table would the max of the four time which is 1188 ms. The insertion can not be defined as finished until the last thread finishes its job.
 
@@ -272,12 +272,21 @@ For example, if the insert 1000 records of data using 4 threads, each of the thr
 <img src="img/multi_insert.png"/>
 #####Analysis
 
-From the figure, we can easily see that the number of threads doesn't have much improvement on the time used to do the insertion. The line travels across each other at times and with the number of records increasing, the time increases linearly. The reason why multi-thread has no effect on the insertion performance is probably because of the lock system of the database. When one thread has entered the critical section, other thread has to wait until the ongoing thread finish. In that case, the multiple threads just divide the task separetely and use almost the same amount of time as the single thread does.  
+From the figure, we can easily see that the number of threads doesn't have much improvement on the time used to do the insertion. The line travels across each other at times and with the number of records increasing, the time increases linearly. The reason why multi-thread has no effect on the insertion performance is probably because of the lock system of the database. When one thread has entered the critical section, other thread has to wait until the ongoing thread finish. In that case, the multiple threads just divide the task separetely and use almost the same amount of time as the single thread does.  Therefore, for insertion, there is no point to use multi-thread to visit the database as multiple threads may consume more resources than single thread.
 
 ####Multi-Thread Find Performance
 
+To test the find performance, we have implemented two test methods. Both of the methods have utilized the control variates method. One is to find certain number of records in the database while the number of records in the database is increasing. The other is to find an increasing number of records in a database with fixed number of records. Both of the methods compare the result with single thread and multi-thread. The time is counted to see if multi-thread execution has any benefit on the time factor.
+
 ##### Find Performance Test I
+
+In Find Performance test I, the task is to find an increasing number of records in the database with 200000 records. The time of the query is calculated and compared with the result using two or more threads. 
+
 ######Data
+
+We have tested 9 groups of data, each column of the first row means the number of data that needs to be acquired through the query process, from 1000 to 200000. And the corresponding column on the second to the fifth row is the number of time in millisecond that is spent on this query. For two or more threads, the time given is the last-finished time of the threads take to perform the query. 
+
+
 <table>
 <thead>
 <tr class="header">
@@ -350,8 +359,17 @@ From the figure, we can easily see that the number of threads doesn't have much 
 <img src="img/multi_find_1.png"/>
 ######Analysis
 
+As you can see from the above figure, the time spend on the single thread is larger than multi-thread ones. It almost takes 50% more time than the multi-thread ones, which is 40000 ms compared to 25000 ms. From this prospective, we can infer that using multi-thread will improve the time factor on the query like execution on the Mongo like NoSQL database. However, we could also see that the time spent on query by two or more threads are almost the same, which means the performance gained through adding threads is limited. If you have already got two threads performing the query on the NoSQL databases, adding more threads won't bring you significant improvement as you may expect. 
+-[] Reason
+
 ##### Find Performance Test II
+
+In Find Performance test II, the task is to find 5000 records in the database while the number of records in the database is increasing, from 10000 to 200000. The time of the query is calculated and compared with the result using two or more threads. 
+
 ######Data
+
+We have tested 7 groups of data, each column of the first row means the number of records existing in the database, from 10000 to 200000. And the corresponding column on the second to the fifth row is the number of time in millisecond that is spent on finding 5000 records in this database. For two or more threads, the time given is the last-finished time of the threads take to perform the query. 
+
 <table>
 <thead>
 <tr class="header">
@@ -408,11 +426,20 @@ From the figure, we can easily see that the number of threads doesn't have much 
 
 ######Analysis
 
+We can infer from the above figure that the time spent on searching won't increase a lot as the amount of records existing in the database increases. The time is around 2000 ms to 4000 ms. Multiple threads do have some impact on the time cost of the query process, but it is not worthwhile. The most significant gap between single and multiple threads is 2000 ms which is 2 seconds. It won't be an issue for using another 2 seconds to find 5000 data in a database in worst-case scenario. However, if the number of records needs to found increases, maybe multi-thread way would be a more acceptable methods.
 
 ####Multi-Thread Delete Performance
 
+To test the delete multi-thread performance of NoSQL database, we have implemented two test methods. Both of the methods have utilized the control variates method. One is to delete certain number of records in the database while the number of records in the database is increasing. The other is to delete an increasing number of records in a database with fixed number of records. Both of the methods compare the result with single thread and multi-thread. The time is counted to see if multi-thread execution has any benefit on the time factor.
+
 ##### Delete Performance Test I
+
+In Delete Performance test I, the task is to delete an increasing number of records in a database with 200000 records. The time of the deletion is calculated and compared with the result using two or more threads. 
+
 ######Data
+
+We have tested 9 groups of data, each column of the first row means the number of data that needs to be deleted through the deletion process, from 1000 to 200000. And the corresponding column on the second to the fifth row is the number of time in millisecond that is spent on this query. For two or more threads, the time given is the last-finished time of the threads take to perform the deletion. 
+
 <table>
 <thead>
 <tr class="header">
@@ -486,9 +513,17 @@ From the figure, we can easily see that the number of threads doesn't have much 
 
 ######Analysis
 
+As we can infer from the figure, the time spent on the deletion increases with the number of delete operation increase, as we expected. The multiple threads don't help to shorten the time spend on the deletion. This is probably the same reason as in the insertion, the lock in the database prohibit multiple threads entering the critical section of the deletion process. Therefore, only one thread would be able to perform normally and others are set to wait until it finishes.
+
 
 ##### Delete Performance Test II
+
+In Delete Performance test II, the task is to delete an 5000 records in the database while the number of records in the database is increasing, from 10000 to 200000. The time of the deletion is calculated and compared with the result using two or more threads. 
+
 ######Data
+
+We have tested 7 groups of data, each column of the first row means the number of records existing in the database, from 10000 to 200000. And the corresponding column on the second to the fifth row is the number of time in millisecond that is spent on deleting 5000 records in this database. For two or more threads, the time given is the last-finished time of the threads take to perform the query. 
+
 <table>
 <thead>
 <tr class="header">
@@ -551,6 +586,8 @@ From the figure, we can easily see that the number of threads doesn't have much 
 <img src="img/multi_del_2.png"/>
 
 ######Analysis
+
+As we can infer from the above figure, the time in performing this task is fairly small, only takes about 1000 ms to 2000 ms. And we cannot see any performance gain by using multi-thread methods. I think the reason is the same as mentioned in the former test methods that the lock in the database prohibits the multiple threads from enterring into its critical section.
 
 ###Join Table Performance
 
