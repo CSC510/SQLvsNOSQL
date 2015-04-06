@@ -131,12 +131,12 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 	/*
 	 *  Delete different size from 200000 in mongodb
 	 */
-//	@Test
+	@Test
 	public void deletebyIdPerformance2() {
 		userDao.deleteAll();
-		int times = 200000;  
+		int times = 80000;  
 		int [] testData = {1000,5000,10000,20000,40000,80000,120000,160000,200000};
-		int deleteItems = 200000;  // exchange deleteItems with testData
+		int deleteItems = 5000;  // exchange deleteItems with testData
 		
 		addTestUsers(times);
 		

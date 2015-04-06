@@ -148,9 +148,9 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	 */
 	@Test
 	public void deletePerformance2() {
-		int times = 10000;   // data size in the database
+		int times = 200000;   // data size in the database
 		int[] testData ={1000, 5000, 10000, 20000, 40000, 80000, 100000, 150000, 180000, 200000}; // find times
-		int deleteItems = 5000; // exchange deleteItems with testData
+		int deleteItems = 1000; // exchange deleteItems with testData
 		
 		addUsers(times);
 		userDao.flush();
