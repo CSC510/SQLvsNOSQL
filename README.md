@@ -191,12 +191,20 @@ Comparison between Oracle and MongoDB
 
 ###Multi-Thread Test
 
+In order to test the multi-thread performance of NoSQL databases, we have picked the Mongo Database and tested its insert, findbyId, delete performance by comparing its time cost in different threads. We have used single thread, dual threads, four threads and eight threads to execute query so that we could see whether using <b>multiple threads</b> is an effective way to <b>save time</b> in Mongo like NOSQL databases.
+
 ####Multi-Thread Add Performance
+To test the insert performance, we have utilized the control variates method by using different number of threads to add the same number of records to the database. And after that we increase the records inserted to the database and check the time for inserting to see if there is any difference using different number of threads.
+
 #####Data
+We have tested 9 groups of data, each column of the first row means the number of data that have been inserted into the database. And the corresponding column of the second to the fifth row is the number of time in millisecond that is spent on this insertion. For two or more threads, the time given is the average time of the threads take to perform the insertion. 
+
+For example, if the insert 1000 records of data using 4 threads, each of the threads will only insert 250 items of data, each taking 1020 ms, 1100 ms, 869 ms, 1188 ms. Therefore, the total amount of time showed on the table would the max of the four time which is 1188 ms. The insertion can not be defined as finished until the last thread finishes its job.
+
 <table>
 <thead>
 <tr class="header">
-<th align="left">#Threads</th>
+<th align="left">#Threads/Data Inserted</th>
 <th align="left">1000</th>
 <th align="left">10000</th>
 <th align="left">20000</th>
@@ -223,46 +231,48 @@ Comparison between Oracle and MongoDB
 </tr>
 <tr class="even">
 <td align="left">2 Threads</td>
-<td align="left">1103</td>
-<td align="left">4637</td>
-<td align="left">6787</td>
-<td align="left">8840</td>
-<td align="left">15147</td>
-<td align="left">15079</td>
-<td align="left">18791</td>
-<td align="left">23146</td>
-<td align="left">28319</td>
+<td align="left">1175</td>
+<td align="left">4707</td>
+<td align="left">6859</td>
+<td align="left">8906</td>
+<td align="left">15489</td>
+<td align="left">15341</td>
+<td align="left">18995</td>
+<td align="left">23215</td>
+<td align="left">28381</td>
 </tr>
 <tr class="odd">
 <td align="left">4 Threads</td>
-<td align="left">1044</td>
-<td align="left">5208</td>
-<td align="left">7974</td>
-<td align="left">11911</td>
-<td align="left">17051</td>
-<td align="left">18529</td>
-<td align="left">22080</td>
-<td align="left">26255</td>
-<td align="left">28989</td>
+<td align="left">1188</td>
+<td align="left">5346</td>
+<td align="left">8120</td>
+<td align="left">12122</td>
+<td align="left">17250</td>
+<td align="left">18727</td>
+<td align="left">22316</td>
+<td align="left">26486</td>
+<td align="left">29256</td>
 </tr>
 <tr class="even">
 <td align="left">8 Threads</td>
-<td align="left">941</td>
-<td align="left">5707</td>
-<td align="left">9840</td>
-<td align="left">13806</td>
-<td align="left">18291</td>
-<td align="left">21993</td>
-<td align="left">24250</td>
-<td align="left">28987</td>
-<td align="left">31345</td>
+<td align="left">1138</td>
+<td align="left">6076</td>
+<td align="left">10204</td>
+<td align="left">13968</td>
+<td align="left">18527</td>
+<td align="left">22397</td>
+<td align="left">24609</td>
+<td align="left">29854</td>
+<td align="left">32018</td>
 </tr>
 </tbody>
 </table>
 
 #####Figure
-
+<img src="img/multi_insert.png"/>
 #####Analysis
+
+From the figure, we can easily see that the number of threads doesn't have much improvement on the time used to do the insertion. The line travels across each other at times and with the number of records increasing, the time increases linearly. The reason why multi-thread has no effect on the insertion performance is probably because of the lock system of the database. When one thread has entered the critical section, other thread has to wait until the ongoing thread finish. In that case, the multiple threads just divide the task separetely and use almost the same amount of time as the single thread does.  
 
 ####Multi-Thread Find Performance
 
@@ -298,44 +308,46 @@ Comparison between Oracle and MongoDB
 </tr>
 <tr class="even">
 <td align="left">2 Threads</td>
-<td align="left">478</td>
-<td align="left">2159</td>
-<td align="left">3598</td>
-<td align="left">6058</td>
-<td align="left">7392</td>
-<td align="left">13443</td>
-<td align="left">16516</td>
-<td align="left">22291</td>
-<td align="left">24557</td>
+<td align="left">531</td>
+<td align="left">2205</td>
+<td align="left">3672</td>
+<td align="left">6132</td>
+<td align="left">7463</td>
+<td align="left">13545</td>
+<td align="left">16597</td>
+<td align="left">22391</td>
+<td align="left">24650</td>
 </tr>
 <tr class="odd">
 <td align="left">4 Threads</td>
-<td align="left">379</td>
-<td align="left">1666</td>
-<td align="left">3104</td>
-<td align="left">5193</td>
-<td align="left">8803</td>
-<td align="left">12079</td>
-<td align="left">19512</td>
-<td align="left">20013</td>
-<td align="left">26154</td>
+<td align="left">592</td>
+<td align="left">1863</td>
+<td align="left">3291</td>
+<td align="left">5376</td>
+<td align="left">8999</td>
+<td align="left">12298</td>
+<td align="left">19754</td>
+<td align="left">20307</td>
+<td align="left">26495</td>
 </tr>
 <tr class="even">
 <td align="left">8 Threads</td>
-<td align="left">314</td>
-<td align="left">1408</td>
-<td align="left">2514</td>
-<td align="left">5019</td>
-<td align="left">7465</td>
-<td align="left">13822</td>
-<td align="left">17659</td>
-<td align="left">19349</td>
-<td align="left">25642</td>
+<td align="left">360</td>
+<td align="left">1479</td>
+<td align="left">2647</td>
+<td align="left">5427</td>
+<td align="left">7908</td>
+<td align="left">13954</td>
+<td align="left">18270</td>
+<td align="left">19893</td>
+<td align="left">26214</td>
 </tr>
 </tbody>
 </table>
 
 ######Figure
+
+<img src="img/multi_find_1.png"/>
 ######Analysis
 
 ##### Find Performance Test II
@@ -364,34 +376,36 @@ Comparison between Oracle and MongoDB
 </tr>
 <tr class="even">
 <td align="left">2 Threads</td>
-<td align="left">2494</td>
-<td align="left">2700</td>
-<td align="left">2434</td>
-<td align="left">2472</td>
-<td align="left">3456</td>
-<td align="left">2876</td>
+<td align="left">2577</td>
+<td align="left">2792</td>
+<td align="left">2538</td>
+<td align="left">2567</td>
+<td align="left">3544</td>
+<td align="left">3053</td>
 </tr>
 <tr class="odd">
 <td align="left">4 Threads</td>
-<td align="left">1875</td>
-<td align="left">2032</td>
-<td align="left">1890</td>
-<td align="left">2302</td>
-<td align="left">2646</td>
-<td align="left">2023</td>
+<td align="left">2054</td>
+<td align="left">2285</td>
+<td align="left">2080</td>
+<td align="left">2527</td>
+<td align="left">2849</td>
+<td align="left">2116</td>
 </tr>
 <tr class="even">
 <td align="left">8 Threads</td>
-<td align="left">1647</td>
-<td align="left">1433</td>
-<td align="left">1524</td>
-<td align="left">1480</td>
-<td align="left">1525</td>
-<td align="left">1653</td>
+<td align="left">1788</td>
+<td align="left">1630</td>
+<td align="left">1889</td>
+<td align="left">1755</td>
+<td align="left">1916</td>
+<td align="left">2265</td>
 </tr>
 </tbody>
 </table>
 ######Figure
+<img src="img/multi_find_2.png"/>
+
 ######Analysis
 
 
@@ -429,39 +443,39 @@ Comparison between Oracle and MongoDB
 </tr>
 <tr class="even">
 <td align="left">2 Threads</td>
-<td align="left">231</td>
-<td align="left">816</td>
-<td align="left">1460</td>
-<td align="left">2840</td>
-<td align="left">3673</td>
-<td align="left">5913</td>
-<td align="left">18427</td>
-<td align="left">24890</td>
-<td align="left">29295</td>
+<td align="left">270</td>
+<td align="left">855</td>
+<td align="left">1507</td>
+<td align="left">2879</td>
+<td align="left">3934</td>
+<td align="left">5965</td>
+<td align="left">18703</td>
+<td align="left">25558</td>
+<td align="left">29463</td>
 </tr>
 <tr class="odd">
 <td align="left">4 Threads</td>
-<td align="left">277</td>
-<td align="left">783</td>
-<td align="left">1511</td>
-<td align="left">2220</td>
-<td align="left">5261</td>
-<td align="left">9938</td>
-<td align="left">20535</td>
-<td align="left">28330</td>
-<td align="left">32314</td>
+<td align="left">398</td>
+<td align="left">862</td>
+<td align="left">1679</td>
+<td align="left">2398</td>
+<td align="left">5443</td>
+<td align="left">10588</td>
+<td align="left">21461</td>
+<td align="left">29038</td>
+<td align="left">34204</td>
 </tr>
 <tr class="even">
 <td align="left">8 Threads</td>
-<td align="left">215</td>
-<td align="left">998</td>
-<td align="left">1251</td>
-<td align="left">2079</td>
-<td align="left">3778</td>
-<td align="left">15499</td>
-<td align="left">21391</td>
-<td align="left">21308</td>
-<td align="left">25748</td>
+<td align="left">319</td>
+<td align="left">1290</td>
+<td align="left">1402</td>
+<td align="left">2304</td>
+<td align="left">4006</td>
+<td align="left">15926</td>
+<td align="left">21977</td>
+<td align="left">21817</td>
+<td align="left">26349</td>
 </tr>
 </tbody>
 </table>
@@ -501,33 +515,34 @@ Comparison between Oracle and MongoDB
 </tr>
 <tr class="even">
 <td align="left">2 Threads</td>
-<td align="left">1186</td>
-<td align="left">1362</td>
-<td align="left">976</td>
-<td align="left">1662</td>
-<td align="left">1533</td>
-<td align="left">882</td>
-<td align="left">1005</td>
+<td align="left">1238</td>
+<td align="left">1415</td>
+<td align="left">1024</td>
+<td align="left">1706</td>
+<td align="left">1595</td>
+<td align="left">934</td>
+<td align="left">1055</td>
 </tr>
 <tr class="odd">
 <td align="left">4 Threads</td>
-<td align="left">1274</td>
-<td align="left">1189</td>
-<td align="left">858</td>
-<td align="left">1250</td>
-<td align="left">1238</td>
-<td align="left">799</td>
-<td align="left">904</td>
+<td align="left">1412</td>
+<td align="left">1319</td>
+<td align="left">930</td>
+<td align="left">1371</td>
+<td align="left">1404</td>
+<td align="left">919</td>
+<td align="left">1053</td>
 </tr>
 <tr class="even">
 <td align="left">8 Threads</td>
-<td align="left">1043</td>
-<td align="left">1100</td>
-<td align="left">813</td>
-<td align="left">1042</td>
-<td align="left">891</td>
-<td align="left">971</td>
-<td align="left">993</td>
+<td align="left">1280</td>
+<td align="left">1487</td>
+<td align="left">1053</td>
+<td align="left">1190</td>
+<td align="left">996</td>
+<td align="left">1233</td>
+<td align="left">1186</td>
+
 </tr>
 </tbody>
 </table>
