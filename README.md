@@ -21,12 +21,13 @@ Comparison between Oracle and MongoDB
 
 ##Testing Result
 
-###Single Thread Add Performance Comparison
+####Single Thread Add Performance Comparison
 <table>
 <thead>
 <tr class="header">
 <th align="left">#Records</th>
 <th align="left">1000</th>
+<th align="left">5000</th>
 <th align="left">10000</th>
 <th align="left">20000</th>
 <th align="left">40000</th>
@@ -39,17 +40,19 @@ Comparison between Oracle and MongoDB
 <tbody>
 <tr class="odd">
 <td align="left">MongoDB</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1411</td>
+<td align="left">2263</td>
+<td align="left">2641</td>
+<td align="left">2668</td>
+<td align="left">5352</td>
+<td align="left">8600</td>
+<td align="left">13137</td>
+<td align="left">17449</td>
+<td align="left">21908</td>
 </tr>
 <tr class="even">
 <td align="left">MySQL</td>
+<td align="left"></td>
 <td align="left"></td>
 <td align="left"></td>
 <td align="left"></td>
