@@ -26,9 +26,9 @@ import com.webapp.daoimpl.mdb.BaseMDBImpl;
 
 public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 	
-	public static final int NUM_THREADS = 4;
+	public static final int NUM_THREADS =1;
 	private List<String> idsList=new ArrayList<String>();
-	private int items=80000;
+	private int items=5000;
 	private int addItems=200000;
 	@Before
 	public void addTestUsers(){
@@ -41,7 +41,7 @@ public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 			user.setName(Integer.toString(i));
 			userDao.save(user);
 			int number=(int) (addItems*Math.random());
-			if (number%((addItems/items)/2)==0) {
+			if (number%((addItems/items)/8)==0) {
 				idsList.add(user.getId());
 			}
 		}
