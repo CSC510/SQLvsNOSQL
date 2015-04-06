@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.aop.ThrowsAdvice;
 
 import com.webapp.common.util.SpringContextHolder;
 import com.webapp.daoimpl.mdb.BaseMDBImpl;
@@ -27,10 +26,10 @@ import com.webapp.daoimpl.mdb.BaseMDBImpl;
 
 public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 	
-	public static final int NUM_THREADS = 1;
+	public static final int NUM_THREADS =1;
 	private List<String> idsList=new ArrayList<String>();
-	private int items=50;
-	private int addItems=10000;
+	private int items=5000;
+	private int addItems=200000;
 	@Before
 	public void addTestUsers(){
 		UserDao userDao = SpringContextHolder.getBean(UserMDBImpl.class);
@@ -42,7 +41,7 @@ public class UserMDBImplMultiThreadTest extends SpringTransactionContextTest{
 			user.setName(Integer.toString(i));
 			userDao.save(user);
 			int number=(int) (addItems*Math.random());
-			if (number%((addItems/items)/3)==0) {
+			if (number%((addItems/items)/8)==0) {
 				idsList.add(user.getId());
 			}
 		}
