@@ -31,11 +31,11 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 			User user=new User();
 			user.setName(Integer.toString(i));
 			userDao.save(user);
-//			idsList.add(user.getId());
+			idsList.add(user.getId());
 		}
 	}
 
-	@Test
+//	@Test
 	public void addPerformaceTest(){
 
 		int [] testData={1000,5000,10000,20000,40000,80000,120000,160000,200000};
@@ -116,53 +116,51 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 		long startTime,totalTime;
 		addTestUsers(times);
 		
-		Set<String>randoms=new HashSet<String>();
 		Random randomGenerator = new Random();
-		while(randoms.size()<deleteItems) {
-			int temp= randomGenerator.nextInt(times);
-			randoms.add(idsList.get(temp));
-		}
-		
 		startTime=System.currentTimeMillis();
-		for (int j = 0; j < randoms.size(); j++) {
-			userDao.deleteById((String)randoms.toArray()[j]);
+		for (int j = 0; j < deleteItems; j++) {
+			int temp= randomGenerator.nextInt(times);
+			userDao.deleteById(idsList.get(temp));
 		}
 		
 		totalTime=System.currentTimeMillis()-startTime;
 		System.out.println("MDB delete "+deleteItems+" from "+ times+" records of data by id needs "+totalTime+" ms");
-		randoms.clear();
 		idsList.clear();
 		userDao.deleteAll();
 	}
 	/*
 	 *  Delete different size from 200000 in mongodb
 	 */
-	@Test
+//	@Test
 	public void deletebyIdPerformance2() {
 		userDao.deleteAll();
 		int times = 200000;  
 		int [] testData = {1000,5000,10000,20000,40000,80000,120000,160000,200000};
-		int deleteItems = 20000;  // exchange deleteItems with testData
+		int deleteItems = 200000;  // exchange deleteItems with testData
 		
 		addTestUsers(times);
 		
-		Set<String>randoms=new HashSet<String>();
 		Random randomGenerator = new Random();
-		while(randoms.size() < deleteItems) {
-			int temp= randomGenerator.nextInt(times);
-			randoms.add(idsList.get(temp));
-		}
-		
 		long startTime, totalTime;
 		startTime=System.currentTimeMillis();
-		for (int i = 0; i < randoms.size(); i++) {
-			userDao.deleteById((String)randoms.toArray()[i]);
+		for (int i = 0; i < deleteItems; i++) {
+			int temp= randomGenerator.nextInt(times);
+			userDao.deleteById(idsList.get(temp));
 		}
 		totalTime=System.currentTimeMillis()-startTime;
 		System.out.println("MDB delete "+deleteItems+" from "+ times+" records of data by id needs "+totalTime+" ms");
-		randoms.clear();
 		idsList.clear();
 		userDao.deleteAll();
 	}
+//	@Test
+	public void delete() {
+		User user = new User();
+		user.setName("fred");
+		userDao.save(user);
+		userDao.deleteById(user.getId());
+		userDao.deleteById(user.getId());
+		userDao.deleteById(user.getId());
+	}
+	
 }
 
