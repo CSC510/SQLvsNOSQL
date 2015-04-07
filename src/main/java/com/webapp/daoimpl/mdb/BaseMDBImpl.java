@@ -14,6 +14,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -27,7 +28,7 @@ import com.webapp.dao.BaseDao;
 @Component
 public class BaseMDBImpl<T> implements BaseDao<T> {
 
-	@Resource(name = "mongoTemplate")
+	@Autowired
 	protected MongoOperations mongoTemplate;
 
 	protected Class<?> entityClass;
@@ -62,6 +63,7 @@ public class BaseMDBImpl<T> implements BaseDao<T> {
         */
     @SuppressWarnings("unchecked")
 	public T findOne( Parameter parameter) {
+    	
     	Query query = createQuery( parameter,null);
     	return (T) this.mongoTemplate.findOne(query, entityClass);
     }

@@ -1,6 +1,5 @@
 package com.webapp.dao.impl.mdb;
 
-import javax.annotation.Resource;
 
 import org.junit.Test;
 import com.webapp.common.test.SpringTransactionContextTest;
@@ -9,7 +8,7 @@ import com.webapp.model.User;
 
 public class BaseMDBImplTest extends SpringTransactionContextTest{
 	
-	@Resource(name = "baseMDBImpl")
+	
     private BaseMDBImpl<User> mongoDao;
 	
 	/**
