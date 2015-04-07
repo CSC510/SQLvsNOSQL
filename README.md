@@ -1,5 +1,5 @@
 # SQLvsNOSQL
-Comparison between Oracle and MongoDB
+Comparison between MySQL and MongoDB
 
 ##Background
 The basic concept of SQL database is Relational database. The definition of relational database is that it strictly uses relations to store data. The way that a relational database matches data is that it uses common characteristics found in the dataset. In a table of a relational database, data is divided into sets of rows and columns. One example of relational database is Microsoft SQL server. It is a set of tables containing data fitted into predefined categories. Each table contains one or more data categories in columns, and each row contains a unique instance of data for the categories defined by the columns. Without knowing the structure of the database table, users can still have access data from the database. But SQL is quite expensive and difficult to scale, because the scaling of relational database has to be distributed on to multiple servers, and handling tables across different servers is a chaos [1]. Also, data in SQL server has to fit into tables, and it will be very complex to design database structure if data doesn’t fit into tables.
@@ -51,37 +51,21 @@ As for consistency, MySQL can be configured for strong consistency, while NoSQL 
 
 
 ##Testing System Design
-In this section, MVC, Spring MVC, and Hibernate will be introduced.
+We designed the DAO layer for two databases MySQL and MongoDB. Based on DAO layer, the test environment is set up using spring test and Junit. In this section, Spring, Spring Data Mongo and Hibernate will be introduced.
 
-###MVC FrameWork
-MVC (Model–view–controller) is a software architectural pattern for implementing user interfaces. It consists of three parts: model, view, and controller.
+<img src="img/spring_architecture" />
+###Spring 
+Spring is a popular application framework written in Java and is used by many developers to create quality applications. This framework consists of many parts which provide different services, and it helps developers to pay attention to the business logic in a proper manner. The technology that Spring is most identified with is the Dependency Injection (DI) flavor of Inversion of Control. Dependency Injection (or sometime called wiring) helps in gluing different classes together and same time keeping them independent. Testing an application written with Spring is simple because environment-dependent code is moved into this framework. Furthermore, by using JavaBean-style POJOs, it becomes easier to use dependency injection for injecting test data.
 
+###Spring Data MongoDB
+The Spring Data MongoDB project provides integration with the MongoDB document database. Key functional areas of Spring Data MongoDB are a POJO centric model for interacting with a MongoDB DBCollection and easily writing a Repository style data access layer.
 
-Model – Model contains the properties and application logic, and it represents business logic and data. When the state of views and controllers changes, their associated model sends notifications, allowing views to update, and controllers to change commands.
-
-
-View – View represents the presentation layer of the application, and it is used to provide UI to users. It requests information from the model and renders the model into interaction form.
-
-
-Controller – Several requests are routed to individual controllers, and then it calls its related model and selects a view for displaying the results. It acts as a coordinator between the model and view.
-
-
-The MVC architecture is self-explanatory. A request is sent to IIS by the browser, then IIS start to search for the route defined in MVC application. Next the requests are passed to the controller, followed by the controller communicating with the model and passing the entity to the front end. As for views, they receive model properties, and rendered these requests on the browser, passing the response to browser through IIS via controllers.
-
-
-MVC is designed for a large team of developers and designers, which means that it is a quite efficient and convenient tool for development. It provides better support for test driven development, so that it is an acceptable approach for software development as almost half of the development time should be spent on testing. Also, it is effective and easy to manage a project with MVC, because it provides less complexity by dividing applications into three parts.
-
-###Spring MVC
-Spring is a popular application framework written in Java and is used by many developers to create quality applications. This framework consists of many parts which provide different services, and it helps developers to pay attention to the business logic in a proper manner. The framework of spring separates MVC in an efficient manner, and it also has the ability to provide many controllers in order to be used as the base classes.
-
-
-In spring MVC framework, application will work in the following manner. First the Dispatcher – Servlet receives requests and the servlet asks the Handler – Mapping and initiate the controller, after which the controller calls the respective methods of service and returns to the Dispatcher – Servlet an object of model and view. Then the respective servlet passes the object of model to view in order to provide the result, and finally with the help of the data of model, view will provide the actual results in the form of final output to the user[7].
-
-
-In spring MVC, developers could use any object as a command or form-backing object, that is to say, you do not need to implement a framework – specific interface or base class. Also, spring’s data binding is highly flexible: it treats type mismatches as validation errors, which can be evaluated by the application, not as system errors. For this reason, a developer does not duplicate the properties of business object as simple, untyped strings, instead of which it is often preferable to bind directly to your business objects. That is the reason why spring’s view resolution is extremely flexible.
+The class MongoTemplate is the central class of the Spring’s MongoDB support providing a rich feature set to interact with the database. The template offers convenience operations to create, update, delete and query for MongoDB documents and provides a mapping between your domain objects and MongoDB documents.
 
 ###Hibernate
 Another tool we use in our project is hibernate. Hibernate is an object – relational mapping and persistence framework for Java that allows developers to map plain old Java objects to relational database tables. Hibernate mainly aims at relieving the developer from the common data persistence related tasks. With the help of hibernate, developers can get maximum effects of data query and retrieval facilities, because hibernate maps the objects in Java with tables in database in an efficient manner. In a word, hibernate provides improved productivity, performance, maintainability, and portability.
+
+A Session in Hibernate is used to get a physical connection with a database. The Session object is lightweight and designed to be instantiated each time an interaction is needed with the database. Persistent objects are saved and retrieved through a Session object.The session objects should not be kept open for a long time because they are not usually thread safe and they should be created and destroyed them as needed. 
 
 ##Testing Methods
 In previous section, several differences between MySQL and MongoDB are listed. Among them we decide to choose multiple threads performance and join performance to test the two database. In this section, our test methods will be discussed in details.
