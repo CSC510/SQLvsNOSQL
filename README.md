@@ -657,7 +657,10 @@ After finishing single thread test, we now start to work on multiple threads tes
 ##Conclusion
 
 ##Future Work
-More powerful hardware will be implemented, so that more large data can be used in tests, as a result of which more precise conclusion can be reached. Also, besides the JUnit Test, the front-end test will be included in our research, for the reason that it could bring more results on Multi-thread test of SQL database. What's more, the performance of other supported NoSQL database such as Cassadra will be involved.
+For the restriction of time and equipment, some work will be included in our future tasks.
+* More powerful hardware will be implemented, so that more large data can be used in tests, as a result of which more precise conclusion can be reached. 
+* Besides the JUnit Test, the front-end test will be included in our research, for the reason that it could bring more results on Multi-thread test of SQL database. 
+* The performance of other supported NoSQL database such as Cassandra will be involved.
 
 ##References
 [1] Ramon Lawrence, “Integration and Virtualization of Relational SQL and NoSQL Systems including MySQL and MongoDB”, in *International Conference on Computational Science and Computational Intelligence, 2014*.
