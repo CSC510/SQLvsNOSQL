@@ -50,6 +50,7 @@ As for consistency, MySQL can be configured for strong consistency, while NoSQL 
     Data manipulation | Specific language using Select, Insert, and Update | Through object-oriented APIs
     Consistency | Can be configured for strong consistency | Depends on products
 
+<img src="img/difference.png" />
 
 ##Testing System Design
 We designed the DAO layer for two databases MySQL and MongoDB. Based on DAO layer, the test environment is set up using spring test and Junit. In this section, Spring, Spring Data Mongo and Hibernate will be introduced.
