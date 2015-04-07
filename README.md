@@ -2,13 +2,13 @@
 Comparison between Oracle and MongoDB
 
 ##Background
-The basic concept of SQL database is Relational database. The definition of relational database is that it strictly uses relations to store data. The way that a relational database matches data is that it uses common characteristics found in the dataset. In a table of a relational database, data is divided into sets of rows and columns. One example of relational database is Microsoft SQL server. It is a set of tables containing data fitted into predefined categories. Each table contains one or more data categories in columns, and each row contains a unique instance of data for the categories defined by the columns. Without knowing the structure of the database table, users can still have access data from the database. But SQL is quite expensive and difficult to scale, because the scaling of relational database has to be distributed on to multiple servers, and handling tables across different servers is a chaos. Also, data in SQL server has to fit into tables, and it will be very complex to design database structure if data doesn’t fit into tables.
+The basic concept of SQL database is Relational database. The definition of relational database is that it strictly uses relations to store data. The way that a relational database matches data is that it uses common characteristics found in the dataset. In a table of a relational database, data is divided into sets of rows and columns. One example of relational database is Microsoft SQL server. It is a set of tables containing data fitted into predefined categories. Each table contains one or more data categories in columns, and each row contains a unique instance of data for the categories defined by the columns. Without knowing the structure of the database table, users can still have access data from the database. But SQL is quite expensive and difficult to scale, because the scaling of relational database has to be distributed on to multiple servers, and handling tables across different servers is a chaos [1]. Also, data in SQL server has to fit into tables, and it will be very complex to design database structure if data doesn’t fit into tables.
 
 
-While SQL database is widely used, in the past few years, a great variety of alternative databases emerged because of the doubt of “one size fits all” thinking concerning data stores. These new database is commonly subsumed under the term of NoSQL. The basic characteristic of NoSQL is that, it would not require fixed table. Moreover, NoSQL database usually avoid join operations, and typically scale horizontally. Another important characteristic of NoSQL is that it trades off “ACID” (atomicity, consistency, isolation and durability), and it allows the schema of data differ from record to record to vary degrees[1]. Here are some advantages of NoSQL database: 1) data can be inserted into database without defining a rigid database schema. 2) data is automatically spread onto several servers without the help of other applications. 3) NoSQL cache data in system memory to increase performance. There are three types of popular NoSQL databases: key-value stores, column-oriented database, and document-based stores.
+While SQL database is widely used, in the past few years, a great variety of alternative databases emerged because of the doubt of “one size fits all” thinking concerning data stores. These new database is commonly subsumed under the term of NoSQL. The basic characteristic of NoSQL is that, it would not require fixed table. Moreover, NoSQL database usually avoid join operations, and typically scale horizontally. Another important characteristic of NoSQL is that it trades off “ACID” (atomicity, consistency, isolation and durability), and it allows the schema of data differ from record to record to vary degrees[2]. Here are some advantages of NoSQL database: 1) data can be inserted into database without defining a rigid database schema. 2) data is automatically spread onto several servers without the help of other applications. 3) NoSQL cache data in system memory to increase performance. There are three types of popular NoSQL databases: key-value stores, column-oriented database, and document-based stores.
 
 
-The comparison of SQL and NoSQL database is a hot buzz in the air for a pretty long time. In the paper *A performance comparison of SQL and NoSQL databases*, Yishan Li and Sathiamoorthy Manoharan found that while NoSQL databases are generally good at storing key-value data, not all NoSQL databases perform better than SQL database. They also observed that in NoSQL database, different types of operation will lead to various performance [2]. In the paper *RDBMS vs NoSQL: Performance and Scaling Comparison*, Christoforos Hadjigeorgiou found that MongoDB can perform much better for complicated queries at the cost of data duplication. Another conclusion the author proposed is that MySQL performs best at deletion whereas MongoDB excels at inserting documents [4].
+The comparison of SQL and NoSQL database is a hot buzz in the air for a pretty long time. In the paper *A performance comparison of SQL and NoSQL databases*, Yishan Li and Sathiamoorthy Manoharan found that while NoSQL databases are generally good at storing key-value data, not all NoSQL databases perform better than SQL database. They also observed that in NoSQL database, different types of operation will lead to various performance [3]. In the paper *RDBMS vs NoSQL: Performance and Scaling Comparison*, Christoforos Hadjigeorgiou found that MongoDB can perform much better for complicated queries at the cost of data duplication. Another conclusion the author proposed is that MySQL performs best at deletion whereas MongoDB excels at inserting documents [4].
 
 ##Goals
 The focus of our report is to compare the single thread and multiple threads performance, and join table performance of MySQL and MongoDB. We compare read, find, and delete operations, with different amount of data stored in database. The rest of the paper is organized as follows. In Section **Differences between SQL and NoSQL** we will introduce the major differences between the two databases. In Section **Testing System Design** the structure of our project will be introduced, and in Section **Test methods** two major approaches used to test the two databases in details. 
@@ -36,8 +36,8 @@ In discussing security, it is necessary to consider fully protecting the entire 
 
 ###Other differences
 MySQL supports for atomic transactions. The ability to contain multiple operations within a transaction and rollback the whole thing as if it were a single operation. MongoDB does not support transactions, but single operations are atomic.
-MySQL uses specific language for data manipulation, e.g. Select, Insert, and Update statements, while NoSQL finish tasks through object-oriented APIs.
-As for consistency, MySQL can be configured for strong consistency, while NoSQL depends on different products.
+MySQL uses specific language for data manipulation, e.g. Select, Insert, and Update statements, while NoSQL finish tasks through object-oriented APIs[5].
+As for consistency, MySQL can be configured for strong consistency, while NoSQL depends on different products[6].
 
                  |     MySQL     |     MongoDB
     ------------ | ------------- | -------------
@@ -76,7 +76,7 @@ MVC is designed for a large team of developers and designers, which means that i
 Spring is a popular application framework written in Java and is used by many developers to create quality applications. This framework consists of many parts which provide different services, and it helps developers to pay attention to the business logic in a proper manner. The framework of spring separates MVC in an efficient manner, and it also has the ability to provide many controllers in order to be used as the base classes.
 
 
-In spring MVC framework, application will work in the following manner. First the Dispatcher – Servlet receives requests and the servlet asks the Handler – Mapping and initiate the controller, after which the controller calls the respective methods of service and returns to the Dispatcher – Servlet an object of model and view. Then the respective servlet passes the object of model to view in order to provide the result, and finally with the help of the data of model, view will provide the actual results in the form of final output to the user.
+In spring MVC framework, application will work in the following manner. First the Dispatcher – Servlet receives requests and the servlet asks the Handler – Mapping and initiate the controller, after which the controller calls the respective methods of service and returns to the Dispatcher – Servlet an object of model and view. Then the respective servlet passes the object of model to view in order to provide the result, and finally with the help of the data of model, view will provide the actual results in the form of final output to the user[7].
 
 
 In spring MVC, developers could use any object as a command or form-backing object, that is to say, you do not need to implement a framework – specific interface or base class. Also, spring’s data binding is highly flexible: it treats type mismatches as validation errors, which can be evaluated by the application, not as system errors. For this reason, a developer does not duplicate the properties of business object as simple, untyped strings, instead of which it is often preferable to bind directly to your business objects. That is the reason why spring’s view resolution is extremely flexible.
@@ -663,16 +663,22 @@ For the restriction of time and equipment, some work will be included in our fut
 * The performance of other supported NoSQL database such as Cassandra will be involved.
 
 ##References
-[1] Ramon Lawrence, “Integration and Virtualization of Relational SQL and NoSQL Systems including MySQL and MongoDB”, in *International Conference on Computational Science and Computational Intelligence, 2014*.
+[1]<addr>http://www.thewindowsclub.com/difference-sql-nosql-comparision
 
 
-[2] Yishan Li, Sathiamoorthy Manoharan, “A performance comparison of SQL and NoSQL databases”, in *IEEE 2013*.
+[2]<addr>http://www.thegeekstuff.com/2014/01/sql-vs-nosql-db/
 
 
-[3] Alexandru Boicea, Florin Radulescu, and Laura Ioana Agapin, “MongoDB vs Oracle - database comparison”, in *2012 Third International Conference on Emerging Intelligent Data and Web Technologies*.
+[3] Ramon Lawrence, “Integration and Virtualization of Relational SQL and NoSQL Systems including MySQL and MongoDB”, in *International Conference on Computational Science and Computational Intelligence, 2014*.
 
 
 [4] Christoforos Hadjigeorgiou, “RDBMS vs NoSQL: Performance and Scaling Comparison”, in *MSc in High Performance Computing, 2013*.
 
 
+[5] Alexandru Boicea, Florin Radulescu, and Laura Ioana Agapin, “MongoDB vs Oracle - database comparison”, in *2012 Third International Conference on Emerging Intelligent Data and Web Technologies*.
 
+
+[6] Yishan Li, Sathiamoorthy Manoharan, “A performance comparison of SQL and NoSQL databases”, in *IEEE 2013*.
+
+
+[7]<addr>http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html
