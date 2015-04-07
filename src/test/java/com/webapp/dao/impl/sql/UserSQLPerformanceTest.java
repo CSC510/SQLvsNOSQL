@@ -4,7 +4,11 @@ package com.webapp.dao.impl.sql;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -30,21 +34,142 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	
 	private List<User> testUsrs=Lists.newArrayList();
 	
-	@Before
-	public void addUsers(){
-		int times =20000;
+//	@Before
+	public void addUsers(int times){
+//		int times =10000;
 		testUsrs.clear();
 		for (int i = 0; i < times; i++) {
 			User user = new User();
-			user.setName("test"+i);
-			if(i<10000)testUsrs.add(user);
+			user.setName("test" + i);
+			testUsrs.add(user);
 			userDao.save(user);
 		}
+	}
+//	@Test
+	@Rollback(false)
+	public void addTest() {
+		addUsers(200000);
+		System.out.println(testUsrs.size());
+		System.out.println("Success~~~~~~~~~~~~~~~~~~");
+	}
+
+	
+//	@Test
+	@Rollback(true)
+	public void addPerformance(){
+//		int [] testData={1000,5000,10000,20000,40000,80000,120000,160000,200000};
+		int [] testData={400000};
+		for (int i = 0; i < testData.length; i++) {
+			long startTime,totalTime;
+			addUsers(testData[i]);
+			startTime=System.currentTimeMillis();
+			userDao.flush();
+			totalTime=System.currentTimeMillis()-startTime;
+			logger.info("SQL insert "+testData[i]+" record of data needs "+totalTime+" ms");
+		}
+	}
+	/*
+	 *  Find 5000 from different data size in the database
+	 */
+//	@Test 
+	@Rollback(true)
+	public void findByIdPerformance1() {
+		int findItems = 5000;
+		int[] testData ={5000, 10000, 20000, 40000, 80000, 120000, 160000, 200000}; // find times
+		int times = 5000; // exchange times with testData
+		addUsers(times);
+		userDao.flush();
+
+		long startTime,totalTime;
+		Random randomGenerator = new Random();
+		startTime=System.currentTimeMillis();
+		for (int k = 0; k < findItems; k++) {
+			int random = randomGenerator.nextInt(times);
+			userDao.findById(testUsrs.get(random).getId());
+		}
+		totalTime=System.currentTimeMillis()-startTime;
+		logger.info("SQL find "+findItems +" records out of "+times+" takes "+totalTime+" ms");
+		testUsrs.clear();
+	}
+
+	/*
+	 *  Find different data size from 200000
+	 */
+//	@Test
+	@Rollback(true)
+	public void findbyIdPerformance2() { 
+		int times = 200000;   // data size in the database
+		int[] testData ={1000, 5000, 10000, 20000, 40000, 80000, 100000, 150000, 180000, 200000}; // find times
+		int findItems = 1000; // exchange findItems with testData
 		
+		addUsers(times);
+		userDao.flush();
+		
+		Random randomGenerator = new Random();
+		long startTime,totalTime;
+		startTime=System.currentTimeMillis();	
+		for (int j = 0; j < findItems; j++) {
+			int randomNum = randomGenerator.nextInt(times);  // generate a random number from 0 to times number.
+			userDao.findById(testUsrs.get(randomNum).getId());
+		}
+		totalTime=System.currentTimeMillis()-startTime;
+		logger.info("SQL find "+findItems +" records out of "+testUsrs.size()+" takes "+totalTime+" ms");
+		testUsrs.clear();
+	}
+	
+	/*
+	 *  Delete 5000 from different data size in the database
+	 */
+//	@Test
+	@Rollback(true)
+	public void deletePerformance1() {	
+		int deleteItems=5000;  // random delete times
+		int [] testData = {5000,10000,20000,40000,80000,120000,160000,200000};
+		int times = 20000;  // exchange times with testData
+		
+		addUsers(times);
+		userDao.flush();
+		
+		Random randomGenerator = new Random();
+		for (int i = 0; i < deleteItems; i++) {
+			int temp = randomGenerator.nextInt(times);
+			userDao.delete(testUsrs.get(temp));
+//			userDao.deleteById(testUsrs.get(temp).getId());
+		}
+		long startTime, totalTime;
+		startTime=System.currentTimeMillis();
+		userDao.flush();
+		totalTime=System.currentTimeMillis()-startTime;
+		logger.info("SQL delete "+deleteItems+" records out of "+testUsrs.size()+" needs "+totalTime+" ms");
+		testUsrs.clear();
+	}
+	/*
+	 *  Delete different data size from 200000 in the mysql database
+	 */
+	@Test
+	public void deletePerformance2() {
+		int times = 200000;   // data size in the database
+		int[] testData ={1000, 5000, 10000, 20000, 40000, 80000, 100000, 150000, 180000, 200000}; // find times
+		int deleteItems = 1000; // exchange deleteItems with testData
+		
+		addUsers(times);
+		userDao.flush();
+		Random randomGenerator = new Random();
+			
+		for (int i = 0; i < deleteItems; i++) {
+			int temp = randomGenerator.nextInt(times);
+			userDao.delete(testUsrs.get(temp));
+		}
+		long startTime, totalTime;
+		startTime = System.currentTimeMillis();
+		userDao.flush();
+		totalTime = System.currentTimeMillis() - startTime;
+		logger.info("SQL delete "+deleteItems+" records out of "+testUsrs.size()+" needs "+totalTime+" ms");
+		testUsrs.clear();
 	}
 
 
-	@Test
+//	@Test
 	public void add(){
 		long startTime,totalTime;
 		startTime=System.currentTimeMillis();
@@ -54,7 +179,7 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	}
 	
 
-	@Test
+//	@Test
 	public void findbyId(){
 		long startTime,totalTime;
 		
@@ -67,7 +192,7 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 		
 	}
 	
-	@Test
+//	@Test
 	public void findbyName(){
 		long startTime,totalTime;
 		userDao.flush();
@@ -78,10 +203,11 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	
 	}
 	
-	@Test
-	public void delete() {		
+//	@Test
+	public void deletePerformance() {		
 		long startTime,totalTime;
 		int deleteCount = 5000;
+		addUsers(deleteCount);
 		userDao.flush();
 		for( int i=0; i<  deleteCount ; i++){
 			userDao.delete(testUsrs.get(i));
@@ -92,6 +218,19 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 		totalTime=System.currentTimeMillis()-startTime;
 		
 		logger.info("SQL delete "+deleteCount+" records out of "+testUsrs.size()+" needs "+totalTime+" ms");
-		
+	}
+	
+//	@Test
+	public void delete() {
+		User user = new User();
+		user.setName("fred");
+		userDao.save(user);
+		userDao.flush();
+		userDao.deleteById(user.getId());
+//		userDao.deleteById(user.getId());
+//		userDao.deleteById(user.getId());
+		userDao.delete(user);
+		userDao.delete(user);
+		userDao.flush();
 	}
 }
