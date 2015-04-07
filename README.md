@@ -551,22 +551,66 @@ Comparison between Oracle and MongoDB
 - Embedded collections in MongoDB
 
 ##### Search in mulitple tables in MySQL
+In MySQL, we must define separate tables to represent different models and each column should be the smallest unit.
+To associate the relationship between tables,  foreign key or join table are applied under the schema. In this scenario, 
+searching in MySQL involves several tables using complicated query like join. 
+###### Data
 <table border=0 style="border-collapse:collapse;">
   <thead>
- 　<th>#Records</th><th>many to many</th>
+ 　<th>#Records<br>
+ (request*100)</th>
+ 　<th>100</th>
+ 　<th>1000</th>
   </thead>
  <tr>
-  <td>user's request<br>
-   user+request</td>
-  <td></td>
+  <td>user+request</td>
+  <td>73</td>
+  <td>597</td>
  </tr>
  <tr>
-  <td>house's request<br>
-   reqeust+house_request+house</td>
-  <td></td>
+  <td>reqeust+house_request+house</td>
+  <td>456</td>
+  <td>7473</td>
  </tr>
 </table>
+
+###### Analysis
 ##### Search in nested collections in MongoDB
+In MongoDB, each coloumn in a collection also could be a collection. So we could use nested collections to store the relationship inside the document.
+A huge advantage over SQL when searching in MongoDB is only inside one document without joining.
+###### Data
+<table border=0 style="border-collapse:collapse;">
+  <thead>
+ 　<th>#Records</th>
+ 　<th>100</th>
+ 　<th>1000</th>
+ 　<th>10000</th>
+ 　<th>100000</th>
+  </thead>
+ <tr>
+  <td>user</td>
+  <td>82</td>
+  <td>56</td>
+  <td>95</td>
+  <td>103</td>
+ </tr>
+ <tr>
+  <td>user.requestList</td>
+  <td>42</td>
+  <td>102</td>
+  <td>1407</td>
+  <td>22778</td>
+ </tr>
+ <tr>
+  <td>user.requestList.house</td>
+  <td>45</td>
+  <td>112</td>
+  <td>1891</td>
+  <td>72789</td>
+ </tr>
+</table>
+###### Analysis
+
 ##Discussion
 
 ##Conclusion
