@@ -54,9 +54,9 @@ As for consistency, MySQL can be configured for strong consistency, while NoSQL 
 ##Testing System Design
 We designed the DAO layer for two databases MySQL and MongoDB. Based on DAO layer, the test environment is set up using spring test and Junit. In this section, Spring, Spring Data Mongo and Hibernate will be introduced.
 
-<img src="img/spring_architecture" />
+<img src="img/spring_architecture.jpg" />
 ###Spring 
-Spring is a popular application framework written in Java and is used by many developers to create quality applications. This framework consists of many parts which provide different services, and it helps developers to pay attention to the business logic in a proper manner. The technology that Spring is most identified with is the Dependency Injection (DI) flavor of Inversion of Control. Dependency Injection (or sometime called wiring) helps in gluing different classes together and same time keeping them independent. Testing an application written with Spring is simple because environment-dependent code is moved into this framework. Furthermore, by using JavaBean-style POJOs, it becomes easier to use dependency injection for injecting test data.
+Spring is a popular application framework written in Java and is used by many developers to create quality applications. This framework consists of many parts which provide different services, and it helps developers to pay attention to the business logic in a proper manner[8]. The technology that Spring is most identified with is the Dependency Injection (DI) flavor of Inversion of Control. Dependency Injection (or sometime called wiring) helps in gluing different classes together and same time keeping them independent. Testing an application written with Spring is simple because environment-dependent code is moved into this framework. Furthermore, by using JavaBean-style POJOs, it becomes easier to use dependency injection for injecting test data[9].
 
 ###Spring Data MongoDB
 The Spring Data MongoDB project provides integration with the MongoDB document database. Key functional areas of Spring Data MongoDB are a POJO centric model for interacting with a MongoDB DBCollection and easily writing a Repository style data access layer.
@@ -64,7 +64,7 @@ The Spring Data MongoDB project provides integration with the MongoDB document d
 The class MongoTemplate is the central class of the Spring’s MongoDB support providing a rich feature set to interact with the database. The template offers convenience operations to create, update, delete and query for MongoDB documents and provides a mapping between your domain objects and MongoDB documents.
 
 ###Hibernate
-Another tool we use in our project is hibernate. Hibernate is an object – relational mapping and persistence framework for Java that allows developers to map plain old Java objects to relational database tables. Hibernate mainly aims at relieving the developer from the common data persistence related tasks. With the help of hibernate, developers can get maximum effects of data query and retrieval facilities, because hibernate maps the objects in Java with tables in database in an efficient manner. In a word, hibernate provides improved productivity, performance, maintainability, and portability.
+Another tool we use in our project is hibernate. Hibernate is an object – relational mapping and persistence framework for Java that allows developers to map plain old Java objects to relational database tables. Hibernate mainly aims at relieving the developer from the common data persistence related tasks. With the help of hibernate, developers can get maximum effects of data query and retrieval facilities, because hibernate maps the objects in Java with tables in database in an efficient manner. In a word, hibernate provides improved productivity, performance, maintainability, and portability[10].
 
 A Session in Hibernate is used to get a physical connection with a database. The Session object is lightweight and designed to be instantiated each time an interaction is needed with the database. Persistent objects are saved and retrieved through a Session object.The session objects should not be kept open for a long time because they are not usually thread safe and they should be created and destroyed them as needed. 
 
@@ -550,9 +550,6 @@ We have tested 9 groups of data, each column of the first row means the number o
 As you can see from the above figure, the time spend on the single thread is larger than multi-thread ones. It almost takes 50% more time than the multi-thread ones, which is 40000 ms compared to 25000 ms. From this prospective, we can infer that using multi-thread will improve the time factor on the query like execution on the Mongo like NoSQL database. However, we could also see that the time spent on query by two or more threads are almost the same, which means the performance gained through adding threads is limited. If you have already got two threads performing the query on the NoSQL databases, adding more threads won't bring you significant improvement as you may expect. 
 
 
- - [  ] Reason
-
-
 ##### Find Performance Test II
 
 In Find Performance test II, the task is to find 5000 records in the database while the number of records in the database is increasing, from 10000 to 200000. The time of the query is calculated and compared with the result using two or more threads. 
@@ -923,10 +920,10 @@ For the restriction of time and equipment, some work will be included in our fut
 
 
 ##References
-[1]<addr>http://www.thewindowsclub.com/difference-sql-nosql-comparision
+[1]Differences between SQL and NoSQL <addr>http://www.thewindowsclub.com/difference-sql-nosql-comparision
 
 
-[2]<addr>http://www.thegeekstuff.com/2014/01/sql-vs-nosql-db/
+[2]SQL VS. NoSQL <addr>http://www.thegeekstuff.com/2014/01/sql-vs-nosql-db/
 
 
 [3] Ramon Lawrence, “Integration and Virtualization of Relational SQL and NoSQL Systems including MySQL and MongoDB”, in *International Conference on Computational Science and Computational Intelligence, 2014*.
@@ -941,4 +938,13 @@ For the restriction of time and equipment, some work will be included in our fut
 [6] Yishan Li, Sathiamoorthy Manoharan, “A performance comparison of SQL and NoSQL databases”, in *IEEE 2013*.
 
 
-[7]<addr>http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html
+[7]Spring framework reference: <addr>http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html
+
+
+[8]Spring Framework <addr>http://www.tutorialspoint.com/spring/spring_web_mvc_framework.htm
+
+
+[9]Introduction to Spring MVC <addr>http://crunchify.com/spring-mvc-introduction-to-spring-3-mvc-framework/
+
+
+[10]Introduction to Hibernate <addr>http://www.java2blog.com/2013/01/introduction-to-hibernate-framework.html
