@@ -1,23 +1,92 @@
 # SQLvsNOSQL
-Comparison between Oracle and MongoDB
+Comparison between MySQL and MongoDB
 
 ##Background
+The basic concept of SQL database is Relational database. The definition of relational database is that it strictly uses relations to store data. The way that a relational database matches data is that it uses common characteristics found in the dataset. In a table of a relational database, data is divided into sets of rows and columns. One example of relational database is Microsoft SQL server. It is a set of tables containing data fitted into predefined categories. Each table contains one or more data categories in columns, and each row contains a unique instance of data for the categories defined by the columns. Without knowing the structure of the database table, users can still have access data from the database. But SQL is quite expensive and difficult to scale, because the scaling of relational database has to be distributed on to multiple servers, and handling tables across different servers is a chaos [1]. Also, data in SQL server has to fit into tables, and it will be very complex to design database structure if data doesn’t fit into tables.
+
+
+While SQL database is widely used, in the past few years, a great variety of alternative databases emerged because of the doubt of “one size fits all” thinking concerning data stores. These new database is commonly subsumed under the term of NoSQL. The basic characteristic of NoSQL is that, it would not require fixed table. Moreover, NoSQL database usually avoid join operations, and typically scale horizontally. Another important characteristic of NoSQL is that it trades off “ACID” (atomicity, consistency, isolation and durability), and it allows the schema of data differ from record to record to vary degrees[2]. Here are some advantages of NoSQL database: 1) data can be inserted into database without defining a rigid database schema. 2) data is automatically spread onto several servers without the help of other applications. 3) NoSQL cache data in system memory to increase performance. There are three types of popular NoSQL databases: key-value stores, column-oriented database, and document-based stores.
+
+
+The comparison of SQL and NoSQL database is a hot buzz in the air for a pretty long time. In the paper *A performance comparison of SQL and NoSQL databases*, Yishan Li and Sathiamoorthy Manoharan found that while NoSQL databases are generally good at storing key-value data, not all NoSQL databases perform better than SQL database. They also observed that in NoSQL database, different types of operation will lead to various performance [3]. In the paper *RDBMS vs NoSQL: Performance and Scaling Comparison*, Christoforos Hadjigeorgiou found that MongoDB can perform much better for complicated queries at the cost of data duplication. Another conclusion the author proposed is that MySQL performs best at deletion whereas MongoDB excels at inserting documents [4].
 
 ##Goals
+The focus of our report is to compare the single thread and multiple threads performance, and join table performance of MySQL and MongoDB. We compare read, find, and delete operations, with different amount of data stored in database. The rest of the paper is organized as follows. In Section **Differences between SQL and NoSQL** we will introduce the major differences between the two databases. In Section **Testing System Design** the structure of our project will be introduced, and in Section **Test methods** two major approaches used to test the two databases in details. At last, our test result will be discussed and analyzed.
 
 ##Differences between SQL and NoSQL
+Several major differences between MySQL and MongoDB are presented as following.
 
-###
+###Memory Usage
+While MySQL has quite reasonable memory usage mechanism, MongoDB is very good at running out of memory. When reading, the data in memory perform as cache, and when writing, memory can turn random writing operation into order writing operation, both of which lead to a high promotion of performance. However, the mechanism of MongoDB limits the control of memory usage, which would lead to a high memory occupation. When there is still enough memory, MongoDB performs satisfying reading and writing. But its performance reduces severely when memory is almost running out.
 
+###Scalability
+As we know, MySQL is a kind of relational database, which requires that the data in its server has to fit into tables, and it can be difficult to design structure if data doesn’t fit into tables. The characteristic of MySQL result in its poor scalability, so that it can be inconvenient to use MySQL when data is complex and diverse. However, as a kind of NoSQL database, MongoDB is quite flexible and has an acceptable scalability. Because MongoDB doesn’t require fixed tables, it can store variety of data as requirement of users [3]. MySQL databases are vertically scalable, it is scaled by increasing the horsepower of the hardware, whereas the NoSQL databases are horizontally scalable, and it is scaled by increasing the databases servers in the pool of resources to reduce the load.
 
-###
+###Complex query performance
+MongoDB could handle more complicated queries faster, mainly because of its simpler schema. However, the awesome complex query performance of MongoDB is at the cost of data duplication, which means that it may contain large amounts of data duplicates. Moreover, because of the use of subdocuments, MongoDB shows advantage over MySQL when combine complex queries with some subqueries. If complex queries are typical in an application, then MongoDB is a good choice while taking in account the cost in storage and memory.
+
+###Single thread VS. Multiple threads
+Another important aspect of difference between MySQL and MongoDB is their performance in single thread and multiple threads. When the same types of queries are performed, results of 1, 2 or more threads can be measured in scale of time. The performance is highly dependent on different queries used in tests, and might not be monotonic with numbers of threads, due to results in *RDBMS vs NoSQL: Performance and Scaling Comparison*.  Also, beyond 4 threads both databases’ performance show declining and no apparent advantage of one over the other[4].
+
+###Data Association
+In a SQL database, when creating a database, common sense dictates that we use separate tables for different types of entities. Some examples are: customers, orders, items, messages etc... But we also need to have relationships between these tables. For instance, customers make orders, and orders contain items. These relationships need to be represented in the database. Also, when fetching data with SQL, we need to use certain types of JOIN queries to get what we need. In the MongoDB,  a data model uses embedded documents to describe relationships between connected data. Decisions that affect how you model data can affect application performance and database capacity.
+
+###Security
+In discussing security, it is necessary to consider fully protecting the entire server host against all types of applicable attacks: eavesdropping, altering, playback, and denial of service. While MySQL performs quite safely, MongoDB still shows some doubts around security issues. By default MongoDB installs with no password credentials, which leads to an authentication weakness. There are also authorization weaknesses in MongoDB, for the reason that any created user has read-only access to the whole database. Besides, there are also admin authorization weakness, multiple interfaces weakness, and some other security issues shown in MongoDB.
+
+###Other differences
+MySQL supports for atomic transactions. The ability to contain multiple operations within a transaction and rollback the whole thing as if it were a single operation. MongoDB does not support transactions, but single operations are atomic.
+MySQL uses specific language for data manipulation, e.g. Select, Insert, and Update statements, while NoSQL finish tasks through object-oriented APIs[5].
+As for consistency, MySQL can be configured for strong consistency, while NoSQL depends on different products[6].
+
+                 |     MySQL     |     MongoDB
+    ------------ | ------------- | -------------
+    Memory Usage |	reasonable memory usage | Need enough memory to keep efficient
+    Complex query performance |	unsatisfying complex query performance | handle more complicated queries faster
+    Single thread VS. Multiple thread |   vary with different operations    |   no apparent advantage over 4 threads
+    Data association  |  support dynamic SQL query like join tables   |  support embedded collections
+    Security | give a quite safe performance | still have some security issues
+    Supports transactions | supports for atomic transactions | does not support transactions but single operations are atomic
+    Data manipulation | Specific language using Select, Insert, and Update | Through object-oriented APIs
+    Consistency | Can be configured for strong consistency | Depends on products
 
 
 ##Testing System Design
+We designed the DAO layer for two databases MySQL and MongoDB. Based on DAO layer, the test environment is set up using spring test and Junit. In this section, Spring, Spring Data Mongo and Hibernate will be introduced.
 
-###MVC FrameWork
+<img src="img/spring_architecture" />
+###Spring 
+Spring is a popular application framework written in Java and is used by many developers to create quality applications. This framework consists of many parts which provide different services, and it helps developers to pay attention to the business logic in a proper manner. The technology that Spring is most identified with is the Dependency Injection (DI) flavor of Inversion of Control. Dependency Injection (or sometime called wiring) helps in gluing different classes together and same time keeping them independent. Testing an application written with Spring is simple because environment-dependent code is moved into this framework. Furthermore, by using JavaBean-style POJOs, it becomes easier to use dependency injection for injecting test data.
 
-###Testing Methods
+###Spring Data MongoDB
+The Spring Data MongoDB project provides integration with the MongoDB document database. Key functional areas of Spring Data MongoDB are a POJO centric model for interacting with a MongoDB DBCollection and easily writing a Repository style data access layer.
+
+The class MongoTemplate is the central class of the Spring’s MongoDB support providing a rich feature set to interact with the database. The template offers convenience operations to create, update, delete and query for MongoDB documents and provides a mapping between your domain objects and MongoDB documents.
+
+###Hibernate
+Another tool we use in our project is hibernate. Hibernate is an object – relational mapping and persistence framework for Java that allows developers to map plain old Java objects to relational database tables. Hibernate mainly aims at relieving the developer from the common data persistence related tasks. With the help of hibernate, developers can get maximum effects of data query and retrieval facilities, because hibernate maps the objects in Java with tables in database in an efficient manner. In a word, hibernate provides improved productivity, performance, maintainability, and portability.
+
+A Session in Hibernate is used to get a physical connection with a database. The Session object is lightweight and designed to be instantiated each time an interaction is needed with the database. Persistent objects are saved and retrieved through a Session object.The session objects should not be kept open for a long time because they are not usually thread safe and they should be created and destroyed them as needed. 
+
+##Testing Methods
+In previous section, several differences between MySQL and MongoDB are listed. Among them we decide to choose multiple threads performance and join performance to test the two database. In this section, our test methods will be discussed in details.
+
+###Single thread and multiple threads test
+In single thread test, we use three basic queries of the two database: add, find, and delete. When adding, we insert random data into two databases. As for finding, at first we insert a certain amount of data into database, and then execute find operation to find data in the database. And when deleting, we also insert data first, then delete operation is operated to delete specific data. The performance of all the three operations are measured by time.
+
+
+For the add operation, we suppose that the shorter time one database will use to finish all the adding tasks, the better the database performs. We set the amount of data as independent variable, and the time needed as dependent variable. When the number of data needed to be inserted increase, we choose the database which needs less time as the winner. 
+
+
+For the find operation, the prerequisite is that there have already existed data in database. Several find operations will be performed, and the time needed will be measured. We divide the measurement into two aspects. First, we keep the number of data in database stable, and increase the number of data needed to be found. This approach could help us know which database is more suitable for heavy find load, when the number of data remains unchanged. Another method is that we keep the number of data need to be found stable, and change the number of data which has already existed in database. In this way we could find out whether the database is more suitable for finding targets in a large number of data. 
+
+
+We have a similar approach for measuring the efficiency of delete operation. First we keep the number of data in database invariable, and change the number of records need to be deleted, then check the reaction time of each database. The other approach is that we keep the number of records needs to be deleted stable, and increase the number of data in database, so that we could know which database performs better when data increases.
+
+
+After finishing single thread test, we now start to work on multiple threads test. We decide to test database performance in 2, 4, and 8 threads. The approaches we used to test multiple threads are the same as those used in single thread test: add, find, and delete. The difference between single thread test and multiple threads test is that, we will perform the same operations in 2, 4, and 8 threads. The test result will show if multiple threads can cause any improvement or negative effects, and if one database could perform worse or better as the number of threads increases.
+
+### Join test
 
 ##Testing Result
 
@@ -845,10 +914,31 @@ In a scenario that requires much relational design, it is needed in MySQL to str
 According to single-thread performance test, we can see that MongoDB has a better performance in Insertion and deletion, and the number of records in databases affects the deletion performance of MySQL, but has little affection on the deletion performance of MongoDB. MySQL has a better performance in findbyID, and the number of records in databases can't clearly affect the findbyID performance of MySQL and MongoDB.
 
 ##Future Work
-- Hardware Extension
-MySQL consumes large volume of hardware resource, it is expected a improvement in performance with hardware improvement. MongoDB also support distributed deployment which database run in multiple nodes. The performance is expected different with single node.   
+
+For the restriction of time and equipment, some work will be included in our future tasks.
+* More powerful hardware will be implemented, so that more large data can be used in tests, as a result of which more precise conclusion can be reached. 
+* Besides the JUnit Test, the front-end test will be included in our research, for the reason that it could bring more results on Multi-thread test of SQL database. 
+* The performance of other supported NoSQL database such as Cassandra will be involved.
+* Hardware Extension: MySQL consumes large volume of hardware resource, it is expected a improvement in performance with hardware improvement. MongoDB also support distributed deployment which database run in multiple nodes. The performance is expected different with single node.   
+
 
 ##References
+[1]<addr>http://www.thewindowsclub.com/difference-sql-nosql-comparision
 
 
+[2]<addr>http://www.thegeekstuff.com/2014/01/sql-vs-nosql-db/
 
+
+[3] Ramon Lawrence, “Integration and Virtualization of Relational SQL and NoSQL Systems including MySQL and MongoDB”, in *International Conference on Computational Science and Computational Intelligence, 2014*.
+
+
+[4] Christoforos Hadjigeorgiou, “RDBMS vs NoSQL: Performance and Scaling Comparison”, in *MSc in High Performance Computing, 2013*.
+
+
+[5] Alexandru Boicea, Florin Radulescu, and Laura Ioana Agapin, “MongoDB vs Oracle - database comparison”, in *2012 Third International Conference on Emerging Intelligent Data and Web Technologies*.
+
+
+[6] Yishan Li, Sathiamoorthy Manoharan, “A performance comparison of SQL and NoSQL databases”, in *IEEE 2013*.
+
+
+[7]<addr>http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html
