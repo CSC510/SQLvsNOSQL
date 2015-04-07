@@ -548,8 +548,36 @@ Comparison between Oracle and MongoDB
   <td><img src="img/many_to_many.jpg"></td>
  </tr>
 </table>
-- Embedded collections in MongoDB
+- Embedded document in MongoDB
+ In MongoDB,  we would apply following model structure to represent one to many relation.
+<pre><code>
+{
+	"_id":
+	"name":
+	"password":
+	"requestList":{
+		{ 
+		   "_id":
+		   "comment":
+		   "house":{
+		   	  "_id":
+		   	  "name":
+		   	  "type":
+		   }
+		},
+		{ 
+		   "_id":
+		   "comment":
+		   "house":{
+		   	  "_id":
+		   	  "name":
+		   	  "type":
+		   }
+		}
+	}
+}
 
+</code></pre>
 ##### Search in mulitple tables in MySQL
 In MySQL, we must define separate tables to represent different models and each column should be the smallest unit.
 To associate the relationship between tables,  foreign key or join table are applied under the schema. In this scenario, 
@@ -561,22 +589,27 @@ searching in MySQL involves several tables using complicated query like join.
  (request*100)</th>
  　<th>100</th>
  　<th>1000</th>
+ <th>10000</th>
   </thead>
  <tr>
   <td>user+request</td>
   <td>73</td>
   <td>597</td>
+  <td>4937</td>
  </tr>
  <tr>
   <td>reqeust+house_request+house</td>
   <td>456</td>
   <td>7473</td>
+  <td>88244</td>
  </tr>
 </table>
 
+The records is the size of "house" and "user" table, each house and user record associated with 100 requests. To search a user's request list, using the sql "select * from request where user_id=?". To map the relation between request and house, MySQL supports join table and the sql would be like this "select * from request inner join house_request on request.id=house_request.request_id inner join house on house.id=house_request.house_id where house.id=?" 				                                   				                                				                                     
 ###### Analysis
-##### Search in nested collections in MongoDB
-In MongoDB, each coloumn in a collection also could be a collection. So we could use nested collections to store the relationship inside the document.
+As we can see, searching requests responding to house takes 10+ times than searching user's requests. Notice that when records of user and house is 10000, the request table size is 100*10000. Querying user's requests only search in the "request" table while  house's requests would take 2 join operations which consumes large time. The result of join even generates larger size of result set. Query in that result set pretends to be extremely slow. Generally, query across multiple tables using sql operations would take much time than single table. The situation get worse when these table scaling up. 
+##### Search in embedded document in MongoDB
+In MongoDB, each collection is stored as document. Each coloumn inside a collection also could be a collection. So we could use nested collections to store the relationship inside the document.
 A huge advantage over SQL when searching in MongoDB is only inside one document without joining.
 ###### Data
 <table border=0 style="border-collapse:collapse;">
@@ -609,12 +642,17 @@ A huge advantage over SQL when searching in MongoDB is only inside one document 
   <td>72789</td>
  </tr>
 </table>
-###### Analysis
 
+In MongoDB, each user record contains a size of 100 requestList collection. We search on 3 level in user collection. First we search a specific user on name using query "{'name':?}". Then we compared with query in embedded collection using embedded query "{'requestList.comment':?}". Further query on embedded collection inside requestList.house  by using query "{'requestList.house.name':?}".
+###### Analysis
+There is no extra effort to find user's requests when we find a specific user and varies a little when scaling up. Any search takes in single collection. But with embedded query, searching would happen in each embedded collections inside the document. 
+Using the embedded collection, it is hard to find a set of requests responding to a specific house. We can insert such a embedded request collection inside the house collection which causes duplicate records on request. In this schema, the document with embedded collections also takes more space in disk and may causes split because the maximum document size in mongoDB is 16MB. To avoid this, We would expect a small size of embedded collection.
 ##Discussion
 
 ##Conclusion
-
+##### Data Association
+Association in MySQL always require extra column or table to store key of related table. It is low efficient when query happens across multiple tables using complicated SQL. We have to avoid unnecessary join with different large size tables. MongoDB achieved this by using embedded collection. The association data is stored inside the document and much faster to locate without query for other documents. It may sacrifice extra space to achieve high efficiency in query.
+In a scenario that requires much relational design, it is needed in MySQL to strictly define the structure of tables. With dynamic SQL query, we could easily associated data and map the relation. And MongoDB is hard to express the relations between different collections without SQL. But in a less related and huge scale scenario, query is expected inside single table which SQL lost its power. MongoDB is more suit using embedded structure and flexible to future extension in data model. 
 ##Future Work
 
 ##References
