@@ -52,15 +52,14 @@ Comparison between Oracle and MongoDB
 </tr>
 <tr class="even">
 <td align="left">MySQL</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">703</td>
+<td align="left">2742</td>
+<td align="left">3089</td>
+<td align="left">5425</td>
+<td align="left">10452</td>
+<td align="left">15705</td>
+<td align="left">23175</td>
+<td align="left">29037<td align="left">37783</td>
 </tr>
 </tbody>
 </table>
@@ -70,38 +69,38 @@ Comparison between Oracle and MongoDB
 <thead>
 <tr class="header">
 <th align="left">#Records</th>
-<th align="left">1000</th>
-<th align="left">10000</th>
-<th align="left">20000</th>
-<th align="left">40000</th>
-<th align="left">80000</th>
-<th align="left">140000</th>
-<th align="left">160000</th>
-<th align="left">200000</th>
+<td align="left">5000</td>
+<td align="left">10000</td>
+<td align="left">20000</td>
+<td align="left">40000</td>
+<td align="left">80000</td>
+<td align="left">120000</td>
+<td align="left">160000</td>
+<td align="left">200000</td>
 </tr>
-</thead>
+</thead>    
 <tbody>
 <tr class="odd">
 <td align="left">MongoDB</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1979</td>
+<td align="left">2910</td>
+<td align="left">1774</td>
+<td align="left">1921</td>
+<td align="left">2166</td>
+<td align="left">1944</td>
+<td align="left">2725</td>
+<td align="left">1889</td>
 </tr>
 <tr class="even">
 <td align="left">MySQL</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">138</td>
+<td align="left">110</td>
+<td align="left">72</td>
+<td align="left">69</td>
+<td align="left">76</td>
+<td align="left">74</td>
+<td align="left">74</td>
+<td align="left">75</td>
 </tr>
 </tbody>
 </table>
@@ -112,6 +111,7 @@ Comparison between Oracle and MongoDB
 <tr class="header">
 <th align="left">#Records</th>
 <th align="left">1000</th>
+<th align="left">5000</th>
 <th align="left">10000</th>
 <th align="left">20000</th>
 <th align="left">40000</th>
@@ -119,30 +119,32 @@ Comparison between Oracle and MongoDB
 <th align="left">140000</th>
 <th align="left">160000</th>
 <th align="left">200000</th>
-</tr>
+</tr>         
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">MongoDB</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1369</td>
+<td align="left">1049</td>
+<td align="left">2827</td>
+<td align="left">3647</td>
+<td align="left">5775</td>
+<td align="left">10865</td>
+<td align="left">15659</td>
+<td align="left">18071</td>
+<td align="left">28114</td>   
 </tr>
 <tr class="even">
 <td align="left">MySQL</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">15</td>
+<td align="left">74</td>
+<td align="left">136</td>
+<td align="left">247</td>
+<td align="left">320</td>
+<td align="left">413</td>
+<td align="left">449</td>
+<td align="left">505</td>
+<td align="left">561</td>
 </tr>
 </tbody>
 </table>
@@ -152,7 +154,7 @@ Comparison between Oracle and MongoDB
 <thead>
 <tr class="header">
 <th align="left">#Records</th>
-<th align="left">1000</th>
+<th align="left">5000</th>
 <th align="left">10000</th>
 <th align="left">20000</th>
 <th align="left">40000</th>
@@ -160,30 +162,74 @@ Comparison between Oracle and MongoDB
 <th align="left">140000</th>
 <th align="left">160000</th>
 <th align="left">200000</th>
-</tr>
+</tr>     
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">MongoDB</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1035</td>
+<td align="left">673</td>
+<td align="left">624</td>
+<td align="left">641</td>
+<td align="left">568</td>
+<td align="left">638</td>
+<td align="left">621</td>
+<td align="left">587</td>     
 </tr>
 <tr class="even">
 <td align="left">MySQL</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1073</td>
+<td align="left">1144</td>
+<td align="left">1391</td>
+<td align="left">1570</td>
+<td align="left">1493</td>
+<td align="left">1800</td>
+<td align="left">1652</td>
+<td align="left">1947</td>    
+</tr>
+</tbody>
+</table
+          
+####Single Thread Delete Performance Comparison II
+<table>
+<thead>
+<tr class="header">
+<th align="left">#Records</th>
+<th align="left">1000</th>
+<th align="left">5000</th>
+<th align="left">10000</th>
+<th align="left">20000</th>
+<th align="left">40000</th>
+<th align="left">80000</th>
+<th align="left">140000</th>
+<th align="left">160000</th>
+<th align="left">200000</th>
+</tr>     
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MongoDB</td>
+<td align="left">192</td>
+<td align="left">697</td>
+<td align="left">1167</td>
+<td align="left">1688</td>
+<td align="left">3221</td>
+<td align="left">4535</td>
+<td align="left">6310</td>
+<td align="left">9147</td>
+<td align="left">12319</td>     
+</tr>
+<tr class="even">
+<td align="left">MySQL</td>
+<td align="left">847</td>
+<td align="left">1947</td>
+<td align="left">2449</td>
+<td align="left">4478</td>
+<td align="left">8054</td>
+<td align="left">11940</td>
+<td align="left">15842</td>
+<td align="left">19022</td>
+<td align="left">21822</td>   
 </tr>
 </tbody>
 </table>
