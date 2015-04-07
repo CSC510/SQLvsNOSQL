@@ -273,7 +273,9 @@ For example, if the insert 1000 records of data using 4 threads, each of the thr
 <img src="img/multi_insert.png"/>
 #####Analysis
 
-From the figure, we can easily see that the number of threads doesn't have much improvement on the time used to do the insertion. The line travels across each other at times and with the number of records increasing, the time increases linearly. The reason why multi-thread has no effect on the insertion performance is probably because of the lock system of the database. When one thread has entered the critical section, other thread has to wait until the ongoing thread finish. In that case, the multiple threads just divide the task separetely and use almost the same amount of time as the single thread does.  Therefore, for insertion, there is no point to use multi-thread to visit the database as multiple threads may consume more resources than single thread.
+From the figure, we can easily see that the number of threads doesn't have much improvement on the time used to do the insertion. The time line travels across each other at times and increase linearly with the upsuring inserted records. 
+
+The reason why multi-thread has no effect on the insertion performance is probably because of the lock system of the database. When one thread has entered the critical section, other thread has to wait until the ongoing thread finish. In that case, the multiple threads just divide the task separetely and use almost the same amount of time as the single thread does.  Therefore, for insertion, there is no point to use multi-thread to visit the database as multiple threads may consume more resources than single thread.
 
 ####Multi-Thread Find Performance
 
