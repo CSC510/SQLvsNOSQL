@@ -3,7 +3,11 @@ Comparison between Oracle and MongoDB
 
 ##Background
 The basic concept of SQL database is Relational database. The definition of relational database is that it strictly uses relations to store data. The way that a relational database matches data is that it uses common characteristics found in the dataset. In a table of a relational database, data is divided into sets of rows and columns. One example of relational database is Microsoft SQL server. It is a set of tables containing data fitted into predefined categories. Each table contains one or more data categories in columns, and each row contains a unique instance of data for the categories defined by the columns. Without knowing the structure of the database table, users can still have access data from the database. But SQL is quite expensive and difficult to scale, because the scaling of relational database has to be distributed on to multiple servers, and handling tables across different servers is a chaos. Also, data in SQL server has to fit into tables, and it will be very complex to design database structure if data doesn’t fit into tables.
+
+
 While SQL database is widely used, in the past few years, a great variety of alternative databases emerged because of the doubt of “one size fits all” thinking concerning data stores. These new database is commonly subsumed under the term of NoSQL. The basic characteristic of NoSQL is that, it would not require fixed table. Moreover, NoSQL database usually avoid join operations, and typically scale horizontally. Another important characteristic of NoSQL is that it trades off “ACID” (atomicity, consistency, isolation and durability), and it allows the schema of data differ from record to record to vary degrees. Here are some advantages of NoSQL database: 1) data can be inserted into database without defining a rigid database schema. 2) data is automatically spread onto several servers without the help of other applications. 3) NoSQL cache data in system memory to increase performance. There are three types of popular NoSQL databases: key-value stores, column-oriented database, and document-based stores.
+
+
 The comparison of SQL and NoSQL database is a hot buzz in the air for a pretty long time. In the paper *A performance comparison of SQL and NoSQL databases*, Yishan Li and Sathiamoorthy Manoharan found that while NoSQL databases are generally good at storing key-value data, not all NoSQL databases perform better than SQL database. They also observed that in NoSQL database, different types of operation will lead to various performance. [quote]. In the paper *RDBMS vs NoSQL: Performance and Scaling Comparison*, Christoforos Hadjigeorgiou found that MongoDB can perform much better for complicated queries at the cost of data duplication. Another conclusion the author proposed is that MySQL performs best at deletion whereas MongoDB excels at inserting documents. [quote].
 
 ##Goals
@@ -52,15 +56,29 @@ In this section, MVC, Spring MVC, and Hibernate will be introduced.
 
 ###MVC FrameWork
 MVC (Model–view–controller) is a software architectural pattern for implementing user interfaces. It consists of three parts: model, view, and controller.
+
+
 Model – Model contains the properties and application logic, and it represents business logic and data. When the state of views and controllers changes, their associated model sends notifications, allowing views to update, and controllers to change commands.
+
+
 View – View represents the presentation layer of the application, and it is used to provide UI to users. It requests information from the model and renders the model into interaction form.
+
+
 Controller – Several requests are routed to individual controllers, and then it calls its related model and selects a view for displaying the results. It acts as a coordinator between the model and view.
+
+
 The MVC architecture is self-explanatory. A request is sent to IIS by the browser, then IIS start to search for the route defined in MVC application. Next the requests are passed to the controller, followed by the controller communicating with the model and passing the entity to the front end. As for views, they receive model properties, and rendered these requests on the browser, passing the response to browser through IIS via controllers.
+
+
 MVC is designed for a large team of developers and designers, which means that it is a quite efficient and convenient tool for development. It provides better support for test driven development, so that it is an acceptable approach for software development as almost half of the development time should be spent on testing. Also, it is effective and easy to manage a project with MVC, because it provides less complexity by dividing applications into three parts.
 
 ###Spring MVC
 Spring is a popular application framework written in Java and is used by many developers to create quality applications. This framework consists of many parts which provide different services, and it helps developers to pay attention to the business logic in a proper manner. The framework of spring separates MVC in an efficient manner, and it also has the ability to provide many controllers in order to be used as the base classes.
+
+
 In spring MVC framework, application will work in the following manner. First the Dispatcher – Servlet receives requests and the servlet asks the Handler – Mapping and initiate the controller, after which the controller calls the respective methods of service and returns to the Dispatcher – Servlet an object of model and view. Then the respective servlet passes the object of model to view in order to provide the result, and finally with the help of the data of model, view will provide the actual results in the form of final output to the user.
+
+
 In spring MVC, developers could use any object as a command or form-backing object, that is to say, you do not need to implement a framework – specific interface or base class. Also, spring’s data binding is highly flexible: it treats type mismatches as validation errors, which can be evaluated by the application, not as system errors. For this reason, a developer does not duplicate the properties of business object as simple, untyped strings, instead of which it is often preferable to bind directly to your business objects. That is the reason why spring’s view resolution is extremely flexible.
 
 ###Hibernate
@@ -71,9 +89,17 @@ In previous section, several differences between MySQL and MongoDB are listed. A
 
 ###Single thread and multiple threads test
 In single thread test, we use three basic queries of the two database: add, find, and delete. When adding, we insert random data into two databases. As for finding, at first we insert a certain amount of data into database, and then execute find operation to find data in the database. And when deleting, we also insert data first, then delete operation is operated to delete specific data. The performance of all the three operations are measured by time.
+
+
 For the add operation, we suppose that the shorter time one database will use to finish all the adding tasks, the better the database performs. We set the amount of data as independent variable, and the time needed as dependent variable. When the number of data needed to be inserted increase, we choose the database which needs less time as the winner. 
+
+
 For the find operation, the prerequisite is that there have already existed data in database. Several find operations will be performed, and the time needed will be measured. We divide the measurement into two aspects. First, we keep the number of data in database stable, and increase the number of data needed to be found. This approach could help us know which database is more suitable for heavy find load, when the number of data remains unchanged. Another method is that we keep the number of data need to be found stable, and change the number of data which has already existed in database. In this way we could find out whether the database is more suitable for finding targets in a large number of data. 
+
+
 We have a similar approach for measuring the efficiency of delete operation. First we keep the number of data in database invariable, and change the number of records need to be deleted, then check the reaction time of each database. The other approach is that we keep the number of records needs to be deleted stable, and increase the number of data in database, so that we could know which database performs better when data increases.
+
+
 After finishing single thread test, we now start to work on multiple threads test. We decide to test database performance in 2, 4, and 8 threads. The approaches we used to test multiple threads are the same as those used in single thread test: add, find, and delete. The difference between single thread test and multiple threads test is that, we will perform the same operations in 2, 4, and 8 threads. The test result will show if multiple threads can cause any improvement or negative effects, and if one database could perform worse or better as the number of threads increases.
 
 ### Join test
