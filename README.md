@@ -293,8 +293,8 @@ According to the above diagram, the line of MongoDB is under the line of MySQL. 
 <td align="left">1947</td>    
 </tr>
 </tbody>
-</table
-
+</table>
+          
 We have tested 8 groups of data. The data in the first row stands for different records size from 5000 to 20000 in the databases, and each column between the second and third rows stands for time cost of finding 5000 records from databases based on different size of records in database. (See Table).
 
 ######Figure
@@ -304,7 +304,6 @@ We have tested 8 groups of data. The data in the first row stands for different 
 ######Analysis
 
 According to above diagram, the blue line of MongoDB is under the the red line of MySQL. It means MongoDB has a better performance than MySQL, when they delete the same number of records (5000) from databases with varied number of records.
-
 
 ###Multi-Thread Test
 
