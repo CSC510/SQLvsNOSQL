@@ -22,6 +22,7 @@ Comparison between Oracle and MongoDB
 ##Testing Result
 
 ####Single Thread Add Performance Comparison
+######Data
 <table>
 <thead>
 <tr class="header">
@@ -59,12 +60,20 @@ Comparison between Oracle and MongoDB
 <td align="left">10452</td>
 <td align="left">15705</td>
 <td align="left">23175</td>
-<td align="left">29037<td align="left">37783</td>
+<td align="left">29037</td>
+<td align="left">37783</td>
 </tr>
 </tbody>
 </table>
 
+######Figure
+
+<img src="img/single_add.png"/>
+
+######Analysis
+
 ####Single Thread Find Performance Comparison I
+######Data
 <table>
 <thead>
 <tr class="header">
@@ -105,7 +114,14 @@ Comparison between Oracle and MongoDB
 </tbody>
 </table>
 
+######Figure
+
+<img src="img/single_find_1.png"/>
+
+######Analysis
+
 ####Single Thread Find Performance Comparison II
+######Data
 <table>
 <thead>
 <tr class="header">
@@ -149,7 +165,14 @@ Comparison between Oracle and MongoDB
 </tbody>
 </table>
 
+######Figure
+
+<img src="img/single_find_2.png"/>
+
+######Analysis
+
 ####Single Thread Delete Performance Comparison I
+######Data
 <table>
 <thead>
 <tr class="header">
@@ -189,8 +212,15 @@ Comparison between Oracle and MongoDB
 </tr>
 </tbody>
 </table
+
+######Figure
+
+<img src="img/single_del_1.png"/>
+
+######Analysis
           
 ####Single Thread Delete Performance Comparison II
+######Data
 <table>
 <thead>
 <tr class="header">
@@ -234,6 +264,11 @@ Comparison between Oracle and MongoDB
 </tbody>
 </table>
 
+######Figure
+
+<img src="img/single_del_2.png"/>
+
+######Analysis
 
 ###Multi-Thread Test
 
