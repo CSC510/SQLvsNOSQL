@@ -18,39 +18,28 @@ public class UserServiceTest extends SpringTransactionContextTest{
 	private Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 	@Autowired
 	private UserService userService;
+	
+	
 	@Test
-	public void sqlInjection(){
+	public void NosqlInjection(){
 		for(int i=0;i<100; i++){
 			User u = new User();
 			u.setName("test"+i);
-			u.setPassword("123456");
 			userService.save(u);
 		}
-		
 		commit();
-		
 		User u = new User();
 		u.setName("test1");
-		u.setPassword("123456");
 		int count = userService.find(u).size();
 		logger.info("Result set "+count);
 		assertEquals(count,1);
 		
 		
 		User uInjection = new User();
-		/*the query would be taken as a object, so nothing return*/
+		/* the query code would be select * from user where name='test1' or '1' ,which is always true and return all the records*/
 		uInjection.setName("test1' OR '1");
-		uInjection.setPassword("123456");
 	    count = userService.find(uInjection).size();
 		logger.info("Result set "+count);
-		assertEquals(count,0);
-		
-		User injection = new User();
-		/*the query would be taken as a object, so nothing return*/
-		injection.setName("{'$gt': ''}");
-		injection.setPassword("123456");
-	    count = userService.find(injection).size();
-		logger.info("Result set "+count);
-		assertEquals(count,0);
+		assertEquals(count,100);
 	}
 }

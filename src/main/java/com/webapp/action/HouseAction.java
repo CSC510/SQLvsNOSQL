@@ -2,8 +2,7 @@ package com.webapp.action;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.webapp.model.House;
@@ -11,7 +10,8 @@ import com.webapp.service.HouseService;
 
 @Controller
 public class HouseAction {
-	@Resource
+	
+	@Autowired
 	private HouseService houseService;
 	
 	
