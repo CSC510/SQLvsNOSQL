@@ -78,54 +78,6 @@ Comparison between Oracle and MongoDB
 <thead>
 <tr class="header">
 <th align="left">#Records</th>
-<td align="left">5000</td>
-<td align="left">10000</td>
-<td align="left">20000</td>
-<td align="left">40000</td>
-<td align="left">80000</td>
-<td align="left">120000</td>
-<td align="left">160000</td>
-<td align="left">200000</td>
-</tr>
-</thead>    
-<tbody>
-<tr class="odd">
-<td align="left">MongoDB</td>
-<td align="left">1979</td>
-<td align="left">2910</td>
-<td align="left">1774</td>
-<td align="left">1921</td>
-<td align="left">2166</td>
-<td align="left">1944</td>
-<td align="left">2725</td>
-<td align="left">1889</td>
-</tr>
-<tr class="even">
-<td align="left">MySQL</td>
-<td align="left">138</td>
-<td align="left">110</td>
-<td align="left">72</td>
-<td align="left">69</td>
-<td align="left">76</td>
-<td align="left">74</td>
-<td align="left">74</td>
-<td align="left">75</td>
-</tr>
-</tbody>
-</table>
-
-######Figure
-
-<img src="img/single_find_1.png"/>
-
-######Analysis
-
-####Single Thread Find Performance Comparison II
-######Data
-<table>
-<thead>
-<tr class="header">
-<th align="left">#Records</th>
 <th align="left">1000</th>
 <th align="left">5000</th>
 <th align="left">10000</th>
@@ -167,59 +119,61 @@ Comparison between Oracle and MongoDB
 
 ######Figure
 
-<img src="img/single_find_2.png"/>
+<img src="img/single_find_1.png"/>
 
 ######Analysis
 
-####Single Thread Delete Performance Comparison I
+####Single Thread Find Performance Comparison II
 ######Data
 <table>
 <thead>
 <tr class="header">
 <th align="left">#Records</th>
-<th align="left">5000</th>
-<th align="left">10000</th>
-<th align="left">20000</th>
-<th align="left">40000</th>
-<th align="left">80000</th>
-<th align="left">140000</th>
-<th align="left">160000</th>
-<th align="left">200000</th>
-</tr>     
-</thead>
+<td align="left">5000</td>
+<td align="left">10000</td>
+<td align="left">20000</td>
+<td align="left">40000</td>
+<td align="left">80000</td>
+<td align="left">120000</td>
+<td align="left">160000</td>
+<td align="left">200000</td>
+</tr>
+</thead>    
 <tbody>
 <tr class="odd">
 <td align="left">MongoDB</td>
-<td align="left">1035</td>
-<td align="left">673</td>
-<td align="left">624</td>
-<td align="left">641</td>
-<td align="left">568</td>
-<td align="left">638</td>
-<td align="left">621</td>
-<td align="left">587</td>     
+<td align="left">1979</td>
+<td align="left">2910</td>
+<td align="left">1774</td>
+<td align="left">1921</td>
+<td align="left">2166</td>
+<td align="left">1944</td>
+<td align="left">2725</td>
+<td align="left">1889</td>
 </tr>
 <tr class="even">
 <td align="left">MySQL</td>
-<td align="left">1073</td>
-<td align="left">1144</td>
-<td align="left">1391</td>
-<td align="left">1570</td>
-<td align="left">1493</td>
-<td align="left">1800</td>
-<td align="left">1652</td>
-<td align="left">1947</td>    
+<td align="left">138</td>
+<td align="left">110</td>
+<td align="left">72</td>
+<td align="left">69</td>
+<td align="left">76</td>
+<td align="left">74</td>
+<td align="left">74</td>
+<td align="left">75</td>
 </tr>
 </tbody>
-</table
+</table>    
 
 ######Figure
 
-<img src="img/single_del_1.png"/>
+<img src="img/single_find_2.png"/>
 
 ######Analysis
+
           
-####Single Thread Delete Performance Comparison II
+####Single Thread Delete Performance Comparison I
+
 ######Data
 <table>
 <thead>
@@ -260,6 +214,55 @@ Comparison between Oracle and MongoDB
 <td align="left">15842</td>
 <td align="left">19022</td>
 <td align="left">21822</td>   
+</tr>
+</tbody>
+</table>
+
+######Figure
+
+<img src="img/single_del_1.png"/>
+
+######Analysis
+
+####Single Thread Delete Performance Comparison II
+
+######Data
+<table>
+<thead>
+<tr class="header">
+<th align="left">#Records</th>
+<th align="left">5000</th>
+<th align="left">10000</th>
+<th align="left">20000</th>
+<th align="left">40000</th>
+<th align="left">80000</th>
+<th align="left">140000</th>
+<th align="left">160000</th>
+<th align="left">200000</th>
+</tr>     
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MongoDB</td>
+<td align="left">1035</td>
+<td align="left">673</td>
+<td align="left">624</td>
+<td align="left">641</td>
+<td align="left">568</td>
+<td align="left">638</td>
+<td align="left">621</td>
+<td align="left">587</td>     
+</tr>
+<tr class="even">
+<td align="left">MySQL</td>
+<td align="left">1073</td>
+<td align="left">1144</td>
+<td align="left">1391</td>
+<td align="left">1570</td>
+<td align="left">1493</td>
+<td align="left">1800</td>
+<td align="left">1652</td>
+<td align="left">1947</td>    
 </tr>
 </tbody>
 </table>
