@@ -86,7 +86,6 @@ We have a similar approach for measuring the efficiency of delete operation. Fir
 
 After finishing single thread test, we now start to work on multiple threads test. We decide to test database performance in 2, 4, and 8 threads. The approaches we used to test multiple threads are the same as those used in single thread test: add, find, and delete. The difference between single thread test and multiple threads test is that, we will perform the same operations in 2, 4, and 8 threads. The test result will show if multiple threads can cause any improvement or negative effects, and if one database could perform worse or better as the number of threads increases.
 
-### Join test
 
 ##Testing Result
 
@@ -779,7 +778,7 @@ We have tested 7 groups of data, each column of the first row means the number o
 
 As we can infer from the above figure, the time in performing this task is fairly small, only takes about 1000 ms to 2000 ms. And we cannot see any performance gain by using multi-thread methods. I think the reason is the same as mentioned in the former test methods that the lock in the database prohibits the multiple threads from enterring into its critical section.
 
-###Join Table Performance
+###Data Association
 
 
 ###Relation Mapping
