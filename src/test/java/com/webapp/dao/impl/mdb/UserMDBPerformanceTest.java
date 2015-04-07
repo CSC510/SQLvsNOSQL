@@ -54,12 +54,12 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 	/*
 	 *  Find 5000 from different data size in the database
 	 */
-//	@Test
+	@Test
 	public void findbyIdPerformance1(){
 		userDao.deleteAll();
 		int findItems=5000;   // data size in the database
 		int[] testData ={5000, 10000, 20000, 40000, 80000, 100000, 150000, 180000, 200000}; // find times
-		int times = 200000;  // exchange findItems with testData
+		int times = 10000;  // exchange findItems with testData
 		
 		addTestUsers(times);
 		Random randomGenerator = new Random();
@@ -86,7 +86,7 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 		userDao.deleteAll();
 		int times=200000;   // data size in the database
 		int[] testData ={1000,5000,10000,20000,40000,80000,120000,160000,200000}; // find times
-		int findItems = 1000; // exchange findItems with testData
+		int findItems = 200000; // exchange findItems with testData
 		addTestUsers(times);
 		
 		Random randomGenerator = new Random();
@@ -131,7 +131,7 @@ public class UserMDBPerformanceTest extends SpringTransactionContextTest{
 	/*
 	 *  Delete different size from 200000 in mongodb
 	 */
-	@Test
+//	@Test
 	public void deletebyIdPerformance2() {
 		userDao.deleteAll();
 		int times = 80000;  

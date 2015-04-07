@@ -21,7 +21,13 @@ Comparison between Oracle and MongoDB
 
 ##Testing Result
 
+
+In order to compare single thread performance of SQL and NoSQL databases, we choose MySQL(SQL) and MongoDB(NoSQL) to test add, find and delete performance by comparing their time cost. We have used different numbers of records and strategies to compare the performance between SQL and NoSQL.
+
 ####Single Thread Add Performance Comparison
+
+To test the add performance of MySQL and MongoDB, we had used a method of adding different size of records into database and compared their time cost. The number of records  changes from 1000 to 200000, and we divided them into 9 groups and test their executing time by adding the same number of records into two databases at each time. 
+
 ######Data
 <table>
 <thead>
@@ -66,61 +72,21 @@ Comparison between Oracle and MongoDB
 </tbody>
 </table>
 
+We have tested 9 groups of records,  and the number of records is from 1000 to 200000 (See Table). The data in the first row stands for different size of records, and the data in the second and third rows are time cost of adding different number of records into MongoDB and MySQL.
+
 ######Figure
 
 <img src="img/single_add.png"/>
 
 ######Analysis
 
+According to above diagram, we can see MongoDB's line is under MySQL's line. It means MongoDB is faster than MySQL when adding the same size of records into databases. Based on above test results, we conclude that MongoDB's adding performance is better than MySQL's adding performance.
+
+
 ####Single Thread Find Performance Comparison I
-######Data
-<table>
-<thead>
-<tr class="header">
-<th align="left">#Records</th>
-<td align="left">5000</td>
-<td align="left">10000</td>
-<td align="left">20000</td>
-<td align="left">40000</td>
-<td align="left">80000</td>
-<td align="left">120000</td>
-<td align="left">160000</td>
-<td align="left">200000</td>
-</tr>
-</thead>    
-<tbody>
-<tr class="odd">
-<td align="left">MongoDB</td>
-<td align="left">1979</td>
-<td align="left">2910</td>
-<td align="left">1774</td>
-<td align="left">1921</td>
-<td align="left">2166</td>
-<td align="left">1944</td>
-<td align="left">2725</td>
-<td align="left">1889</td>
-</tr>
-<tr class="even">
-<td align="left">MySQL</td>
-<td align="left">138</td>
-<td align="left">110</td>
-<td align="left">72</td>
-<td align="left">69</td>
-<td align="left">76</td>
-<td align="left">74</td>
-<td align="left">74</td>
-<td align="left">75</td>
-</tr>
-</tbody>
-</table>
 
-######Figure
+We have adopted two methods to test the find performance of MySQL and MongoDB. One method is to test the time cost of finding different number of records from databases, in this case, the the number of records in the databases are fixed (200000). The other method is to test the time cost of finding fixed records (5000) from databases, the number of records in databases increases from 5000 to 200000. 
 
-<img src="img/single_find_1.png"/>
-
-######Analysis
-
-####Single Thread Find Performance Comparison II
 ######Data
 <table>
 <thead>
@@ -165,61 +131,73 @@ Comparison between Oracle and MongoDB
 </tbody>
 </table>
 
+We have tested 9 groups of data,  and the numbers of records change from 1000 to 200000 (See Table). The data in the first row stands for different records' size, and each column between the second and third rows stands for time cost of finding the same number of records from MongoDB and MySQL.
+
+######Figure
+
+<img src="img/single_find_1.png"/>
+
+######Analysis
+
+According to above diagram, the line of MongoDB is over the line of MySQL. It means that MySQL is faster than MongoDB when finding the same number of records in the databases which also have same number of records.  We also see that the line of MySQL grows very slow when finding the increasing number of records from fixed number of records in the database, which implies that MySQL has little variance to find the different number of records from same size of records in the database. 
+
+####Single Thread Find Performance Comparison II
+
+######Data
+<table>
+<thead>
+<tr class="header">
+<th align="left">#Records</th>
+<td align="left">5000</td>
+<td align="left">10000</td>
+<td align="left">20000</td>
+<td align="left">40000</td>
+<td align="left">80000</td>
+<td align="left">120000</td>
+<td align="left">160000</td>
+<td align="left">200000</td>
+</tr>
+</thead>    
+<tbody>
+<tr class="odd">
+<td align="left">MongoDB</td>
+<td align="left">1979</td>
+<td align="left">2310</td>
+<td align="left">1774</td>
+<td align="left">1921</td>
+<td align="left">2166</td>
+<td align="left">1944</td>
+<td align="left">2525</td>
+<td align="left">1889</td>
+</tr>
+<tr class="even">
+<td align="left">MySQL</td>
+<td align="left">138</td>
+<td align="left">110</td>
+<td align="left">72</td>
+<td align="left">69</td>
+<td align="left">76</td>
+<td align="left">74</td>
+<td align="left">74</td>
+<td align="left">75</td>
+</tr>
+</tbody>
+</table>
+
+We have tested 8 groups of data. The data in the first row stands for different records' size, and each column between the second and third rows stands for time cost of finding 5000 records from databases which have different numbers of records from 5000 to 200000 (See Table).
+
 ######Figure
 
 <img src="img/single_find_2.png"/>
 
 ######Analysis
 
+According to above diagram, the line of MongoDB is over the line of MySQL. It means that MySQL is faster than MongoDB when finding 5000 records from databases as the number of records increase in the databases .  We also see that the line of MySQL is smooth and level when they find a fixed number of records from increasing number of records in the database, which implies that MySQL has little variance to find the fixed number of records from database. 
+
 ####Single Thread Delete Performance Comparison I
-######Data
-<table>
-<thead>
-<tr class="header">
-<th align="left">#Records</th>
-<th align="left">5000</th>
-<th align="left">10000</th>
-<th align="left">20000</th>
-<th align="left">40000</th>
-<th align="left">80000</th>
-<th align="left">140000</th>
-<th align="left">160000</th>
-<th align="left">200000</th>
-</tr>     
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">MongoDB</td>
-<td align="left">1035</td>
-<td align="left">673</td>
-<td align="left">624</td>
-<td align="left">641</td>
-<td align="left">568</td>
-<td align="left">638</td>
-<td align="left">621</td>
-<td align="left">587</td>     
-</tr>
-<tr class="even">
-<td align="left">MySQL</td>
-<td align="left">1073</td>
-<td align="left">1144</td>
-<td align="left">1391</td>
-<td align="left">1570</td>
-<td align="left">1493</td>
-<td align="left">1800</td>
-<td align="left">1652</td>
-<td align="left">1947</td>    
-</tr>
-</tbody>
-</table
 
-######Figure
+In order to test the delete performance of MySQL and MongoDB, we adopt two strategies to test their time cost. One way is to randomly delete fixed number of records from varied data size in databases, the other way is to randomly delete varied number of records from fixed records from databases. 
 
-<img src="img/single_del_1.png"/>
-
-######Analysis
-          
-####Single Thread Delete Performance Comparison II
 ######Data
 <table>
 <thead>
@@ -264,11 +242,68 @@ Comparison between Oracle and MongoDB
 </tbody>
 </table>
 
+We have tested 9 groups of data. The data in the first row stands for different records' size of finding from databases, and each column between the second and third rows stands for time cost when finding the same number of records from MongoDB and MySQL.
+
+######Figure
+
+<img src="img/single_del_1.png"/>
+
+######Analysis
+
+According to the above diagram, the line of MongoDB is under the line of MySQL. It means that MongoDB is faster than MySQL when they delete different number of records from databases which have fixed number of records(200000). 
+          
+####Single Thread Delete Performance Comparison II
+
+######Data
+<table>
+<thead>
+<tr class="header">
+<th align="left">#Records</th>
+<th align="left">5000</th>
+<th align="left">10000</th>
+<th align="left">20000</th>
+<th align="left">40000</th>
+<th align="left">80000</th>
+<th align="left">140000</th>
+<th align="left">160000</th>
+<th align="left">200000</th>
+</tr>     
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MongoDB</td>
+<td align="left">1035</td>
+<td align="left">673</td>
+<td align="left">624</td>
+<td align="left">641</td>
+<td align="left">568</td>
+<td align="left">638</td>
+<td align="left">621</td>
+<td align="left">587</td>     
+</tr>
+<tr class="even">
+<td align="left">MySQL</td>
+<td align="left">1073</td>
+<td align="left">1144</td>
+<td align="left">1391</td>
+<td align="left">1570</td>
+<td align="left">1493</td>
+<td align="left">1800</td>
+<td align="left">1652</td>
+<td align="left">1947</td>    
+</tr>
+</tbody>
+</table
+
+We have tested 8 groups of data. The data in the first row stands for different records size from 5000 to 20000 in the databases, and each column between the second and third rows stands for time cost of finding 5000 records from databases based on different size of records in database. (See Table).
+
 ######Figure
 
 <img src="img/single_del_2.png"/>
 
 ######Analysis
+
+According to above diagram, the blue line of MongoDB is under the the red line of MySQL. It means MongoDB has a better performance than MySQL, when they delete the same number of records (5000) from databases with varied number of records.
 
 
 ###Multi-Thread Test
