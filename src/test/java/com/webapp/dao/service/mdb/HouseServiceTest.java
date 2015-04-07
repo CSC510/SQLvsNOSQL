@@ -2,11 +2,12 @@ package com.webapp.dao.service.mdb;
 
 import java.util.List;
 
-import javax.annotation.Resource;
+
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.model.House;
@@ -16,7 +17,7 @@ public class HouseServiceTest extends SpringTransactionContextTest {
 	
 	private Logger logger = LoggerFactory.getLogger(HouseServiceTest.class);
 	
-	@Resource
+	@Autowired
 	private HouseService houseService;
 	
 	@Test

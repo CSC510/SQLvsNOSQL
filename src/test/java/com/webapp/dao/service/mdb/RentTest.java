@@ -1,17 +1,18 @@
 package com.webapp.dao.service.mdb;
 
-
-import javax.annotation.Resource;
-
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.webapp.action.RentAction;
 import com.webapp.common.test.SpringTransactionContextTest;
 
+
+
 public class RentTest extends SpringTransactionContextTest {
 	
-	@Resource
+	@Autowired
 	private RentAction rentAction;
+	
 	@Test
 	public void test(){
 	

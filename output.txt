@@ -1,0 +1,32 @@
+<td align="left">1418</td>
+<td align="left">1890</td>
+<td align="left">1481</td>
+<td align="left">1411</td>
+<td align="left">1986</td>
+<td align="left">1026</td>
+<td align="left">936</td>
+
+<td align="left">1238</td>
+<td align="left">1415</td>
+<td align="left">1024</td>
+<td align="left">1706</td>
+<td align="left">1595</td>
+<td align="left">934</td>
+<td align="left">1055</td>
+
+<td align="left">1412</td>
+<td align="left">1319</td>
+<td align="left">930</td>
+<td align="left">1371</td>
+<td align="left">1404</td>
+<td align="left">919</td>
+<td align="left">1053</td>
+
+<td align="left">1280</td>
+<td align="left">1487</td>
+<td align="left">1053</td>
+<td align="left">1190</td>
+<td align="left">996</td>
+<td align="left">1233</td>
+<td align="left">1186</td>
+
