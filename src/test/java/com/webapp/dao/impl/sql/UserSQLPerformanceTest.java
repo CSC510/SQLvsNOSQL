@@ -32,12 +32,12 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	
 	@Before
 	public void addUsers(){
-		int times =10000;
+		int times =20000;
 		testUsrs.clear();
 		for (int i = 0; i < times; i++) {
 			User user = new User();
 			user.setName("test"+i);
-			testUsrs.add(user);
+			if(i<10000)testUsrs.add(user);
 			userDao.save(user);
 		}
 		
@@ -81,7 +81,7 @@ public class UserSQLPerformanceTest extends SpringTransactionContextTest{
 	@Test
 	public void delete() {		
 		long startTime,totalTime;
-		int deleteCount = 100;
+		int deleteCount = 5000;
 		userDao.flush();
 		for( int i=0; i<  deleteCount ; i++){
 			userDao.delete(testUsrs.get(i));

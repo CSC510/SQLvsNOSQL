@@ -175,7 +175,8 @@ public class BaseSQLImpl<T> implements BaseDao<T> {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		getSession().saveOrUpdate(entity);
+		//getSession().saveOrUpdate(entity);
+		getSession().save(entity);
 	}
 	
 	/**

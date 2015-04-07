@@ -2,11 +2,13 @@ package com.webapp.dao.impl.mdb;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.webapp.common.persistence.Parameter;
 import com.webapp.common.test.SpringTransactionContextTest;
 import com.webapp.daoimpl.mdb.HouseMDBImpl;
 import com.webapp.daoimpl.mdb.RequestMDBImpl;
@@ -24,33 +26,43 @@ public class RequestMDBImplTest extends SpringTransactionContextTest {
 	@Autowired
 	private RequestMDBImpl requestDao;
 	
-	@Test
-	public void save(){
+	private int count =10000;
+	private int per =100;
+	
+	public void save(int count, int per){
+		//int count =1000;
+		for(int i=0;i<count ; i++){
 		House house = new House();
-		house.setName("test1");
+		house.setName("testHouse"+i);
 		house.setType("generic");
 		houseDao.save(house);
 		
 		User user = new User();
-		user.setName("test user");
+		user.setName("test user"+i);
 		userDao.save(user);
-		for(int i =0; i<10000; i++){
+		for(int j =0; j<per; j++){
 			Request req = new Request();
-			req.setHouse(house);
-				
-		    //user.getRequestList().add(req);
-		    
-		    req.setComment("test request");
+			req.setHouse(house);		    
+		    req.setComment("test request"+(i*per+j));
 		    user.getRequestList().add(req);
 			
 		}
 		userDao.save(user);
+		}
+	}
+	@Test
+	public void findUserRequest(){
 		long start, end;
 		int n=0;
+		save(count,per);
+		Parameter parameter  = new Parameter();
+		String userName = "test user"+ (int)(Math.random()*count);
+		parameter.put("name", userName);
 		start = System.currentTimeMillis();
-		List<Request> requests = userDao.findById(user.getId()).getRequestList();
+		User u = userDao.findAll("{'name':'"+userName+"'}").get(0);
+		List<Request> requests = u.getRequestList();
 		for(Request re :requests){
-			System.out.println(re.getHouse());
+			re.getHouse();
 		}
 		end = System.currentTimeMillis();
 		n =  requests.size();
@@ -59,22 +71,41 @@ public class RequestMDBImplTest extends SpringTransactionContextTest {
 		
 	}
 	
-	//@Test
-	public void performance(){
-		int count =1000;
-		User user = new User();
-		user.setName("testUser");
-		userDao.save(user);
+	@Test
+	public void nestedQuery(){
+		long start, end;
+		int n=0;
 		
-		House house = new House();
-		house.setName("testHouse");
-		house.setType("generic");
-		houseDao.save(house);
-		for(int i=0; i<count; i++){		
-			Request req = new Request();
-			req.setHouse(house);
-			req.setUser(user);
-			requestDao.save(req);
+		start = System.currentTimeMillis();
+		String comment = "test request"+ (int)(Math.random()*count*per);
+		User u = userDao.findAll("{'requestList.comment':'"+comment+"'}").get(0);
+		List<Request> requests = u.getRequestList();
+		for(Request re :requests){
+			re.getHouse();
 		}
+		end = System.currentTimeMillis();
+		n =  requests.size();
+		logger.info("MDB find "+n+" records using nested query takes "+(end- start)+"ms");
+	
+		
+	}
+	
+	@Test
+	public void findHouseRequest(){
+		long start, end;
+		int n=0;
+		
+		start = System.currentTimeMillis();
+		String houseName = "testHouse"+ (int)(Math.random()*count);
+		User u = userDao.findAll("{'requestList.house.name':'"+houseName+"'}").get(0);
+		List<Request> requests = u.getRequestList();
+		for(Request re :requests){
+			re.getHouse();
+		}
+		end = System.currentTimeMillis();
+		n =  requests.size();
+		logger.info("MDB find "+n+" records using nested query takes "+(end- start)+"ms");
+	
+		
 	}
 }
