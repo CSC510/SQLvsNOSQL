@@ -592,6 +592,37 @@ As we can infer from the above figure, the time in performing this task is fairl
 ###Join Table Performance
 
 
+###Relation Mapping
+- Relational design in MySQL
+<table border=0 style="border-collapse:collapse;">
+  <thead>
+ 　<th>one to many</th><th>many to many</th>
+  </thead>
+ <tr>
+  <td><img src="img/one_to_many.jpg" /></td>
+  <td><img src="img/many_to_many.jpg"></td>
+ </tr>
+</table>
+- Embedded collections in MongoDB
+
+##### Search in mulitple tables in MySQL
+<table border=0 style="border-collapse:collapse;">
+  <thead>
+ 　<th>#Records</th><th>many to many</th>
+  </thead>
+ <tr>
+  <td>user's request<br>
+   user+request</td>
+  <td></td>
+ </tr>
+ <tr>
+  <td>house's request<br>
+   reqeust+house_request+house</td>
+  <td></td>
+ </tr>
+</table>
+##### Search in nested collections in MongoDB
+
 ##Discussion
 
 ##Conclusion
