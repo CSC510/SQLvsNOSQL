@@ -899,7 +899,12 @@ Using the embedded collection, it is hard to find a set of requests responding t
 - We have spotted that the Multi-thread bottle-neck in the Find test of MongoDB. However, we don't think it should be as NoSQL database definitely prevails SQL database when it deals with the massive distributed thing, eg. big data, big numbers of users, big numbers of computers, big supply chains, big science, and so on. Therefore, we are thinking if our dataset are too small compared to the BIG thing, which is the reason why adding more threads are not giving more performance improvement. It should have an overwhelming improvement when its scale get expanded by using more infrastructure such as a cluster of NoSQL server.
 
 ##Conclusion
-####Multi-threaded Performance
+
+#### Single-thread Performance
+According to single-thread performance test, we can see that MongoDB has a better performance in Insertion and deletion, and the number of records in databases affects the deletion performance of MySQL, but has little affection on the deletion performance of MongoDB. That's because MySQL makes use of transaction and event mechanism in order to keep data safe. It will decrease the insertion and deletion performance. However, MongoDB is document-oriented database, which can store data as a JSON document. There is no transaction and transaction-safe mechanism in it. Therefore, it usually has a bettern performance than MySQL in insertion and deletion.
+MySQL has a better performance in findbyID, and the number of records in databases can't clearly affect the findbyID performance of MySQL and MongoDB. The main reason is that MySQL's index is based on B-Tree, this advanced data structure can improve the searching performance for MySQL.
+
+####Multi-thread Performance
 
 - As we can see from the above Section, implementing multiple threads in insertion and deletion in Mongo like NoSQL database on a single instance has little improvement on time factors. However, this method have signficant influence on query performance, even on a single instance, the performance could be improved by at least 50%. More improvement could be achieved by utilizing expanded scale of cluster servers. 
 
@@ -907,8 +912,6 @@ Using the embedded collection, it is hard to find a set of requests responding t
 Association in MySQL always require extra column or table to store key of related table. It is low efficient when query happens across multiple tables using complicated SQL. We have to avoid unnecessary join with different large size tables. MongoDB achieved this by using embedded collection. The association data is stored inside the document and much faster to locate without query for other documents. It may sacrifice extra space to achieve high efficiency in query.
 <br>
 In a scenario that requires much relational design, it is needed in MySQL to strictly define the structure of tables. With dynamic SQL query, we could easily associated data and map the relation. And MongoDB is hard to express the relations between different collections without SQL. But in a less related and huge scale scenario, query is expected inside single table which SQL lost its power. MongoDB is more suit using embedded structure and flexible to future extension in data model. 
-
-According to single-thread performance test, we can see that MongoDB has a better performance in Insertion and deletion, and the number of records in databases affects the deletion performance of MySQL, but has little affection on the deletion performance of MongoDB. MySQL has a better performance in findbyID, and the number of records in databases can't clearly affect the findbyID performance of MySQL and MongoDB.
 
 ##Future Work
 
